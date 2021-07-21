@@ -16,6 +16,7 @@ class DirectoryVideoLoader(VideoLoader):
             _, frame = self.video.read()
             if (type(frame) == type(None)):
                 break
+            # print(frame_count)
             frame_count += 1
             yield self.frame_time(frame_count), frame
         self.video.release()
