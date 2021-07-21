@@ -18,16 +18,17 @@ class PDFImageLoader(ImageLoader):
 
         for i in range(len(images)):
             # Save pages as images in the pdf
-            images[i].save('./pngs/page'+ str(i) +'.jpg', 'JPEG')
+            images[i].save('./pngs/page'+ str(i).zfill(3) +'.jpg', 'JPEG')
 
     def getImages(self):
         images = []
 
         self.pdf2image()
         files = self.getFileList()
+        files = sorted(files)
+        print(files)
         for file in files:
-            image = cv2.imread(file, cv2.IMREAD_COLOR)
+            image = cv2.imread('./pngs/' + file, cv2.IMREAD_COLOR)
             images.append(image)
-        print(images)
-        cv2.imshow('test', images[0])
+
         return images
