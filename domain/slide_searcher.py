@@ -11,7 +11,7 @@ class SlideSearcher:
         self.images = image_loader.getImages()
         self.video_loader = video_loader
 
-    def compress_image(img):
+    def compress_image(self, img):
         img = cv2.resize(img, (10, 10))
         img = color.rgb2gray(img)
 
