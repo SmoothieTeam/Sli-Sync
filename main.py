@@ -11,7 +11,7 @@ parser.add_argument("-p", "--ppt", dest="ppt", required=True,
 args = vars(parser.parse_args())
 
 def main():
-    ppt_path, video_path = args.ppt, args.video
+    ppt_path, video_path = args['ppt'], args['video']
 
     video_loader = DirectoryVideoLoader(video_path)
     image_loader = PPTImageLoader(ppt_path)

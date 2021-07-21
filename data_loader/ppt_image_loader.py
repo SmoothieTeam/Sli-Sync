@@ -1,13 +1,14 @@
 from domain.image_loader import ImageLoader
 from pptx_tools import utils
 import os
+import cv2
 
 class PPTImageLoader(ImageLoader):
     def __init__(self, ppt_path):
         self.path = ppt_path
 
-    def getfilelist(self):
-        self.list = os.listdir("pngs/")
+    def getFileList(self):
+        return os.listdir("pngs")
 
     def ppt2png(self):
         my_path = os.path.dirname(os.path.abspath(__file__))
@@ -20,10 +21,13 @@ class PPTImageLoader(ImageLoader):
         utils.save_pptx_as_png(png_folder, pptx_file)
 
     def getImages(self):
-        imglist = []
+        images = []
 
-        for img in self.list:
-            imgfile = cv2.imread(img, cv2.IMREAD_COLOR)
-            imglist.append(imgfile)
+        self.ppt2png()
+        files = self.getFileList()
 
-        return imglist
+        for file in files:
+            image = cv2.imread(file, cv2.IMREAD_COLOR)
+            images.append(image)
+
+        return images
