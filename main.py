@@ -21,4 +21,4 @@ def main():
     print(times)
 
 if __name__ == '__main__':
-main()
+    main()
