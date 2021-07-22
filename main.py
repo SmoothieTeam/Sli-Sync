@@ -6,6 +6,7 @@ from classifier.scikit_slide_classifier import ScikitSlideClassifier
 from domain.slide_classifier import SlideClassifier
 import argparse
 import numpy as np
+import time as t
 
 # ppt, pdf에 따른 인자 이름 변경 필요
 parser = argparse.ArgumentParser()
@@ -13,6 +14,8 @@ parser.add_argument("-v", "--video", dest="video", required=True,
                     help="the path to your video file to be analyzed")
 parser.add_argument("-p", "--ppt", dest="ppt", required=True,
                     help="the path to your ppt file to be analyzed")
+parser.add_argument("-t", "--time", dest="time", default=False,
+                    help="elasped time taken for the program to run")
 args = vars(parser.parse_args())
 
 def sec2min_sec(sec):
@@ -20,6 +23,12 @@ def sec2min_sec(sec):
 
 def main():
     ppt_path, video_path = args['ppt'], args['video']
+
+    print("pdf : {0}".format(ppt_path))
+    print("video : {0}\n".format(video_path))
+    print("start analyzation...\n")
+
+    starttime = t.time()
 
     video_loader = DirectoryVideoLoader(video_path)
     image_loader = PDFImageLoader(ppt_path)
@@ -41,6 +50,10 @@ def main():
                 minute_times[slide_number].append(sec2min_sec(timeline))
     for time in minute_times.items():
         print(time)
+
+    if args['time']:
+        elaspedtime = t.time() - starttime
+        print('elasped time : {0}m{1}s'.format(int(elaspedtime / 60), int(elaspedtime % 60)))
 
 if __name__ == '__main__':
     main()
