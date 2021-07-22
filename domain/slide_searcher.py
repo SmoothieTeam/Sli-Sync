@@ -14,7 +14,7 @@ class SlideSearcher:
             frame_slide_match.append((slide_number, frame_time))
 
         times = {}
-        prev_slide_number = 0
+        prev_slide_number, _ = frame_slide_match[0]
         current_array = []
 
         for slide_number, frame_time in frame_slide_match:
