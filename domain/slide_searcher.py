@@ -21,17 +21,17 @@ class SlideSearcher:
             if slide_number == prev_slide_number:
                 current_array.append(frame_time)
             else:
-                if slide_number in times:
-                    times[slide_number] += [[current_array[0], current_array[-1]]]
+                if prev_slide_number in times:
+                    times[prev_slide_number] += [[current_array[0], current_array[-1]]]
                 else:
-                    times[slide_number] = [[current_array[0], current_array[-1]]]
+                    times[prev_slide_number] = [[current_array[0], current_array[-1]]]
                 prev_slide_number = slide_number
                 current_array = [frame_time]
 
         if len(current_array) > 0:
             if slide_number in times:
-                times[slide_number] += [current_array[0], current_array[-1]]
+                times[slide_number] += [[current_array[0], current_array[-1]]]
             else:
-                times[slide_number] = [current_array[0], current_array[-1]]
+                times[slide_number] = [[current_array[0], current_array[-1]]]
 
         return times
