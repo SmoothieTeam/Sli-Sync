@@ -23,7 +23,9 @@ def main():
     searcher = SlideSearcher(scikit_slide_classifier, video_loader)
 
     times = searcher.get_slide_times()
-    print(times)
+    
+    for key in times:
+        print("{0} : {1}".format(key, times[key]))
 
 if __name__ == '__main__':
     main()
