@@ -2,6 +2,7 @@ from data_loader.pdf_image_loader import PDFImageLoader
 from data_loader.ppt_image_loader import PPTImageLoader
 from data_loader.directory_video_loader import DirectoryVideoLoader
 from domain.slide_searcher import SlideSearcher
+from domain.slide_classifier import SlideClassifier
 import argparse
 
 # ppt, pdf에 따른 인자 이름 변경 필요
@@ -17,7 +18,8 @@ def main():
 
     video_loader = DirectoryVideoLoader(video_path)
     image_loader = PDFImageLoader(ppt_path)
-    searcher = SlideSearcher(image_loader, video_loader)
+    slide_classifier = SlideClassifier(image_loader)
+    searcher = SlideSearcher(slide_classifier, video_loader)
 
     times = searcher.get_slide_times()
     print(times)
