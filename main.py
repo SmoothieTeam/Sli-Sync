@@ -23,6 +23,11 @@ def sec2min_sec(sec):
 
 def main():
     ppt_path, video_path = args['ppt'], args['video']
+
+    print("pdf : {0}".format(ppt_path))
+    print("video : {0}\n".format(video_path))
+    print("start analyzation...\n")
+
     starttime = t.time()
 
     video_loader = DirectoryVideoLoader(video_path)
