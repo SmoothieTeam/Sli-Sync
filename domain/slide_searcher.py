@@ -16,22 +16,20 @@ class SlideSearcher:
         times = {}
         prev_slide_number = 0
         current_array = []
-        slide_number_array = []
 
         for slide_number, frame_time in frame_slide_match:
             if slide_number == prev_slide_number:
                 current_array.append(frame_time)
             else:
-                if slide_number in slide_number_array:
-                    times[slide_number] += [current_array[0], current_array[-1]]
+                if slide_number in times:
+                    times[slide_number] += [[current_array[0], current_array[-1]]]
                 else:
-                    times[slide_number] = [current_array[0], current_array[-1]]
-                slide_number_array.append(slide_number)
+                    times[slide_number] = [[current_array[0], current_array[-1]]]
                 prev_slide_number = slide_number
                 current_array = [frame_time]
 
         if len(current_array) > 0:
-            if slide_number in slide_number_array:
+            if slide_number in times:
                 times[slide_number] += [current_array[0], current_array[-1]]
             else:
                 times[slide_number] = [current_array[0], current_array[-1]]

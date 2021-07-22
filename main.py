@@ -5,6 +5,7 @@ from domain.slide_searcher import SlideSearcher
 from classifier.scikit_slide_classifier import ScikitSlideClassifier
 from domain.slide_classifier import SlideClassifier
 import argparse
+import numpy as np
 
 # ppt, pdf에 따른 인자 이름 변경 필요
 parser = argparse.ArgumentParser()
@@ -23,8 +24,7 @@ def main():
     searcher = SlideSearcher(scikit_slide_classifier, video_loader)
 
     times = searcher.get_slide_times()
-    
-    for key in times:
+    for key in sorted(times.items()):
         print("{0} : {1}".format(key, times[key]))
 
 if __name__ == '__main__':
