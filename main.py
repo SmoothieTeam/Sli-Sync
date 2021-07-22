@@ -4,6 +4,7 @@ from data_loader.directory_video_loader import DirectoryVideoLoader
 from domain.slide_searcher import SlideSearcher
 import argparse
 
+# ppt, pdf에 따른 인자 이름 변경 필요
 parser = argparse.ArgumentParser()
 parser.add_argument("-v", "--video", dest="video", required=True,
                     help="the path to your video file to be analyzed")
@@ -18,7 +19,7 @@ def main():
     image_loader = PDFImageLoader(ppt_path)
     searcher = SlideSearcher(image_loader, video_loader)
 
-    times = searcher.getSlideTimes()
+    times = searcher.get_slide_times()
     print(times)
 
 if __name__ == '__main__':

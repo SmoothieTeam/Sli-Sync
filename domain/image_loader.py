@@ -1,3 +1,3 @@
 class ImageLoader:
-    def getImages(self):
+    def get_images(self):
         pass
