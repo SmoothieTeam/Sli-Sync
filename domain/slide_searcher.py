@@ -4,7 +4,7 @@ from skimage import color
 from skimage.metrics import structural_similarity
 
 from domain.video_loader import VideoLoader
-from domain.slide_classifier import classify
+from domain.slide_classifier import SlideClassifier
 
 class SlideSearcher:
     def __init__(self, slide_classifier : SlideClassifier, video_loader: VideoLoader):
@@ -19,19 +19,19 @@ class SlideSearcher:
             frame_slide_match.append((slide_number, frame_time))
 
         times = {}
-        tmp = 0
-        tmp_array = []
+        prev_slide_number = 0
+        current_array = []
         slide_number_array = []
 
         for slide_number, frame_time in frame_slide_match:
-            if slide_number == tmp:
-                tmp_array.append(frame_time)
+            if slide_number == prev_slide_number:
+                current_array.append(frame_time)
             else:
                 if slide_number in slide_number_array:
-                    times[slide_number] += tmp_array
+                    times[slide_number] += current_array
                 else:
-                    times[slide_number] = tmp_array
-                tmp = slide_number
-                tmp_array = []
+                    times[slide_number] = current_array
+                prev_slide_number = slide_number
+                current_array = []
 
         return times
