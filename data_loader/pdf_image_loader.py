@@ -7,28 +7,26 @@ class PDFImageLoader(ImageLoader):
     def __init__(self, ppt_path):
         self.path = ppt_path
 
-    def getFileList(self):
-        return os.listdir("pngs")
+    def get_file_list(self):
+        return os.listdir('imgs')
 
     def pdf2image(self):
         images = convert_from_path(self.path)
 
-        if not os.path.isdir('pngs'):
-            os.mkdir('pngs')
+        if not os.path.isdir('imgs'):
+            os.mkdir('imgs')
 
         for i in range(len(images)):
-            # Save pages as images in the pdf
-            images[i].save('./pngs/page'+ str(i).zfill(3) +'.jpg', 'JPEG')
+            images[i].save('./imgs/page'+ str(i).zfill(3) +'.jpg', 'JPEG')
 
-    def getImages(self):
+    def get_images(self):
         images = []
 
         self.pdf2image()
-        files = self.getFileList()
+        files = self.get_file_list()
         files = sorted(files)
-        print(files)
         for file in files:
-            image = cv2.imread('./pngs/' + file, cv2.IMREAD_COLOR)
+            image = cv2.imread('./imgs/' + file, cv2.IMREAD_COLOR)
             images.append(image)
 
         return images
