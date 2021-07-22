@@ -28,9 +28,9 @@ class SlideSearcher:
                 current_array.append(frame_time)
             else:
                 if slide_number in slide_number_array:
-                    times[slide_number] += current_array
+                    times[slide_number] += [current_array[0], current_array[-1]]
                 else:
-                    times[slide_number] = current_array
+                    times[slide_number] = [current_array[0], current_array[-1]]
                 prev_slide_number = slide_number
                 current_array = []
 
