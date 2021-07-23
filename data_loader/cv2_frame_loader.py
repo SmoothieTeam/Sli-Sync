@@ -17,11 +17,9 @@ class CV2FrameLoader(FrameLoader):
     def frames(self):
         frame_count = 0
         while(self.video.isOpened()):
-            # self.video.set(cv2.CAP_PROP_POS_FRAMES, frame_count)
             _, frame = self.video.read()
             if (type(frame) == type(None)):
                 break
-            # frame_count += self.step
             frame_count += 1
             if frame_count % self.step == 0:
                 yield self.frame_time(frame_count), frame
