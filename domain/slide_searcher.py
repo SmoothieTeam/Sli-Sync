@@ -1,15 +1,15 @@
-from domain.video_loader import VideoLoader
+from domain.frame_loader import FrameLoader
 from domain.slide_classifier import SlideClassifier
 
 class SlideSearcher:
-    def __init__(self, slide_classifier : SlideClassifier, video_loader: VideoLoader):
+    def __init__(self, slide_classifier : SlideClassifier, frame_loader: FrameLoader):
         self.slide_classifier = slide_classifier
-        self.video_loader = video_loader
+        self.frame_loader = frame_loader
 
     def get_slide_times(self):
         frame_slide_match = []
 
-        for frame_time, frame in self.video_loader.frames():
+        for frame_time, frame in self.frame_loader.frames():
             slide_number = self.slide_classifier.classify(frame)
             frame_slide_match.append((slide_number, frame_time))
 
