@@ -1,6 +1,6 @@
 from data_loader.pdf_image_loader import PDFImageLoader
 from data_loader.ppt_image_loader import PPTImageLoader
-from data_loader.cv2_frame_loader import Cv2FrameLoader
+from data_loader.cv2_frame_loader import CV2FrameLoader
 from domain.slide_searcher import SlideSearcher
 from classifier.scikit_slide_classifier import ScikitSlideClassifier
 from domain.slide_classifier import SlideClassifier
@@ -39,7 +39,7 @@ def main():
 
     starttime = t.time()
 
-    frame_loader = Cv2FrameLoader(video_path, frame_step=args['frame'], second_step=args['time'])
+    frame_loader = CV2FrameLoader(video_path, frame_step=args['frame'], second_step=args['time'])
     image_loader = PDFImageLoader(ppt_path)
     scikit_slide_classifier = ScikitSlideClassifier(image_loader)
     searcher = SlideSearcher(scikit_slide_classifier, frame_loader)

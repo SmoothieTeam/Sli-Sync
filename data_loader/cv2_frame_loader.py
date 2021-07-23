@@ -2,7 +2,7 @@ import cv2
 
 from domain.frame_loader import FrameLoader
 
-class Cv2FrameLoader(FrameLoader):
+class CV2FrameLoader(FrameLoader):
     def __init__(self, path):
         self.video = cv2.VideoCapture(path)
         self.fps = self.video.get(cv2.CAP_PROP_FPS)
