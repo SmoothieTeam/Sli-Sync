@@ -17,15 +17,15 @@ parser.add_argument("-p", "--ppt", dest="ppt", required=True,
                     help="the path to your ppt file to be analyzed")
 parser.add_argument("-t", "--time", dest="time", default=None,
                     help="time quantum to analyze")
-parser.add_argument("-f", "--fps", dest="fps", default=None,
+parser.add_argument("-f", "--frame", dest="frame", default=None,
                     help="frame quantum to analyze")
 parser.add_argument("-e", "--elasped", dest="elasped", default=False,
                     help="elasped time taken for the program to run")
 
 args = vars(parser.parse_args())
 
-if args['time'] and args['fps']:
-    raise ValueError('Only one argument required between "time" and "fps"')
+if args['time'] and args['frame']:
+    raise ValueError('Only one argument required between "time" and "frame"')
 
 def sec2min_sec(sec):
     return str(int(sec / 60)) + ':' + str(int(sec) % 60)
@@ -39,7 +39,7 @@ def main():
 
     starttime = t.time()
 
-    frame_loader = Cv2FrameLoader(video_path, frame_step=args['fps'], second_step=args['time'])
+    frame_loader = Cv2FrameLoader(video_path, frame_step=args['frame'], second_step=args['time'])
     image_loader = PDFImageLoader(ppt_path)
     scikit_slide_classifier = ScikitSlideClassifier(image_loader)
     searcher = SlideSearcher(scikit_slide_classifier, frame_loader)
