@@ -1,3 +1,3 @@
-class VideoLoader:
+class FrameLoader:
     def frames(self):
         pass
