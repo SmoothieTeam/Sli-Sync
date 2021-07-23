@@ -7,7 +7,7 @@ class CV2FrameLoader(FrameLoader):
         self.video = cv2.VideoCapture(path)
         self.fps = self.video.get(cv2.CAP_PROP_FPS)
         if second_step != None:
-            self.step = int(second_step * self.fps)
+            self.step = max(int(second_step * self.fps), 1)
         else:
             self.step = frame_step
 
@@ -17,10 +17,10 @@ class CV2FrameLoader(FrameLoader):
     def frames(self):
         frame_count = 0
         while(self.video.isOpened()):
-            self.video.set(cv2.CAP_PROP_POS_FRAMES, frame_count)
             _, frame = self.video.read()
             if (type(frame) == type(None)):
                 break
-            frame_count += self.step
-            yield self.frame_time(frame_count), frame
+            frame_count += 1
+            if frame_count % self.step == 0:
+                yield self.frame_time(frame_count), frame
         self.video.release()
