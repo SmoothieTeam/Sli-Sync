@@ -5,7 +5,7 @@ from skimage.metrics import structural_similarity
 from domain.slide_classifier import SlideClassifier
 from domain.image_loader import ImageLoader
 
-class ScikitSlideClassifier(SlideClassifier):
+class SSIMSlideClassifier(SlideClassifier):
     def __init__(self, image_loader: ImageLoader):
         images = image_loader.get_images()
         self.images = list(map(self.compress_image, images))
