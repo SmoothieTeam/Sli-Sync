@@ -18,6 +18,9 @@ please install extra package
 ```
 conda install -c conda-forge poppler
 ```
+
+### For Windows User without anaconda
+[Poppler](https://github.com/oschwartz10612/poppler-windows) 릴리즈 버전을 다운로드하고 PATH에 \Lib\bin을 추가해야합니다.
  
 ## Usage
 ```shell
