@@ -9,10 +9,9 @@ class MSESlideClassifier(SlideClassifier):
     def __init__(self, image_loader: ImageLoader):
         images = image_loader.get_images()
         self.images = list(map(self.compress_image, images))
-        self.min_mse = None
 
     def compress_image(self, image):
-        image = cv2.resize(image, (100, 100))
+        image = cv2.resize(image, (100, 100), interpolation=cv2.INTER_AREA)
         image = color.rgb2gray(image)
 
         return image

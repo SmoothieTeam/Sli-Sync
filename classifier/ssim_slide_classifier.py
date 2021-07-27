@@ -11,7 +11,7 @@ class SSIMSlideClassifier(SlideClassifier):
         self.images = list(map(self.compress_image, images))
 
     def compress_image(self, image):
-        image = cv2.resize(image, (30, 30))
+        image = cv2.resize(image, (30, 30), interpolation=cv2.INTER_AREA)
         image = color.rgb2gray(image)
 
         return image
