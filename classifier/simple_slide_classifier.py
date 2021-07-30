@@ -23,11 +23,6 @@ class SimpleSlideClassifier(SlideClassifier):
         
         compare = lambda i: structural_similarity(self.images[i], image)
         most_similar_slide_index = max(range(start_slide, len(self.images)), key=compare)
-
-        if self.current_slide != most_similar_slide_index:
-            if self.current_slide == 0:
-                self.current_slide = most_similar_slide_index
-            else:
-                self.current_slide = most_similar_slide_index
+        self.current_slide = most_similar_slide_index
 
         return self.current_slide
