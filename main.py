@@ -4,6 +4,7 @@ from data_loader.cv2_frame_loader import CV2FrameLoader
 from domain.slide_searcher import SlideSearcher
 from classifier.mse_slide_classifier import MSESlideClassifier
 from classifier.ssim_slide_classifier import SSIMSlideClassifier
+from classifier.simple_slide_classifier import SimpleSlideClassifier
 from domain.slide_classifier import SlideClassifier
 import argparse
 import numpy as np
@@ -42,7 +43,7 @@ def main():
 
     frame_loader = CV2FrameLoader(video_path, frame_step=args['frame'], second_step=args['time'])
     image_loader = PDFImageLoader(ppt_path)
-    slide_classifier = MSESlideClassifier(image_loader)
+    slide_classifier = SimpleSlideClassifier(image_loader)
     searcher = SlideSearcher(slide_classifier, frame_loader)
 
     times = searcher.get_slide_times()
