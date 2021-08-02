@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React from 'react';
 
-function UploadPanel({ onSubmit }) {
+function UploadPage({ onSubmit }) {
     let title = "";
     let video = undefined;
     let slide = undefined;
@@ -23,4 +23,4 @@ function UploadPanel({ onSubmit }) {
     </div>);
 }
 
-export default UploadPanel;
+export default UploadPage;
