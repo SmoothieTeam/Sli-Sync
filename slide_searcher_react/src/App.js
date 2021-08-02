@@ -1,10 +1,15 @@
-import './App.css';
-import FilePanel from './components/FilePanel.js'
+import UploadPanel from './components/UploadPanel.js'
 
 function App() {
+  const handleSubmit = (t, v, s) => {
+    console.log(t);
+    console.log(v);
+    console.log(s);
+  }
+
   return (
     <div className="App">
-      <FilePanel onSubmit={(e, v) => {console.log(e); console.log(v);}}></FilePanel>
+      <UploadPanel onSubmit={handleSubmit}></UploadPanel>
     </div>
   );
 }
