@@ -2,8 +2,7 @@ import MainPage from './pages/MainPage.js';
 import UploadPage from './pages/UploadPage.js';
 import { Switch, Route } from 'react-router-dom';
 
-function App({ history }) {
-  console.log(history);
+function App() {
   const handleSubmit = (t, v, s) => {
     console.log(t);
     console.log(v);
