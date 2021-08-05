@@ -23,8 +23,7 @@ function VideoViewPage({video: {source, name}, slideIndexes}) {
                 controls
                 width="500px"
                 height="500px"
-                type="video/mp4" 
-            />
+                type="video/mp4" />
         </div>
         <div className="video_index">
             {slideIndexes.map(slideIndex => SlideIndex({slideIndex, onSeek: handleSeeking}))}
