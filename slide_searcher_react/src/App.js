@@ -15,20 +15,24 @@ function App() {
 
   return(
     <div className='App'>
-      <VideoEditPage 
-        video={{source:'ppt_no_animated.mp4', name:'test'}} 
-        slideIndexes={[{index: 0, time: 0.0}, {index: 1, time: 24.0}, {index: 2, time: 103.0}]}/>
-      {/* <Switch>
+      <Switch>
         <Route path='videobutton'>
-         <VideoIndex></VideoIndex>
+         <VideoViewPage 
+            video={{source:'ppt_no_animated.mp4', name:'test'}} 
+            slideIndexes={[{index: 0, time: 0.0}, {index: 1, time: 24.0}, {index: 2, time: 103.0}]}/>
         </Route>
         <Route path='/upload'>
           <UploadPage onSubmit={handleSubmit}/>
         </Route>
+        <Route path='/update'>
+          <VideoEditPage 
+            video={{source:'ppt_no_animated.mp4', name:'test'}} 
+            slideIndexes={[{index: 0, time: 0.0}, {index: 1, time: 24.0}, {index: 2, time: 103.0}]}/>
+        </Route>
         <Route path='/'>
           <MainPage slidedVideos={[{video: 'a'}, {video: 'b'}, {video: 'c'}]}/>
         </Route>
-      </Switch> */}
+      </Switch>
     </div>
   );
 }

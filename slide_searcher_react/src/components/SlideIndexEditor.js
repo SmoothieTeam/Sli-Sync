@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 
 function parseTime(timeInSecond) {
     return {
@@ -15,7 +15,7 @@ function timeToString({minute, second}) {
     return minute + ':' + second;
 }
 
-function SlideIndexEditPanel({currentTime: {minute, second}, onChange}) {
+function SlideIndexTimeEditor({currentTime: {minute, second}, onChange}) {
     const handleChangeMinute = (e) => {
         const minute = parseInt(e.target.value);
         onChange({minute, second});
@@ -39,7 +39,7 @@ function SlideIndexEditor({slideIndex: {index, time}, onSeek, onChange}) {
 
     return (<div>
         {index}: <button onClick={() => onSeek(toTime(currentTime))}>{timeToString(currentTime)}</button>
-        <SlideIndexEditPanel currentTime={currentTime} onChange={handleChangeTime}/>
+        <SlideIndexTimeEditor currentTime={currentTime} onChange={handleChangeTime}/>
     </div>);
 }
 
