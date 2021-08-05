@@ -1,9 +1,11 @@
 import ReactPlayer from 'react-player';
 import React, { useRef } from 'react';
 import SlideIndex from '../components/SlideIndex';
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 
-function VideoViewPage({video: {source, name}, slideIndexes}) {
+function VideoViewPage({video: {source, name}, slideIndexes}, {match}) {
+    const {filename} = useParams();
+    console.log(filename)
     const player = useRef(null);
 
     const handleSeeking = (time) => {
@@ -16,7 +18,7 @@ function VideoViewPage({video: {source, name}, slideIndexes}) {
             <ReactPlayer 
                 className="video_player"
                 ref={player}
-                url= {source}
+                url= {filename}
                 playing
                 controls
                 width="500px"
