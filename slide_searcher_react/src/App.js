@@ -1,6 +1,9 @@
 import MainPage from './pages/MainPage.js';
 import UploadPage from './pages/UploadPage.js';
 import { Switch, Route } from 'react-router-dom';
+import React, { Component } from 'react';
+import { render } from 'react-dom';
+import VideoIndex from './components/VideoIndex.js';
 
 function App() {
   const handleSubmit = (t, v, s) => {
@@ -9,9 +12,12 @@ function App() {
     console.log(s);
   }
 
-  return (
-    <div className="App">
+  return(
+    <div className='App'>
       <Switch>
+        <Route path='videobutton'>
+         <VideoIndex></VideoIndex>
+        </Route>
         <Route path='/upload'>
           <UploadPage onSubmit={handleSubmit}/>
         </Route>
@@ -22,5 +28,4 @@ function App() {
     </div>
   );
 }
-
 export default App;
