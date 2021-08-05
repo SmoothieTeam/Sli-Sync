@@ -37,9 +37,9 @@ function App() {
 
         <Route path='/'>
           <MainPage slidedVideos={[
-            {video: <Link to='/videoview/a.mp4'>a</Link>}, 
-            {video: <Link to='/videoview/b.mp4'>b</Link>}, 
-            {video: <Link to='/videoview/c.mp4'>c</Link>}
+            {video: 'a.mp4'}, 
+            {video: 'b.mp4'}, 
+            {video: 'c.mp4'}
             ]}/>
         </Route>
         
