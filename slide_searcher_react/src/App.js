@@ -15,11 +15,12 @@ function App() {
 
   return(
     <div className='App'>
-      {/* <VideoEditPage 
-        video={{source:'ppt_no_animated.mp4', name:'test'}} 
-        slideIndexes={[{index: 0, time: 0.0}, {index: 1, time: 24.0}, {index: 2, time: 103.0}]}/> */}
       <Switch>
-
+        <Route path='/videoedit'>
+        <VideoEditPage 
+          video={{source:'ppt_no_animated.mp4', name:'test'}} 
+          slideIndexes={[{index: 0, time: 0.0}, {index: 1, time: 24.0}, {index: 2, time: 103.0}]}/>
+        </Route>
         <Route path='/videoview/:filename'>
          <VideoViewPage
          video={{source:'ppt_no_animated.mp4', name:'test'}} 

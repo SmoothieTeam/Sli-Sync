@@ -3,9 +3,8 @@ import React, { useRef } from 'react';
 import SlideIndex from '../components/SlideIndex';
 import { Link, useParams } from 'react-router-dom';
 
-function VideoViewPage({video: {source, name}, slideIndexes}, {match}) {
+function VideoViewPage({video: {source, name}, slideIndexes}) {
     const {filename} = useParams();
-    console.log(filename)
     const player = useRef(null);
 
     const handleSeeking = (time) => {
@@ -14,7 +13,8 @@ function VideoViewPage({video: {source, name}, slideIndexes}, {match}) {
 
     return (<div>
         <div className="video_player">
-            <Link to='/'>MainPages</Link>
+            <Link to='/'>MainPages</Link> <tab/>
+            <Link to='/videoedit'>VideoEdit</Link>
             <ReactPlayer 
                 className="video_player"
                 ref={player}
