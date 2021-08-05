@@ -3,7 +3,8 @@ import UploadPage from './pages/UploadPage.js';
 import { Switch, Route } from 'react-router-dom';
 import React, { Component } from 'react';
 import { render } from 'react-dom';
-import VideoIndex from './components/VideoIndex.js';
+import VideoViewPage from './pages/VideoViewPage.js';
+import VideoEditPage from './pages/VideoEditPage.js';
 
 function App() {
   const handleSubmit = (t, v, s) => {
@@ -14,7 +15,10 @@ function App() {
 
   return(
     <div className='App'>
-      <Switch>
+      <VideoEditPage 
+        video={{source:'ppt_no_animated.mp4', name:'test'}} 
+        slideIndexes={[{index: 0, time: 0.0}, {index: 1, time: 24.0}, {index: 2, time: 103.0}]}/>
+      {/* <Switch>
         <Route path='videobutton'>
          <VideoIndex></VideoIndex>
         </Route>
@@ -24,7 +28,7 @@ function App() {
         <Route path='/'>
           <MainPage slidedVideos={[{video: 'a'}, {video: 'b'}, {video: 'c'}]}/>
         </Route>
-      </Switch>
+      </Switch> */}
     </div>
   );
 }
