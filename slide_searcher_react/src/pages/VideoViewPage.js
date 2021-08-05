@@ -6,7 +6,6 @@ import { Link, useParams } from 'react-router-dom';
 function VideoViewPage({video: {source, name}, slideIndexes}) {
     const {filename} = useParams();
     const player = useRef(null);
-
     const handleSeeking = (time) => {
         player.current.seekTo(time, 'seconds');
     };
@@ -14,7 +13,7 @@ function VideoViewPage({video: {source, name}, slideIndexes}) {
     return (<div>
         <div className="video_player">
             <Link to='/'>MainPages</Link> <tab/>
-            <Link to='/videoedit'>VideoEdit</Link>
+            <Link to={'/videoedit/' + filename}>VideoEdit</Link>
             <ReactPlayer 
                 className="video_player"
                 ref={player}
