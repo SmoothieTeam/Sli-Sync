@@ -7,8 +7,12 @@ import VideoViewPage from './pages/VideoViewPage.js';
 import VideoEditPage from './pages/VideoEditPage.js';
 
 function App() {
-  const handleSubmit = (t, v, s) => {
+  const handleUpload = (t, v, s) => {
     console.log(t);
+    console.log(v);
+    console.log(s);
+  };
+  const handleUpdate = (v, s) => {
     console.log(v);
     console.log(s);
   }
@@ -22,12 +26,13 @@ function App() {
             slideIndexes={[{index: 0, time: 0.0}, {index: 1, time: 24.0}, {index: 2, time: 103.0}]}/>
         </Route>
         <Route path='/upload'>
-          <UploadPage onSubmit={handleSubmit}/>
+          <UploadPage onSubmit={handleUpload}/>
         </Route>
         <Route path='/update'>
           <VideoEditPage 
             video={{source:'ppt_no_animated.mp4', name:'test'}} 
-            slideIndexes={[{index: 0, time: 0.0}, {index: 1, time: 24.0}, {index: 2, time: 103.0}]}/>
+            slideIndexes={[{index: 0, time: 0.0}, {index: 1, time: 24.0}, {index: 2, time: 103.0}]}
+            onSubmit={handleUpdate}/>
         </Route>
         <Route path='/'>
           <MainPage slidedVideos={[{video: 'a'}, {video: 'b'}, {video: 'c'}]}/>
