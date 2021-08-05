@@ -1,9 +1,8 @@
 import ReactPlayer from 'react-player';
 import React, { useRef } from 'react';
-import SlideIndex from '../components/SlideIndex';
-import { Link } from 'react-router-dom';
+import SlideIndexEditor from '../components/SlideIndexEditor';
 
-function VideoViewPage({video: {source, name}, slideIndexes}) {
+function VideoEditPage({video: {source, name}, slideIndexes}) {
     const player = useRef(null);
 
     const handleSeeking = (time) => {
@@ -12,7 +11,6 @@ function VideoViewPage({video: {source, name}, slideIndexes}) {
 
     return (<div>
         <div className="video_player">
-            <Link to='/'>MainPages</Link>
             <ReactPlayer 
                 className="video_player"
                 ref={player}
@@ -25,10 +23,10 @@ function VideoViewPage({video: {source, name}, slideIndexes}) {
             />
         </div>
         <div className="video_index">
-            {slideIndexes.map(slideIndex => SlideIndex({slideIndex, onSeek: handleSeeking}))}
+            {slideIndexes.map(slideIndex => SlideIndexEditor({slideIndex, onSeek: handleSeeking}))}
         </div>
     </div>);
 }
   
-  export default VideoViewPage;
+  export default VideoEditPage;
   
