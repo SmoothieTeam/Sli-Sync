@@ -1,23 +1,24 @@
-import logo from './logo.svg';
-import './App.css';
+import MainPage from './pages/MainPage.js';
+import UploadPage from './pages/UploadPage.js';
+import { Switch, Route } from 'react-router-dom';
 
 function App() {
+  const handleSubmit = (t, v, s) => {
+    console.log(t);
+    console.log(v);
+    console.log(s);
+  }
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Switch>
+        <Route path='/upload'>
+          <UploadPage onSubmit={handleSubmit}/>
+        </Route>
+        <Route path='/'>
+          <MainPage slidedVideos={[{video: 'a'}, {video: 'b'}, {video: 'c'}]}/>
+        </Route>
+      </Switch>
     </div>
   );
 }
