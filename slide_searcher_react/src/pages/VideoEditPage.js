@@ -1,8 +1,10 @@
 import ReactPlayer from 'react-player';
 import React, { useRef, useState } from 'react';
 import SlideIndexEditor from '../components/SlideIndexEditor';
+import { Link, useParams } from 'react-router-dom';
 
 function VideoEditPage({video: {source, name}, slideIndexes, onSubmit}) {
+    const {filename} = useParams();
     const player = useRef(null);
     const [currentSlideIndexes, setSlideIndexes] = useState(slideIndexes);
     const handleSeeking = (time) => {
@@ -24,7 +26,7 @@ function VideoEditPage({video: {source, name}, slideIndexes, onSubmit}) {
             <ReactPlayer 
                 className="video_player"
                 ref={player}
-                url= {source}
+                url= {filename}
                 playing
                 controls
                 width="500px"
@@ -34,7 +36,7 @@ function VideoEditPage({video: {source, name}, slideIndexes, onSubmit}) {
         <div className="video_index">
             {currentSlideIndexes.map((slideIndex, i) => SlideIndexEditor({slideIndex, onSeek: handleSeeking, onChange: (t) => handleChangeTime(i, t)}))}
         </div>
-        <button type="submit" onClick={handleSubmit}>Submit</button>
+        <Link to={'/videoview/'+filename} type="submit" onClick={handleSubmit}>Submit</Link>
     </div>);
 }
   
