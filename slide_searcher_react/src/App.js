@@ -1,8 +1,7 @@
 import MainPage from './pages/MainPage.js';
 import UploadPage from './pages/UploadPage.js';
 import { Switch, Route } from 'react-router-dom';
-import React, { Component } from 'react';
-import { render } from 'react-dom';
+import React from 'react';
 import VideoViewPage from './pages/VideoViewPage.js';
 import VideoEditPage from './pages/VideoEditPage.js';
 
