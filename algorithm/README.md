@@ -20,7 +20,7 @@ python -m pip install -r requirements.txt
 > poppler-utils==0.1.0
 ```
 
-추가로 이하의 작업을 해줘야합ㄴ다.
+추가로 이하의 작업을 해줘야합니다.
 
 ### 아나콘다를 사용하는 경우
 ```
