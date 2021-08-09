@@ -24,5 +24,10 @@ conda install -c conda-forge poppler
  
 ## Usage
 ```shell
-python main.py -p <pdf file path> -v <video file path> -t <time(s) step for search> -f <frame step(defualt 1) for search> -e <True/False(defualt), whether calculate elapsed time or not>
+python main.py 
+-p <pdf file path> 
+-v <video file path> 
+[-t <time(sec) step for search>] 
+[-f <frame step(defualt 1) for search>]
+[-e <True/False(defualt), whether calculate elapsed time or not>]
 ```

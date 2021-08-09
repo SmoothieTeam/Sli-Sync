@@ -19,7 +19,7 @@ parser.add_argument("-p", "--ppt", dest="ppt", required=True,
                     help="the path to your ppt file to be analyzed")
 parser.add_argument("-t", "--time", type=float, dest="time", default=None,
                     help="time quantum to analyze")
-parser.add_argument("-f", "--frame", type=int, dest="frame", default=None,
+parser.add_argument("-f", "--frame", type=int, dest="frame", default=1,
                     help="frame quantum to analyze")
 parser.add_argument("-e", "--elasped", dest="elasped", default=False,
                     help="elasped time taken for the program to run")
