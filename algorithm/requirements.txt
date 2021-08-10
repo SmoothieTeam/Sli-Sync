@@ -1,5 +1,5 @@
 scikit_image==0.17.2
-numpy==1.16.1
+numpy==1.17.3
 opencv-python==3.4.11.39
 pdf2image==1.16.0
 python-pptx-interface==0.0.12
