@@ -3,11 +3,12 @@ import React, { useRef } from 'react';
 import SlideIndex from '../components/SlideIndex';
 import { Link, useParams } from 'react-router-dom';
 
-function VideoViewPage({videoLoader, slideIndexes}) {
+function VideoViewPage({videoLoader, slideIndexLoader}) {
     const { id } = useParams();
     const player = useRef(null);
     const source = videoLoader.getSource(id);
     const title = videoLoader.getTitle(id);
+    const slideIndexes = slideIndexLoader.getIndexes(id);
     const handleSeeking = (time) => {
         player.current.seekTo(time, 'seconds');
     };

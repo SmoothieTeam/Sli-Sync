@@ -3,10 +3,10 @@ import React, { useRef, useState } from 'react';
 import SlideIndexEditor from '../components/SlideIndexEditor';
 import { Link, useParams } from 'react-router-dom';
 
-function VideoEditPage({videoLoader, slideIndexes, onSubmit}) {
+function VideoEditPage({videoLoader, slideIndexLoader, onSubmit}) {
     const { id } = useParams();
     const player = useRef(null);
-    const [currentSlideIndexes, setSlideIndexes] = useState(slideIndexes);
+    const [currentSlideIndexes, setSlideIndexes] = useState(slideIndexLoader.getIndexes(id));
     const source = videoLoader.getSource(id);
     let title = videoLoader.getTitle(id);
     const handleSeeking = (time) => {
