@@ -1,4 +1,3 @@
-import MainPage from './pages/MainPage.js';
 import UploadPage from './pages/UploadPage.js';
 import { Switch, Route } from 'react-router-dom';
 import React from 'react';
@@ -15,34 +14,34 @@ function App() {
     console.log(v);
     console.log(s);
   }
+  const videoLoader = {
+    getSource: (id) => 'ppt_no_animated.mp4',
+    getTitle: (id) => '운영체제론 1강'
+  };
+  const slideIndexLoader = {
+    getIndexes: (id) => [{index: 0, time: 0.0}, {index: 1, time: 24.0}, {index: 2, time: 103.0}]
+  }
 
   return(
     <div className='App'>
       <Switch>
-        <Route path='/videoview/:filename'>
-         <VideoViewPage
-         video={{source:'ppt_no_animated.mp4', name:'test'}} 
-         slideIndexes={[{index: 0, time: 0.0}, {index: 1, time: 24.0}, {index: 2, time: 103.0}]}/>
+        <Route exact path='/view/:id'>
+          <VideoViewPage
+            videoLoader={videoLoader} 
+            slideIndexLoader={slideIndexLoader}/>
         </Route>
-
-        <Route path='/upload'>
-          <UploadPage onSubmit={handleUpload}/>
-        </Route>
-        <Route path='/videoedit/:filename'>
+        <Route exact path='/edit/:id'>
           <VideoEditPage 
-            video={{source:'ppt_no_animated.mp4', name:'test'}} 
-            slideIndexes={[{index: 0, time: 0.0}, {index: 1, time: 24.0}, {index: 2, time: 103.0}]}
+            videoLoader={videoLoader} 
+            slideIndexLoader={slideIndexLoader}
             onSubmit={handleUpdate}/>
         </Route>
-
         <Route path='/'>
-          <MainPage slidedVideos={[
-            {video: 'ppt_no_animated.mp4'}
-          ]}/>
+          <UploadPage onSubmit={handleUpload}/>
         </Route>
-        
       </Switch>
     </div>
   );
 }
+
 export default App;
