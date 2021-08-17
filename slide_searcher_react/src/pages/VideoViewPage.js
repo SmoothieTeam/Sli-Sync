@@ -3,21 +3,24 @@ import React, { useRef } from 'react';
 import SlideIndex from '../components/SlideIndex';
 import { Link, useParams } from 'react-router-dom';
 
-function VideoViewPage({video: {source, name}, slideIndexes}) {
-    const {filename} = useParams();
+function VideoViewPage({videoLoader, slideIndexes}) {
+    const { id } = useParams();
     const player = useRef(null);
+    const source = videoLoader.getSource(id);
+    const title = videoLoader.getTitle(id);
     const handleSeeking = (time) => {
         player.current.seekTo(time, 'seconds');
     };
 
     return (<div>
+        <Link to='/'>UploadPages</Link> <tab/>
+        <Link to={'/edit/' + id}>VideoEdit</Link>
+        <h1>{title}</h1>
         <div className="video_player">
-            <Link to='/'>MainPages</Link> <tab/>
-            <Link to={'/videoedit/' + filename}>VideoEdit</Link>
             <ReactPlayer 
                 className="video_player"
                 ref={player}
-                url= {filename}
+                url= {source}
                 playing
                 controls
                 width="500px"
@@ -29,6 +32,5 @@ function VideoViewPage({video: {source, name}, slideIndexes}) {
         </div>
     </div>);
 }
-  
-  export default VideoViewPage;
-  
+
+export default VideoViewPage;

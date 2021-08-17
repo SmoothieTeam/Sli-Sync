@@ -5,7 +5,6 @@ function UploadPage({ onSubmit }) {
     let title = "";
     let video = undefined;
     let slide = undefined;
-
     const handleTitle = (e) => {
         title = e.target.value;
     }
@@ -20,7 +19,7 @@ function UploadPage({ onSubmit }) {
         <input type="text" onChange = {handleTitle} name="Title"/>
         <input type="file" accept="video/*" onChange = {handleVideo} name="Video File"/>
         <input type="file" accept=".pdf,.ppt,.pptx" onChange = {handleSlide} name="Slide File"/>
-        <Link to="/" type="submit" onClick = {() => onSubmit(title, video, slide)}>Submit</Link>
+        <Link to="/view/1" type="submit" onClick = {() => onSubmit(title, video, slide)}>Submit</Link>
     </div>);
 }
 
