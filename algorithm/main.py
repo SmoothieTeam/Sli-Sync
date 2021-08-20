@@ -1,3 +1,6 @@
+from classifier.mserate_slide_classifier import MSERateSlideClassifier
+from frame_queue_loader.mserate_frame_queue_loader import MSERateFrameQueueLoader
+from frame_queue_loader.single_frame_queue_loader import SingleFrameQueueLoader
 from data_loader.pdf_image_loader import PDFImageLoader
 from data_loader.ppt_image_loader import PPTImageLoader
 from data_loader.cv2_frame_loader import CV2FrameLoader
@@ -19,7 +22,7 @@ parser.add_argument("-p", "--ppt", dest="ppt", required=True,
                     help="the path to your ppt file to be analyzed")
 parser.add_argument("-t", "--time", type=float, dest="time", default=None,
                     help="time quantum to analyze")
-parser.add_argument("-f", "--frame", type=int, dest="frame", default=1,
+parser.add_argument("-f", "--frame", type=int, dest="frame", default=None,
                     help="frame quantum to analyze")
 parser.add_argument("-e", "--elasped", dest="elasped", default=False,
                     help="elasped time taken for the program to run")
@@ -42,9 +45,10 @@ def main():
     starttime = t.time()
 
     frame_loader = CV2FrameLoader(video_path, frame_step=args['frame'], second_step=args['time'])
+    frame_queue_loader = MSERateFrameQueueLoader(frame_loader, (481, 360), 500)
     image_loader = PDFImageLoader(ppt_path)
-    slide_classifier = SimpleSlideClassifier(image_loader)
-    searcher = SlideSearcher(slide_classifier, frame_loader)
+    slide_classifier = MSERateSlideClassifier(image_loader, (481, 360))
+    searcher = SlideSearcher(slide_classifier, frame_queue_loader)
 
     times = searcher.get_slide_times()
 

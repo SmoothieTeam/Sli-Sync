@@ -16,7 +16,8 @@ class MSESlideClassifier(SlideClassifier):
 
         return image
 
-    def classify(self, image):
+    def classify(self, queue):
+        image, _ = queue.frames()
         image = self.compress_image(image)
         compare = lambda i: mean_squared_error(self.images[i], image)
         most_similar_slide = min(range(len(self.images)), key=compare)

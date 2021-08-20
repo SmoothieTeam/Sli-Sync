@@ -16,7 +16,8 @@ class SSIMSlideClassifier(SlideClassifier):
 
         return image
 
-    def classify(self, image):
+    def classify(self, queue):
+        image, _ = queue.frames()
         image = self.compress_image(image)
         compare = lambda i: structural_similarity(self.images[i], image)
         most_similar_slide = max(range(len(self.images)), key=compare)

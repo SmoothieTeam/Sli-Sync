@@ -17,7 +17,8 @@ class SimpleSlideClassifier(SlideClassifier):
 
         return image
 
-    def classify(self, image):
+    def classify(self, queue):
+        image, _ = queue.frames()
         image = self.compress_image(image)
         start_slide = max(0, self.current_slide - 1)
         
