@@ -1,11 +1,14 @@
-from domain.image_loader import ImageLoader
-from pptx_tools import utils
 import os
 import cv2
+from pptx_tools import utils
+
+from domain.image_loader import ImageLoader
+from data_loader.image_transform import ImageTransform, IdentityImageTransform
 
 class PPTImageLoader(ImageLoader):
-    def __init__(self, path):
+    def __init__(self, path, transform:ImageTransform=IdentityImageTransform()):
         self.path = path
+        self.transform = transform
 
     def get_file_list(self):
         return os.listdir('pngs')
@@ -27,7 +30,8 @@ class PPTImageLoader(ImageLoader):
         files = self.get_file_list()
 
         for file in files:
-            image = cv2.imread(file, cv2.IMREAD_COLOR)
+            image = cv2.imread('./imgs/' + file)
+            image = self.transform.transform(image)
             images.append(image)
 
         return images
