@@ -1,17 +1,20 @@
+import argparse
+import time as t
+from skimage.metrics import mean_squared_error, structural_similarity
+
 from classifier.mserate_slide_classifier import MSERateSlideClassifier
 from frame_queue_loader.mserate_frame_queue_loader import MSERateFrameQueueLoader
 from frame_queue_loader.single_frame_queue_loader import SingleFrameQueueLoader
+from classifier.max_distance_slide_classifier import MaxDistanceSlideClassifier
+from classifier.min_distance_slide_classifier import MinDistanceSlideClassifier
 from data_loader.pdf_image_loader import PDFImageLoader
 from data_loader.ppt_image_loader import PPTImageLoader
 from data_loader.cv2_frame_loader import CV2FrameLoader
 from domain.slide_searcher import SlideSearcher
-from classifier.mse_slide_classifier import MSESlideClassifier
-from classifier.ssim_slide_classifier import SSIMSlideClassifier
 from classifier.simple_slide_classifier import SimpleSlideClassifier
 from domain.slide_classifier import SlideClassifier
-import argparse
-import numpy as np
-import time as t
+from image_transform.resize_image_transform import ResizeImageTransform
+from image_transform.gray_image_transform import GrayImageTransform
 
 # ppt, pdf에 따른 인자 이름 변경 필요
 parser = argparse.ArgumentParser()
@@ -44,11 +47,13 @@ def main():
 
     starttime = t.time()
 
+    transform = ResizeImageTransform((100, 100))
+    # transform = GrayImageTransform(transform)
     frame_loader = CV2FrameLoader(video_path, frame_step=args['frame'], second_step=args['time'])
     frame_queue_loader = MSERateFrameQueueLoader(frame_loader, (481, 360), 1500)
     image_loader = PDFImageLoader(ppt_path)
-    slide_classifier = MSERateSlideClassifier(image_loader, (481, 360), 2000)
-    searcher = SlideSearcher(slide_classifier, frame_queue_loader)
+    slide_classifier = MinDistanceSlideClassifier(image_loader, transform, mean_squared_error)
+    searcher = SlideSearcher(slide_classifier, frame_loader)
 
     times = searcher.get_slide_times()
 

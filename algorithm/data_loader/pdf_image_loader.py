@@ -1,7 +1,8 @@
 import os
 import cv2
-from domain.image_loader import ImageLoader
 from pdf2image import convert_from_path
+
+from domain.image_loader import ImageLoader
 
 class PDFImageLoader(ImageLoader):
     def __init__(self, ppt_path):
@@ -26,7 +27,7 @@ class PDFImageLoader(ImageLoader):
         files = self.get_file_list()
         files = sorted(files)
         for file in files:
-            image = cv2.imread('./imgs/' + file, cv2.IMREAD_COLOR)
+            image = cv2.imread('./imgs/' + file)
             images.append(image)
 
         return images
