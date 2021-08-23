@@ -1,7 +1,8 @@
-from domain.image_loader import ImageLoader
-from pptx_tools import utils
 import os
 import cv2
+from pptx_tools import utils
+
+from domain.image_loader import ImageLoader
 
 class PPTImageLoader(ImageLoader):
     def __init__(self, path):
@@ -27,7 +28,7 @@ class PPTImageLoader(ImageLoader):
         files = self.get_file_list()
 
         for file in files:
-            image = cv2.imread(file, cv2.IMREAD_COLOR)
+            image = cv2.imread('./imgs/' + file)
             images.append(image)
 
         return images
