@@ -2,8 +2,8 @@ import argparse
 import time as t
 from skimage.metrics import mean_squared_error, structural_similarity
 
-from classifier.mserate_slide_classifier import MSERateSlideClassifier
-from frame_queue_loader.mserate_frame_queue_loader import MSERateFrameQueueLoader
+from classifier.rate_slide_classifier import RateSlideClassifier
+from frame_queue_loader.rate_frame_queue_loader import RateFrameQueueLoader
 from frame_queue_loader.single_frame_queue_loader import SingleFrameQueueLoader
 from classifier.max_distance_slide_classifier import MaxDistanceSlideClassifier
 from classifier.min_distance_slide_classifier import MinDistanceSlideClassifier
@@ -47,13 +47,13 @@ def main():
 
     starttime = t.time()
 
-    transform = ResizeImageTransform((100, 100))
-    # transform = GrayImageTransform(transform)
+    frame_transform = ResizeImageTransform((300, 300))
+    slide_transform = ResizeImageTransform((200, 200))
     frame_loader = CV2FrameLoader(video_path, frame_step=args['frame'], second_step=args['time'])
-    frame_queue_loader = MSERateFrameQueueLoader(frame_loader, (481, 360), 1500)
-    # frame_queue_loader = SingleFrameQueueLoader(frame_loader)
+    frame_queue_loader = RateFrameQueueLoader(frame_loader, frame_transform, mean_squared_error, 700)
     image_loader = PDFImageLoader(ppt_path)
-    slide_classifier = MSERateSlideClassifier(image_loader, transform, mean_squared_error, 1000)
+    slide_classifier = MinDistanceSlideClassifier(image_loader, slide_transform, mean_squared_error)
+    # slide_classifier = RateSlideClassifier(image_loader, slide_transform, mean_squared_error, 1000)
     searcher = SlideSearcher(slide_classifier, frame_queue_loader)
 
     times = searcher.get_slide_times()

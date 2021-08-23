@@ -9,7 +9,7 @@ class MaxDistanceSlideClassifier(SlideClassifier):
         self.distance = distance
 
     def classify(self, queue):
-        image, _ = queue.frames()
+        _, image = queue.frames()
         image = self.transform.transform(image)
         compare = lambda i: self.distance(self.images[i], image)
         most_similar_slide = max(range(len(self.images)), key=compare)

@@ -4,7 +4,7 @@ from domain.slide_classifier import SlideClassifier
 from domain.image_loader import ImageLoader
 from classifier.image_transform import ImageTransform
 
-class MSERateSlideClassifier(SlideClassifier):
+class RateSlideClassifier(SlideClassifier):
     def __init__(self, image_loader: ImageLoader, transform: ImageTransform, distance, threshold):
         self.images = list(map(transform.transform, image_loader.get_images()))
         self.msemap = np.array([[distance(self.images[i], self.images[j]) for j in range(len(self.images))] for i in range(len(self.images))])
