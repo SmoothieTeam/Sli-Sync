@@ -1,6 +1,4 @@
-class ImageTransform:
-    def transform(self, image):
-        pass
+from classifier.image_transform import ImageTransform
 
 class IdentityImageTransform(ImageTransform):
     def __init__(self, image_transform: ImageTransform = None):

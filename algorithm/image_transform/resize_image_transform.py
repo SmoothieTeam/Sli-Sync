@@ -1,6 +1,6 @@
 import cv2
 
-from data_loader.image_transform import ImageTransform
+from classifier.image_transform import ImageTransform
 
 class ResizeImageTransform(ImageTransform):
     def __init__(self, size, image_transform: ImageTransform = None):
