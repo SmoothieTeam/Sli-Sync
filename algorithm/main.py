@@ -12,7 +12,6 @@ from classifier.simple_slide_classifier import SimpleSlideClassifier
 from domain.slide_classifier import SlideClassifier
 from image_transform.resize_image_transform import ResizeImageTransform
 from image_transform.gray_image_transform import GrayImageTransform
-from classifier.metric import Metric
 
 # ppt, pdf에 따른 인자 이름 변경 필요
 parser = argparse.ArgumentParser()
@@ -45,10 +44,11 @@ def main():
 
     starttime = t.time()
 
-    transform = ResizeImageTransform((30, 30))
+    transform = ResizeImageTransform((100, 100))
+    # transform = GrayImageTransform(transform)
     frame_loader = CV2FrameLoader(video_path, frame_step=args['frame'], second_step=args['time'])
     image_loader = PDFImageLoader(ppt_path)
-    slide_classifier = MinDistanceSlideClassifier(image_loader, Metric(transform, mean_squared_error))
+    slide_classifier = MinDistanceSlideClassifier(image_loader, transform, mean_squared_error)
     searcher = SlideSearcher(slide_classifier, frame_loader)
 
     times = searcher.get_slide_times()
