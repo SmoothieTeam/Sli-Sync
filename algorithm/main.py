@@ -45,9 +45,9 @@ def main():
     starttime = t.time()
 
     frame_loader = CV2FrameLoader(video_path, frame_step=args['frame'], second_step=args['time'])
-    frame_queue_loader = MSERateFrameQueueLoader(frame_loader, (481, 360), 500)
+    frame_queue_loader = MSERateFrameQueueLoader(frame_loader, (481, 360), 1500)
     image_loader = PDFImageLoader(ppt_path)
-    slide_classifier = MSERateSlideClassifier(image_loader, (481, 360))
+    slide_classifier = MSERateSlideClassifier(image_loader, (481, 360), 2000)
     searcher = SlideSearcher(slide_classifier, frame_queue_loader)
 
     times = searcher.get_slide_times()
