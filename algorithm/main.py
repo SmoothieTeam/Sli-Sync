@@ -51,9 +51,10 @@ def main():
     # transform = GrayImageTransform(transform)
     frame_loader = CV2FrameLoader(video_path, frame_step=args['frame'], second_step=args['time'])
     frame_queue_loader = MSERateFrameQueueLoader(frame_loader, (481, 360), 1500)
+    # frame_queue_loader = SingleFrameQueueLoader(frame_loader)
     image_loader = PDFImageLoader(ppt_path)
-    slide_classifier = MinDistanceSlideClassifier(image_loader, transform, mean_squared_error)
-    searcher = SlideSearcher(slide_classifier, frame_loader)
+    slide_classifier = MSERateSlideClassifier(image_loader, transform, mean_squared_error, 1000)
+    searcher = SlideSearcher(slide_classifier, frame_queue_loader)
 
     times = searcher.get_slide_times()
 

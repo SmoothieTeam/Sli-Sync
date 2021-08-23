@@ -1,32 +1,21 @@
-import cv2
 import numpy as np
-import skimage.color as color
-
-from skimage.metrics import mean_squared_error, structural_similarity
 
 from domain.slide_classifier import SlideClassifier
 from domain.image_loader import ImageLoader
+from classifier.image_transform import ImageTransform
 
 class MSERateSlideClassifier(SlideClassifier):
-    def __init__(self, image_loader: ImageLoader, size, threshold):
-        self.images = image_loader.get_images()
-        self.size = size
+    def __init__(self, image_loader: ImageLoader, transform: ImageTransform, distance, threshold):
+        self.images = list(map(transform.transform, image_loader.get_images()))
+        self.msemap = np.array([[distance(self.images[i], self.images[j]) for j in range(len(self.images))] for i in range(len(self.images))])
+        self.distance = distance
+        self.transform = transform
         self.threshold = threshold
         self.current_slide = 0
-        self.msemap = np.array([[self.dist(self.images[i], self.images[j]) for j in range(len(self.images))] for i in range(len(self.images))])
-
-    def compress_image(self, image):
-        return cv2.resize(image, self.size, interpolation=cv2.INTER_AREA)
-
-    def dist(self, img1, img2):
-        img1 = self.compress_image(img1)
-        img2 = self.compress_image(img2)
-
-        return mean_squared_error(img1, img2)
 
     def classify(self, queue):
         start, end = queue.frames()
-        dist = self.dist(start, end)
+        dist = self.distance(start, end)
 
         if dist < self.threshold:
             # TODO find first slide for video

@@ -3,7 +3,7 @@ from domain.slide_classifier import SlideClassifier
 from domain.image_loader import ImageLoader
 
 class SimpleSlideClassifier(SlideClassifier):
-    def __init__(self, image_loader: ImageLoader, transform:ImageTransform, distance):
+    def __init__(self, image_loader: ImageLoader, transform: ImageTransform, distance):
         self.current_slide = 0
         self.transform = transform
         self.images = list(map(self.transform.transform, image_loader.get_images()))
