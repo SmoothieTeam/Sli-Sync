@@ -1,4 +1,4 @@
-from classifier.image_transform import ImageTransform
+from domain.image_transform import ImageTransform
 from domain.frame_queue import FrameQueue
 from domain.frame_loader import FrameLoader
 from domain.frame_queue_loader import FrameQueueLoader

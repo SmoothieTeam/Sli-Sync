@@ -2,7 +2,7 @@ import numpy as np
 
 from domain.slide_classifier import SlideClassifier
 from domain.image_loader import ImageLoader
-from classifier.image_transform import ImageTransform
+from domain.image_transform import ImageTransform
 
 class RateSlideClassifier(SlideClassifier):
     def __init__(self, image_loader: ImageLoader, transform: ImageTransform, distance, threshold):

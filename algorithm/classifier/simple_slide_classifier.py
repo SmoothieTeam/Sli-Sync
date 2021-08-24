@@ -1,4 +1,4 @@
-from classifier.image_transform import ImageTransform
+from domain.image_transform import ImageTransform
 from domain.slide_classifier import SlideClassifier
 from domain.image_loader import ImageLoader
 

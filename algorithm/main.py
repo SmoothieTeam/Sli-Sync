@@ -47,10 +47,10 @@ def main():
 
     starttime = t.time()
 
-    frame_transform = ResizeImageTransform((300, 300))
+    frame_transform = ResizeImageTransform((100, 100))
     slide_transform = ResizeImageTransform((200, 200))
     frame_loader = CV2FrameLoader(video_path, frame_step=args['frame'], second_step=args['time'])
-    frame_queue_loader = RateFrameQueueLoader(frame_loader, frame_transform, mean_squared_error, 700)
+    frame_queue_loader = RateFrameQueueLoader(frame_loader, frame_transform, mean_squared_error, 300)
     image_loader = PDFImageLoader(ppt_path)
     slide_classifier = MinDistanceSlideClassifier(image_loader, slide_transform, mean_squared_error)
     # slide_classifier = RateSlideClassifier(image_loader, slide_transform, mean_squared_error, 1000)
