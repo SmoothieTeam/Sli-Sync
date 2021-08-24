@@ -1,5 +1,7 @@
 import argparse
 import time as t
+import cv2
+import numpy as np
 from skimage.metrics import mean_squared_error, structural_similarity
 
 from classifier.rate_slide_classifier import RateSlideClassifier
@@ -9,12 +11,14 @@ from classifier.max_distance_slide_classifier import MaxDistanceSlideClassifier
 from classifier.min_distance_slide_classifier import MinDistanceSlideClassifier
 from slide_loader.pdf_image_loader import PDFImageLoader
 from slide_loader.ppt_image_loader import PPTImageLoader
+from slide_loader.cached_image_loader import CachedImageLoader
 from frame_loader.cv2_frame_loader import CV2FrameLoader
 from domain.slide_searcher import SlideSearcher
 from classifier.simple_slide_classifier import SimpleSlideClassifier
 from domain.slide_classifier import SlideClassifier
 from image_transform.resize_image_transform import ResizeImageTransform
 from image_transform.gray_image_transform import GrayImageTransform
+from frame_queue_loader.frame_theshold_finder import FrameThresholdFinder
 
 # ppt, pdf에 따른 인자 이름 변경 필요
 parser = argparse.ArgumentParser()
@@ -46,16 +50,18 @@ def main():
     print("start analyzation...\n")
 
     starttime = t.time()
-
+    
     frame_transform = ResizeImageTransform((100, 100))
     slide_transform = ResizeImageTransform((200, 200))
+    slide_loader = PDFImageLoader(ppt_path)
+    slide_loader = CachedImageLoader(slide_loader)
     frame_loader = CV2FrameLoader(video_path, frame_step=args['frame'], second_step=args['time'])
-    frame_queue_loader = RateFrameQueueLoader(frame_loader, frame_transform, mean_squared_error, 600)
-    image_loader = PDFImageLoader(ppt_path)
-    slide_classifier = MinDistanceSlideClassifier(image_loader, slide_transform, mean_squared_error)
-    # slide_classifier = RateSlideClassifier(image_loader, slide_transform, mean_squared_error, 1000)
-    searcher = SlideSearcher(slide_classifier, frame_queue_loader)
 
+    threshold_finder = FrameThresholdFinder(slide_loader, frame_transform, mean_squared_error)
+    frame_queue_loader = RateFrameQueueLoader(frame_loader, frame_transform, mean_squared_error, threshold_finder)
+    slide_classifier = MinDistanceSlideClassifier(slide_loader, slide_transform, mean_squared_error)
+    searcher = SlideSearcher(slide_classifier, frame_queue_loader)
+    
     times = searcher.get_slide_times()
 
     slide_numbers = sorted(times.keys())

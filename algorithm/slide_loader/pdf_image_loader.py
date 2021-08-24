@@ -2,7 +2,7 @@ import os
 import cv2
 from pdf2image import convert_from_path
 
-from classifier.slide_loader import SlideLoader
+from domain.slide_loader import SlideLoader
 
 class PDFImageLoader(SlideLoader):
     def __init__(self, ppt_path):

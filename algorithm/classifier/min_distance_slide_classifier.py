@@ -1,6 +1,6 @@
 from domain.slide_classifier import SlideClassifier
 from domain.image_transform import ImageTransform
-from classifier.slide_loader import SlideLoader
+from domain.slide_loader import SlideLoader
 
 class MinDistanceSlideClassifier(SlideClassifier):
     def __init__(self, slide_loader: SlideLoader, transform: ImageTransform, distance):
