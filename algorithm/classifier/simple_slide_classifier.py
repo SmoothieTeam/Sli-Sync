@@ -1,11 +1,11 @@
 from domain.image_transform import ImageTransform
 from domain.slide_classifier import SlideClassifier
-from domain.image_loader import ImageLoader
+from classifier.slide_loader import SlideLoader
 
 class SimpleSlideClassifier(SlideClassifier):
-    def __init__(self, image_loader: ImageLoader, transform: ImageTransform, distance):
+    def __init__(self, slide_loader: SlideLoader, transform: ImageTransform, distance):
         self.current_slide = 0
-        self.images = list(map(transform.transform, image_loader.get_images()))
+        self.images = list(map(transform.transform, slide_loader.slides()))
         self.transform = transform
         self.distance = distance
 

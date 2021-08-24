@@ -1,7 +1,7 @@
 from domain.image_transform import ImageTransform
 from domain.frame_queue import FrameQueue
-from domain.frame_loader import FrameLoader
 from domain.frame_queue_loader import FrameQueueLoader
+from frame_queue_loader.frame_loader import FrameLoader
 
 class RateFrameQueueLoader(FrameQueueLoader):
     def __init__(self, frame_loader: FrameLoader, transform: ImageTransform, distance, threshold):
