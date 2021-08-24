@@ -2,6 +2,9 @@ import argparse
 import time as t
 from skimage.metrics import mean_squared_error, structural_similarity
 
+from classifier.rate_slide_classifier import RateSlideClassifier
+from frame_queue_loader.rate_frame_queue_loader import RateFrameQueueLoader
+from frame_queue_loader.single_frame_queue_loader import SingleFrameQueueLoader
 from classifier.max_distance_slide_classifier import MaxDistanceSlideClassifier
 from classifier.min_distance_slide_classifier import MinDistanceSlideClassifier
 from data_loader.pdf_image_loader import PDFImageLoader
@@ -22,7 +25,7 @@ parser.add_argument("-p", "--ppt", dest="ppt", required=True,
                     help="the path to your ppt file to be analyzed")
 parser.add_argument("-t", "--time", type=float, dest="time", default=None,
                     help="time quantum to analyze")
-parser.add_argument("-f", "--frame", type=int, dest="frame", default=1,
+parser.add_argument("-f", "--frame", type=int, dest="frame", default=None,
                     help="frame quantum to analyze")
 parser.add_argument("-e", "--elasped", dest="elasped", default=False,
                     help="elasped time taken for the program to run")
@@ -44,12 +47,14 @@ def main():
 
     starttime = t.time()
 
-    transform = ResizeImageTransform((100, 100))
-    # transform = GrayImageTransform(transform)
+    frame_transform = ResizeImageTransform((100, 100))
+    slide_transform = ResizeImageTransform((200, 200))
     frame_loader = CV2FrameLoader(video_path, frame_step=args['frame'], second_step=args['time'])
+    frame_queue_loader = RateFrameQueueLoader(frame_loader, frame_transform, mean_squared_error, 300)
     image_loader = PDFImageLoader(ppt_path)
-    slide_classifier = MinDistanceSlideClassifier(image_loader, transform, mean_squared_error)
-    searcher = SlideSearcher(slide_classifier, frame_loader)
+    slide_classifier = MinDistanceSlideClassifier(image_loader, slide_transform, mean_squared_error)
+    # slide_classifier = RateSlideClassifier(image_loader, slide_transform, mean_squared_error, 1000)
+    searcher = SlideSearcher(slide_classifier, frame_queue_loader)
 
     times = searcher.get_slide_times()
 

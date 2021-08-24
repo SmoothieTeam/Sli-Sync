@@ -1,4 +1,4 @@
-from classifier.image_transform import ImageTransform
+from domain.image_transform import ImageTransform
 
 class IdentityImageTransform(ImageTransform):
     def __init__(self, image_transform: ImageTransform = None):
