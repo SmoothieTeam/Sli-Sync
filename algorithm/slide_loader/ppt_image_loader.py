@@ -2,7 +2,7 @@ import os
 import cv2
 from pptx_tools import utils
 
-from classifier.slide_loader import SlideLoader
+from domain.slide_loader import SlideLoader
 
 class PPTImageLoader(SlideLoader):
     def __init__(self, path):

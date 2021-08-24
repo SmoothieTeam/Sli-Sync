@@ -1,6 +1,6 @@
 import cv2
 
-from frame_queue_loader.frame_loader import FrameLoader
+from domain.frame_loader import FrameLoader
 
 class CV2FrameLoader(FrameLoader):
     def __init__(self, path, frame_step=1, second_step=None):
