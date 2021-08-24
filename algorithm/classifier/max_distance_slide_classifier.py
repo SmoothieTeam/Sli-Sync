@@ -1,11 +1,11 @@
 from domain.slide_classifier import SlideClassifier
-from domain.image_loader import ImageLoader
 from domain.image_transform import ImageTransform
+from classifier.slide_loader import SlideLoader
 
 class MaxDistanceSlideClassifier(SlideClassifier):
-    def __init__(self, image_loader: ImageLoader, transform: ImageTransform, distance):
+    def __init__(self, slide_loader: SlideLoader, transform: ImageTransform, distance):
         self.transform = transform
-        self.images = list(map(self.transform.transform, image_loader.get_images()))
+        self.images = list(map(self.transform.transform, slide_loader.slides()))
         self.distance = distance
 
     def classify(self, queue):

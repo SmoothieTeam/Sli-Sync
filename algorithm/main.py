@@ -7,9 +7,9 @@ from frame_queue_loader.rate_frame_queue_loader import RateFrameQueueLoader
 from frame_queue_loader.single_frame_queue_loader import SingleFrameQueueLoader
 from classifier.max_distance_slide_classifier import MaxDistanceSlideClassifier
 from classifier.min_distance_slide_classifier import MinDistanceSlideClassifier
-from data_loader.pdf_image_loader import PDFImageLoader
-from data_loader.ppt_image_loader import PPTImageLoader
-from data_loader.cv2_frame_loader import CV2FrameLoader
+from slide_loader.pdf_image_loader import PDFImageLoader
+from slide_loader.ppt_image_loader import PPTImageLoader
+from frame_loader.cv2_frame_loader import CV2FrameLoader
 from domain.slide_searcher import SlideSearcher
 from classifier.simple_slide_classifier import SimpleSlideClassifier
 from domain.slide_classifier import SlideClassifier
@@ -50,7 +50,7 @@ def main():
     frame_transform = ResizeImageTransform((100, 100))
     slide_transform = ResizeImageTransform((200, 200))
     frame_loader = CV2FrameLoader(video_path, frame_step=args['frame'], second_step=args['time'])
-    frame_queue_loader = RateFrameQueueLoader(frame_loader, frame_transform, mean_squared_error, 300)
+    frame_queue_loader = RateFrameQueueLoader(frame_loader, frame_transform, mean_squared_error, 600)
     image_loader = PDFImageLoader(ppt_path)
     slide_classifier = MinDistanceSlideClassifier(image_loader, slide_transform, mean_squared_error)
     # slide_classifier = RateSlideClassifier(image_loader, slide_transform, mean_squared_error, 1000)
