@@ -16,15 +16,20 @@ class SlideAreaFinder(SlideLoader):
 
         for video_image in self.video_images:
             resized_video_image = cv2.resize(video_image, dsize=(0, 0), fx=1/self.scale, fy=1/self.scale)
-            video_height, _, _ = resized_video_image.shape
+            video_height, video_width, _ = resized_video_image.shape
 
             for slide in self.slides:
                 for i in range(0, 100, 5):
                     if video_height - i <= 0:
                         break
+                    
                     template_height = video_height - i
                     template_width = template_height * slide_width // slide_height
                     template = cv2.resize(slide, (template_width, template_height))
+                    
+                    if template_height < video_height or template_width < video_width:
+                        break
+                    
                     result = cv2.matchTemplate(resized_video_image, template, cv2.TM_SQDIFF_NORMED)
                     match_result, _, coordinate, _ = cv2.minMaxLoc(result)
                     x, y = coordinate

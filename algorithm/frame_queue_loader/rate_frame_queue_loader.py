@@ -22,7 +22,7 @@ class RateFrameQueueLoader(FrameQueueLoader):
             cache = self.transform.transform(frame)
             distance = self.distance(cache, prev_cache)
             dr = distance - prev_distance
-            if abs(dr) > self.threshold_finder.threshold():
+            if dr > self.threshold_finder.threshold():
                 yield queue
                 queue = FrameQueue()
             queue.push(time, prev_frame)
