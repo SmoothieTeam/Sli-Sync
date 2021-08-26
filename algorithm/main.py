@@ -56,8 +56,8 @@ def main():
     frame_loader = CV2FrameLoader(video_path, frame_step=args['frame'], second_step=args['time'])
 
     uniform_frame_loader = UniformFrameLoader(video_path)
-    slide_area_finder = SlideAreaFinder(slide_loader, uniform_frame_loader)
-    crop_transform = CropImageTransform(slide_area_finder.findmask())
+    slide_area_finder = SlideAreaFinder(slide_loader, uniform_frame_loader, 6)
+    crop_transform = CropImageTransform(slide_area_finder.find_mask())
     threshold_transform = ResizeImageTransform((100, 100))
     frame_transform = ResizeImageTransform((100, 100), crop_transform)
     slide_transform = ResizeImageTransform((200, 200))
