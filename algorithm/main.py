@@ -1,8 +1,5 @@
-
 import argparse
 import time as t
-import cv2
-import numpy as np
 from skimage.metrics import mean_squared_error, structural_similarity
 
 from classifier.rate_slide_classifier import RateSlideClassifier
