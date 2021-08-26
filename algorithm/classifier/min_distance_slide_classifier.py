@@ -3,13 +3,15 @@ from domain.image_transform import ImageTransform
 from domain.slide_loader import SlideLoader
 
 class MinDistanceSlideClassifier(SlideClassifier):
-    def __init__(self, slide_loader: SlideLoader, transform: ImageTransform, distance):
+    def __init__(self, slide_loader: SlideLoader, transform: ImageTransform, slide_area_transform: ImageTransform, distance):
         self.transform = transform
+        self.slide_area_transform = slide_area_transform
         self.images = list(map(self.transform.transform, slide_loader.slides()))
         self.distance = distance
 
     def classify(self, queue):
         _, image = queue.frames()
+        image = self.slide_area_transform.transform(image)
         image = self.transform.transform(image)
         compare = lambda i: self.distance(self.images[i], image)
         most_similar_slide = min(range(len(self.images)), key=compare)
