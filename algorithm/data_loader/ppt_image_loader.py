@@ -2,9 +2,9 @@ import os
 import cv2
 from pptx_tools import utils
 
-from domain.slide_loader import SlideLoader
+from data_adapter.image_loader import ImageLoader
 
-class PPTImageLoader(SlideLoader):
+class PPTImageLoader(ImageLoader):
     def __init__(self, path):
         self.path = path
 
@@ -21,7 +21,7 @@ class PPTImageLoader(SlideLoader):
 
         utils.save_pptx_as_png(image_folder, ppt_file)
 
-    def slides(self):
+    def images(self):
         images = []
 
         self.ppt2png()

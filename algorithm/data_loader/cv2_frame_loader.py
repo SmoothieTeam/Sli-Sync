@@ -1,12 +1,15 @@
 import cv2
 
-from domain.frame_loader import FrameLoader
+from data_adapter.frame_loader import FrameLoader
 
-class UniformFrameLoader(FrameLoader):
-    def __init__(self, path):
+class CV2FrameLoader(FrameLoader):
+    def __init__(self, path, frame_step=1, second_step=None):
         self.video = cv2.VideoCapture(path)
-        self.fps = int(self.video.get(cv2.CAP_PROP_FPS) / 2)
-        self.step = int(self.video.get(cv2.CAP_PROP_FRAME_COUNT) / 5)
+        self.fps = self.video.get(cv2.CAP_PROP_FPS)
+        if second_step != None:
+            self.step = max(int(second_step * self.fps), 1)
+        else:
+            self.step = frame_step
 
     def frame_time(self, count):
         return count / self.fps
@@ -20,5 +23,5 @@ class UniformFrameLoader(FrameLoader):
                 ret, frame = self.video.retrieve()
                 if not ret:
                     break
-                yield frame
+                yield self.frame_time(frame_count), frame
         self.video.release()

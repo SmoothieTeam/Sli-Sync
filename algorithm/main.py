@@ -2,24 +2,27 @@ import argparse
 import time as t
 from skimage.metrics import mean_squared_error, structural_similarity
 
-from classifier.rate_slide_classifier import RateSlideClassifier
-from frame_queue_loader.rate_frame_queue_loader import RateFrameQueueLoader
-from frame_queue_loader.single_frame_queue_loader import SingleFrameQueueLoader
-from classifier.max_distance_slide_classifier import MaxDistanceSlideClassifier
-from classifier.min_distance_slide_classifier import MinDistanceSlideClassifier
-from slide_loader.pdf_image_loader import PDFImageLoader
-from slide_loader.ppt_image_loader import PPTImageLoader
-from slide_loader.cached_image_loader import CachedImageLoader
-from frame_loader.uniform_frame_loader import UniformFrameLoader
-from frame_loader.cv2_frame_loader import CV2FrameLoader
+from data_loader.pdf_image_loader import PDFImageLoader
+from data_loader.ppt_image_loader import PPTImageLoader
+from data_loader.uniform_frame_loader import UniformFrameLoader
+from data_loader.cv2_frame_loader import CV2FrameLoader
+
+from data_adapter.frame_queue_loader.rate_frame_queue_loader import RateFrameQueueLoader
+from data_adapter.frame_queue_loader.single_frame_queue_loader import SingleFrameQueueLoader
+
+from data_adapter.image_transform.resize_image_transform import ResizeImageTransform
+from data_adapter.image_transform.gray_image_transform import GrayImageTransform
+from data_adapter.image_transform.crop_image_transform import CropImageTransform
+from data_adapter.frame_queue_loader.neighbor_frame_theshold_finder import NeighborFrameThresholdFinder
+from data_adapter.area_finder.slide_area_finder import SlideAreaFinder
+
+from data_adapter.slide_adapter import SlideAdapter
+
 from domain.slide_searcher import SlideSearcher
-from classifier.simple_slide_classifier import SimpleSlideClassifier
-from domain.slide_classifier import SlideClassifier
-from image_transform.resize_image_transform import ResizeImageTransform
-from image_transform.gray_image_transform import GrayImageTransform
-from image_transform.crop_image_transform import CropImageTransform
-from frame_queue_loader.frame_theshold_finder import FrameThresholdFinder
-from area_finder.slide_area_finder import SlideAreaFinder
+from domain.classifier.rate_slide_classifier import RateSlideClassifier
+from domain.classifier.simple_slide_classifier import SimpleSlideClassifier
+from domain.classifier.max_distance_slide_classifier import MaxDistanceSlideClassifier
+from domain.classifier.min_distance_slide_classifier import MinDistanceSlideClassifier
 
 # ppt, pdf에 따른 인자 이름 변경 필요
 parser = argparse.ArgumentParser()
@@ -51,22 +54,21 @@ def main():
     print("start analyzation...\n")
 
     starttime = t.time()
-    slide_loader = PDFImageLoader(ppt_path)
-    slide_loader = CachedImageLoader(slide_loader)
-    frame_loader = CV2FrameLoader(video_path, frame_step=args['frame'], second_step=args['time'])
 
+    frame_loader = CV2FrameLoader(video_path, frame_step=args['frame'], second_step=args['time'])
     uniform_frame_loader = UniformFrameLoader(video_path)
+
+    image_loader = PDFImageLoader(ppt_path)
+    slide_loader = SlideAdapter(image_loader)
+
     slide_area_finder = SlideAreaFinder(slide_loader, uniform_frame_loader, 6)
+    
     crop_transform = CropImageTransform(slide_area_finder.find_mask())
     threshold_transform = ResizeImageTransform((100, 100))
     frame_transform = ResizeImageTransform((100, 100), crop_transform)
     slide_transform = ResizeImageTransform((200, 200))
 
-    slide_loader = PDFImageLoader(ppt_path)
-    slide_loader = CachedImageLoader(slide_loader)
-    frame_loader = CV2FrameLoader(video_path, frame_step=args['frame'], second_step=args['time'])
-
-    threshold_finder = FrameThresholdFinder(slide_loader, threshold_transform, mean_squared_error)
+    threshold_finder = NeighborFrameThresholdFinder(slide_loader, threshold_transform, mean_squared_error)
     frame_queue_loader = RateFrameQueueLoader(frame_loader, frame_transform, mean_squared_error, threshold_finder)
     slide_classifier = MinDistanceSlideClassifier(slide_loader, slide_transform, crop_transform, mean_squared_error)
     searcher = SlideSearcher(slide_classifier, frame_queue_loader)
