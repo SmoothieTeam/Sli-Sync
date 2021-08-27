@@ -16,12 +16,12 @@ class CV2FrameLoader(FrameLoader):
 
     def frames(self):
         frame_count = 0
-        while(self.video.isOpened()):
+        while self.video.isOpened():
             self.video.grab()
-            frame_count += 1
             if frame_count % self.step == 0:
                 ret, frame = self.video.retrieve()
                 if not ret:
                     break
                 yield self.frame_time(frame_count), frame
+            frame_count += 1
         self.video.release()

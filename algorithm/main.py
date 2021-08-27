@@ -13,6 +13,8 @@ from data_adapter.frame_queue_loader.single_frame_queue_loader import SingleFram
 from data_adapter.image_transform.resize_image_transform import ResizeImageTransform
 from data_adapter.image_transform.gray_image_transform import GrayImageTransform
 from data_adapter.image_transform.crop_image_transform import CropImageTransform
+from data_adapter.image_transform.identity_image_transform import IdentityImageTransform
+
 from data_adapter.frame_queue_loader.neighbor_frame_theshold_finder import NeighborFrameThresholdFinder
 from data_adapter.area_finder.slide_area_finder import SlideAreaFinder
 
@@ -61,9 +63,10 @@ def main():
     image_loader = PDFImageLoader(ppt_path)
     slide_loader = SlideAdapter(image_loader)
 
-    slide_area_finder = SlideAreaFinder(slide_loader, uniform_frame_loader, 6)
+    slide_area_finder = SlideAreaFinder(slide_loader, uniform_frame_loader, 8)
     
     crop_transform = CropImageTransform(slide_area_finder.find_mask())
+    # crop_transform = IdentityImageTransform()
     threshold_transform = ResizeImageTransform((100, 100))
     frame_transform = ResizeImageTransform((100, 100), crop_transform)
     slide_transform = ResizeImageTransform((200, 200))
