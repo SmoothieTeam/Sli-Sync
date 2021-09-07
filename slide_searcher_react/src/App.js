@@ -3,6 +3,8 @@ import { Switch, Route } from 'react-router-dom';
 import React from 'react';
 import VideoViewPage from './pages/VideoViewPage.js';
 import VideoEditPage from './pages/VideoEditPage.js';
+import UploadedPage from './pages/UploadedPage.js';
+import LoadingPage from './pages/LoadingPage.js';
 
 function App() {
   const handleUpload = (t, v, s) => {
@@ -37,7 +39,8 @@ function App() {
             onSubmit={handleUpdate}/>
         </Route>
         <Route path='/'>
-          <UploadPage onSubmit={handleUpload}/>
+          <LoadingPage />
+          {/* <UploadPage onSubmit={handleUpload}/> */}
         </Route>
       </Switch>
     </div>
