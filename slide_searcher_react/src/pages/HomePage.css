@@ -1,0 +1,115 @@
+@import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css');
+
+div.header {
+    position: relative;
+    width: 100%;
+    height: 50px;
+    left: 0px;
+
+    background: #FFFFFF 0% 0% no-repeat padding-box;
+    box-shadow: 0px 3px 10px #00000019;
+}
+
+img.done_image {
+    position: absolute;
+    top: 20%;
+    left: 50%;
+    border: #00000019;
+    margin-left: -75px;
+    width: 150px;
+    height: 150px;
+}
+h2.inform{
+    position: absolute;
+    top: 34%;
+    text-align: center;
+    margin-left: -178px;
+    left: 50%;
+    width: 356px;
+    height: 36px;
+    color: var(--unnamed-color-6b768d);
+    font: italic normal medium 40px/54px Futura;
+    letter-spacing: 0px;
+    color: #6B768D;
+}
+div.inform_ment{
+    position: absolute;
+    top: 43%;
+    left: 50%;
+    text-align: center;
+    margin-left: -343px;
+    width: 686px;
+    height: 63x;
+    font-family: Pretendard;
+    font-size: large;
+    color: #A2ADC2;
+}
+
+h2.start {
+    position: absolute;
+    top: 57%;
+    text-align: center;
+    margin-left: -178px;
+    left: 50%;
+    width: 356px;
+    height: 36px;
+    color: var(--unnamed-color-6b768d);
+    text-align: center;
+    font: normal normal medium Pretendard;
+    letter-spacing: 3px;
+    font-size: x-large;
+    color: #6B768D;
+}
+
+div.start_ment{
+    position: absolute;
+    top: 64%;
+    left: 50%;
+    text-align: center;
+    margin-left: -100px;
+    width: 200px;
+    height: 29px;
+    font-family: Pretendard;
+    font-size: large;
+    color: #A2ADC2;
+}
+button{
+    position: absolute;
+    top: 73%;
+    left: 50%;
+    text-align: center;
+    margin-left: -120px;
+    width: 240px;
+    height: 70px;
+    font-family: Pretendard;
+    font-size: x-large;
+    color: white;
+    border:#6c8bfd;
+    background-color: #6c8bfd;
+    border-radius: 35px 35px 35px 35px;
+}
+div.contact_message{
+    position: absolute;
+    top: 86%;
+    left: 0px;
+    bottom: 0%;
+    width: 100%;
+    height: 14%;
+    background: #333333 0% 0% no-repeat padding-box;
+    text-align: center;
+
+}
+span.contact{
+    padding: 8%;
+    text-align: center;
+    vertical-align: middle;
+    font: normal normal medium 24px/29px Pretendard;
+    letter-spacing: 0px;
+    font-size: x-large;
+    color: #666666;
+}
+span.email{
+    text-align: center;
+    letter-spacing: 0px;
+    color: #666666;
+}

@@ -5,6 +5,8 @@ import VideoViewPage from './pages/VideoViewPage.js';
 import VideoEditPage from './pages/VideoEditPage.js';
 import UploadedPage from './pages/UploadedPage.js';
 import LoadingPage from './pages/LoadingPage.js';
+import HomePage from './pages/HomePage.js';
+
 
 function App() {
   const handleUpload = (t, v, s) => {
@@ -39,7 +41,7 @@ function App() {
             onSubmit={handleUpdate}/>
         </Route>
         <Route path='/'>
-          <LoadingPage />
+          <HomePage />
           {/* <UploadPage onSubmit={handleUpload}/> */}
         </Route>
       </Switch>
