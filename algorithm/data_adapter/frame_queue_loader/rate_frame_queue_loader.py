@@ -1,8 +1,8 @@
-from frame_queue_loader.frame_theshold_finder import FrameThresholdFinder
 from domain.image_transform import ImageTransform
 from domain.frame_queue import FrameQueue
 from domain.frame_queue_loader import FrameQueueLoader
-from domain.frame_loader import FrameLoader
+from data_adapter.frame_loader import FrameLoader
+from data_adapter.frame_threshold_finder import FrameThresholdFinder
 
 class RateFrameQueueLoader(FrameQueueLoader):
     def __init__(self, frame_loader: FrameLoader, transform: ImageTransform, distance, threshold_finder: FrameThresholdFinder):

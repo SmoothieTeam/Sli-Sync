@@ -9,11 +9,9 @@ class FrameQueue:
             return f(self.q)
 
     def head(self):
-        # tail ----> head
         return self.__safe_access_q(lambda l: l[-1])
 
     def tail(self):
-        # tail ----> head
         return self.__safe_access_q(lambda l: l[0])
 
     def times(self):

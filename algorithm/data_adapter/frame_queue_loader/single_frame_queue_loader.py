@@ -1,6 +1,6 @@
 from domain.frame_queue import FrameQueue
 from domain.frame_queue_loader import FrameQueueLoader
-from domain.frame_loader import FrameLoader
+from data_adapter.frame_loader import FrameLoader
 
 class SingleFrameQueueLoader(FrameQueueLoader):
     def __init__(self, frame_loader: FrameLoader):
