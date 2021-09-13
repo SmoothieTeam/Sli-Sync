@@ -40,7 +40,7 @@ div.announce_ment{
     font-size: x-large;
     color: #A2ADC2;
 }
-input.url{
+button.url{
     position: absolute;
     top: 52%;
     left: 27%;
@@ -54,7 +54,7 @@ input.url{
     background-color: #FFFFFF;
 }
 
-input.email{
+button.email{
     position: absolute;
     top: 52%;
     left: 31.2%;
@@ -67,7 +67,7 @@ input.email{
     border:#6c8bfd;
     background-color: #FFFFFF;
 }
-input.url:focus{
+button.url:focus{
     position: absolute;
     top: 52%;
     left: 27%;
@@ -82,7 +82,7 @@ input.url:focus{
     border-bottom: 2px solid #6c8bfd;
 }
 
-input.email:focus{
+button.email:focus{
     position: absolute;
     top: 52%;
     left: 31.2%;
@@ -120,6 +120,15 @@ hr{
     opacity: 0.3;
 }
 input.share_url{
+    position: absolute;
+    top: 60%;
+    left: 27%;
+    width: 500px;
+    height: 30px;
+    border: 1px solid #DDDDDD;
+    border-radius: 8px;
+}
+input.share_email{
     position: absolute;
     top: 60%;
     left: 27%;

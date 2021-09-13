@@ -41,7 +41,7 @@ progress.progress_bar{
     height: 20px;
 }
 
-h2 {
+h2.loading_percent {
     position: absolute;
     top: 60%;
     text-align: center;

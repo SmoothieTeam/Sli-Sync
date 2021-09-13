@@ -73,7 +73,7 @@ div.start_ment{
     font-size: large;
     color: #A2ADC2;
 }
-button{
+button.browse{
     position: absolute;
     top: 73%;
     left: 50%;

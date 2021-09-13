@@ -19,7 +19,7 @@ function UploadedPage() {
             <div className='start_ment'>
                 Click on the button
             </div>
-            <button>Browse files</button>
+            <button className='browse'>Browse files</button>
         </div>
         <div className='contact_message'>
             <span className='contact'>Contact us<br/></span>
