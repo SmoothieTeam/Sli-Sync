@@ -16,6 +16,8 @@ function VideoViewPage({videoLoader, slideIndexLoader}) {
     const handleSeeking = (time) => {
         player.current.seekTo(time, 'seconds');
     };
+    const sendEmail = () => {};
+    const copyLink = () => {};
 
     return (<div className='video_view_page'>
         <div className="video_index">
@@ -36,7 +38,7 @@ function VideoViewPage({videoLoader, slideIndexLoader}) {
                 height='506px'
                 type="video/mp4" />
         </div>
-        <SharePanel className='share_panel'/>
+        <SharePanel className='share_panel' events={{sendEmail, copyLink}}/>
     </div>);
 }
 
