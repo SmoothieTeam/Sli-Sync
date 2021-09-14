@@ -1,0 +1,15 @@
+hr {
+    margin: 0;
+    width: 100%;
+    height: 5px;
+    background-color: red;
+    border: 0;
+}
+
+hr:after {
+    content: '';
+    display: block;
+    border-bottom: 5px solid green;
+    max-width: 50%;
+}
+  

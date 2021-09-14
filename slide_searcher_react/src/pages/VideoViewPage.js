@@ -4,6 +4,7 @@ import SlideIndex from '../components/SlideIndex';
 import { Link, useParams } from 'react-router-dom';
 
 import './VideoViewPage.css';
+import SharePanel from '../components/SharePanel';
 
 function VideoViewPage({videoLoader, slideIndexLoader}) {
     const { id } = useParams();
@@ -35,6 +36,7 @@ function VideoViewPage({videoLoader, slideIndexLoader}) {
                 height='506px'
                 type="video/mp4" />
         </div>
+        <SharePanel className='share_panel'/>
     </div>);
 }
 
