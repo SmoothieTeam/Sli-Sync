@@ -3,7 +3,10 @@ import './HomePage.css';
 
 function HomePage() {
     return (<div>
-        <div className='header'></div>
+        <div className='header'>
+            <span className='title'>Sli-Sync</span>
+            <button className='upload_button'>Upload files</button>
+        </div>
         <div className='loaing_animation'>
             <img src='HomePage_Pic.png' className='done_image' />
         </div>
@@ -19,7 +22,7 @@ function HomePage() {
             <div className='start_ment'>
                 Click on the button
             </div>
-            <button className='browse'>Browse files</button>
+            <button className='browse_button' to='/UploadPage' >Browse files</button>
         </div>
         <div className='contact_message'>
             <span className='contact'>Contact us<br/></span>
