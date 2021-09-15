@@ -1,7 +1,7 @@
 import React from 'react';
 import './HomePage.css';
 
-function UploadedPage() {
+function HomePage() {
     return (<div>
         <div className='header'></div>
         <div className='loaing_animation'>
@@ -31,4 +31,4 @@ function UploadedPage() {
     </div>);
 }
 
-export default UploadedPage;
+export default HomePage;

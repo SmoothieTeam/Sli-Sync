@@ -41,7 +41,7 @@ function App() {
             onSubmit={handleUpdate}/>
         </Route>
         <Route path='/'>
-          <UploadedPage />
+          <LoadingPage />
           {/* <UploadPage onSubmit={handleUpload}/> */}
         </Route>
       </Switch>
