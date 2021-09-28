@@ -3,7 +3,7 @@ import './FileProgress.css';
 function FileProgress({ className, file, progress }) {
     return (<div className={className}>
         <div className='icon'>
-            <img src='cloud.svg'/>
+            <img src={progress < 1.0 ? 'cloud.svg' : 'cloud_done.svg'}/>
         </div>
         <div className='div_progress'>
             {Math.round(progress * 100)} % <br/>
