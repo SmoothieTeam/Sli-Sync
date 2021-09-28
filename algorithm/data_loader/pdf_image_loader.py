@@ -2,9 +2,9 @@ import os
 import cv2
 from pdf2image import convert_from_path
 
-from domain.slide_loader import SlideLoader
+from data_adapter.image_loader import ImageLoader
 
-class PDFImageLoader(SlideLoader):
+class PDFImageLoader(ImageLoader):
     def __init__(self, ppt_path):
         self.path = ppt_path
 
@@ -20,7 +20,7 @@ class PDFImageLoader(SlideLoader):
         for i in range(len(images)):
             images[i].save('./imgs/page'+ str(i).zfill(3) +'.jpg', 'JPEG')
 
-    def slides(self):
+    def images(self):
         images = []
 
         self.pdf2image()
