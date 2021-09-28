@@ -1,0 +1,35 @@
+.slide_image_container {
+    width: 900px;
+    height: 85px;
+    overflow: hidden;
+    overflow-x: auto;
+    white-space: nowrap;
+    -ms-overflow-style: none; 
+    scrollbar-width: none;
+}
+
+.slide_image_container::-webkit-scrollbar {
+    display: none;
+}
+
+.slide_image {
+    max-height: 100%;
+    margin-right: 20px;
+    border: 1px solid #00000000;
+}
+
+.slide_image:hover {
+    border: 1px solid #A2ADC2;
+}
+
+.slide_image_paging {
+    height: 24px;
+    font-size: 16px;
+    line-height: 24px;
+    text-align: center;
+}
+
+.slide_image_paging img {
+    height: 24px;
+    width: 24px;
+}

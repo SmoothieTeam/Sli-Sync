@@ -33,6 +33,13 @@ h1 {
     margin-top: 80px;
 }
 
+.slide_slider::-webkit-scrollbar {
+    display: none;
+}
+
+.slide_slider {
+}
+
 .share_panel {
     display: block;
 }

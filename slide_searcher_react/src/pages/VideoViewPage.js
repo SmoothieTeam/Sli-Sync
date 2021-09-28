@@ -1,10 +1,11 @@
 import ReactPlayer from 'react-player';
 import React, { useRef } from 'react';
 import SlideIndex from '../components/SlideIndex';
-import { Link, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 
 import './VideoViewPage.css';
 import SharePanel from '../components/SharePanel';
+import SlideSlider from '../components/SlideSlider';
 
 function VideoViewPage({videoLoader, slideIndexLoader}) {
     const { id } = useParams();
@@ -37,8 +38,9 @@ function VideoViewPage({videoLoader, slideIndexLoader}) {
                 width='900px'
                 height='506px'
                 type="video/mp4" />
+            <SlideSlider className='slide_slider' slideSrcs={['asdf.png', 'asdf.png', 'asdf.png', 'asdf.png', 'asdf.png', 'asdf.png']}/>
+            <SharePanel className='share_panel' events={{sendEmail, copyLink}}/>
         </div>
-        <SharePanel className='share_panel' events={{sendEmail, copyLink}}/>
     </div>);
 }
 
