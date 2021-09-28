@@ -32,13 +32,19 @@ div {
     text-align: center;
 }
 
+.progres_container {
+    padding-top: 60px;
+    padding-bottom: 90px;
+}
+
 .pdf_progress {
-    margin-top: 70px;
-    margin-bottom: 20px;
+    margin-top: 10px;
+    margin-bottom: 10px;
 }
 
 .video_progress {
-    margin-bottom: 100px;
+    margin-top: 10px;
+    margin-bottom: 10px;
 }
 
 .upload_file_input {

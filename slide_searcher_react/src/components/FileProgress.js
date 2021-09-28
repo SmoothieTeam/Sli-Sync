@@ -1,16 +1,16 @@
 import './FileProgress.css';
 
-function FileProgress({ className }) {
+function FileProgress({ className, file, progress }) {
     return (<div className={className}>
         <div className='icon'>
             <img src='cloud.svg'/>
         </div>
         <div className='div_progress'>
-            20 % <br/>
+            {Math.round(progress * 100)} % <br/>
             <div className='progress_container'>
-                <progress className='progress' min={0} value={0.5}/> <br/>
+                <progress className='progress' min={0} value={progress}/> <br/>
             </div>
-            filename.pdf
+            {file?.name ?? ''}
         </div>
     </div>);
 }
