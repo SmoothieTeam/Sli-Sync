@@ -10,6 +10,7 @@ div.header {
 }
 
 div.circle {
+    clip-path: circle(135px at center);
     position: absolute;
     top: 20%;
     left: 50%;
@@ -20,16 +21,69 @@ div.circle {
     border-radius: 50%
 }
 
-img.done_image {
-    position: relative;
-    top: 50%;
-    left: 50%;@import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css');
+img.Loading_image1{
+    position: absolute;
+    top: 28%;
+    margin-left: -60px;
+    width: 120px;
+    height: 120px;
+    animation-name: Loading1;
+    animation-duration:6s;
+    animation-duration: leaner;
+    animation-iteration-count:infinite;
+    animation-direction:normal;
+    animation-fill-mode: forwards;
+}
 
-    border: #00000019;
-    margin-top: -50px;
-    margin-left: -50px;
-    width: 100px;
-    height: 100px;
+@keyframes Loading1 {
+    0% {
+        left: 700px;
+      }
+      40%{
+          left: 50%;
+      }
+      50%{
+          left: 50%;
+      }
+      60%{
+          left: 50%;
+      }
+      100% {
+        left:-200px;
+      }
+  }
+
+img.Loading_image2{
+    position: absolute;
+    top: 28%;
+    left: -100px;
+    margin-left: -60px;
+    width: 120px;
+    height: 120px;
+    animation-name: Loading2;
+    animation-duration:6s;
+    animation-delay: 3s;
+    animation-duration: leaner;
+    animation-iteration-count:infinite;
+    animation-direction:normal;
+    animation-fill-mode: forwards;
+}
+@keyframes Loading2 {
+    0% {
+      left: 700px;
+    }
+    40%{
+        left: 50%;
+    }
+    50%{
+        left: 50%;
+    }
+    60%{
+        left: 50%;
+    }
+    100% {
+      left:-200px;
+    }
 }
 
 progress.progress_bar{

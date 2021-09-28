@@ -5,21 +5,53 @@ div.header {
     width: 100%;
     height: 50px;
     left: 0px;
-
     background: #FFFFFF 0% 0% no-repeat padding-box;
     box-shadow: 0px 3px 10px #00000019;
 }
+.title{
+    position: absolute;
+    top: 13%;
+    left: 4%;
+    text-align: left;
+    font-family: Futura;
+    letter-spacing: 0px;
+    color: #6C8BFD;
+    font-style: italic;
+    font-weight: bold; 
+    font-size: xx-large;
+}
+.upload_button{
+    position: absolute;
+    top: 13%;
+    left: 93%;
+    text-align: center;
+    border-radius: 35px;
 
+    margin-left: -54px;
+    width: 130px;
+    height: 36px;
+    font-family: Pretendard;
+    font-size: large;
+    color: white;
+    border:#6c8bfd;
+    background-color: #6c8bfd;
+    border-radius: 35px 35px 35px 35px;
+}
+.upload_button:hover{
+    cursor: pointer;
+    background: #6274F0;
+    color: white;
+}
 img.done_image {
     position: absolute;
-    top: 20%;
+    top: 16%;
     left: 50%;
     border: #00000019;
     margin-left: -75px;
     width: 150px;
     height: 150px;
 }
-h2.inform{
+.inform{
     position: absolute;
     top: 34%;
     text-align: center;
@@ -27,9 +59,10 @@ h2.inform{
     left: 50%;
     width: 356px;
     height: 36px;
-    color: var(--unnamed-color-6b768d);
-    font: italic normal medium 40px/54px Futura;
-    letter-spacing: 0px;
+    font-size: 35px;
+    font-style: italic;
+    font-family: Futura;
+    letter-spacing: 2px;
     color: #6B768D;
 }
 div.inform_ment{
@@ -73,11 +106,13 @@ div.start_ment{
     font-size: large;
     color: #A2ADC2;
 }
-button.browse{
+.browse_button{
     position: absolute;
-    top: 73%;
+    top: 71%;
     left: 50%;
     text-align: center;
+    border-radius: 35px;
+
     margin-left: -120px;
     width: 240px;
     height: 70px;
@@ -87,6 +122,11 @@ button.browse{
     border:#6c8bfd;
     background-color: #6c8bfd;
     border-radius: 35px 35px 35px 35px;
+}
+.browse_button:hover{
+    cursor: pointer;
+    background: #6274F0;
+    color: white;
 }
 div.contact_message{
     position: absolute;
@@ -100,7 +140,6 @@ div.contact_message{
 
 }
 span.contact{
-    padding: 8%;
     text-align: center;
     vertical-align: middle;
     font: normal normal medium 24px/29px Pretendard;
