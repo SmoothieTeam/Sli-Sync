@@ -3,7 +3,6 @@ import './UploadFileInput.css';
 
 function UploadFileInput({ className, id, text, onChangeFile, accept }) {
     const handleFile = (e) => {
-        console.log(e);
         onChangeFile(e.target.files[0]);
     };
     

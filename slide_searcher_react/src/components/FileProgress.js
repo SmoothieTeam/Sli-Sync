@@ -10,7 +10,7 @@ function FileProgress({ className, file, progress }) {
             <div className='progress_container'>
                 <progress className='progress' min={0} value={progress}/> <br/>
             </div>
-            {file?.name ?? ''}
+            { file.name }
         </div>
     </div>);
 }

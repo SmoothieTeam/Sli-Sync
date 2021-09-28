@@ -8,9 +8,9 @@ import './UploadPage.css';
 function UploadPage({ onSubmit, uploader }) {
     let title = "";
     const [video, setVideo] = useState();
-    const [videoProgress, setVideoProgress] = useState();
+    const [videoProgress, setVideoProgress] = useState(0);
     const [slide, setSlide] = useState();
-    const [slideProgress, setSlideProgress] = useState();
+    const [slideProgress, setSlideProgress] = useState(0);
     
     const handleTitle = (e) => {
         title = e.target.value;
