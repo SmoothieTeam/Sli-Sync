@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import './SharePanel.css';
 
-function SharePanel({ className, events: {sendEmail, copyLink} }) {
+function SharePanel({className, title, events: {sendEmail, copyLink}}) {
     const [category, setCategory] = useState('url');
     const [showPopup, setShowPopup] = useState(false);
 
@@ -45,13 +45,15 @@ function SharePanel({ className, events: {sendEmail, copyLink} }) {
             <input id='email_radio' type='radio' className='share_panel_button email' name='category' value='email' onChange={onCategoryChange} checked={isCheckedInCategory('email')}/>
             <label htmlFor='email_radio'>Email</label>
 
+            <div className='title'>{title}</div>
+
             <hr></hr>
 
             <div className='title_container'>
                 <input className='share_panel_text' type='text'/>
                 <div className='share_panel_submit_container'>
                     { showPopup ? <div className='share_panel_popup'>{popupTexts[category]}</div> : <div></div>}
-                    <button className='share_panel_submit' type='submit' onClick={onClick}>{submitTexts[category]}</button>
+                    <button className={`share_panel_submit submit_${category}`} type='submit' onClick={onClick}>{submitTexts[category]}</button>
                 </div>
             </div>
         </div>

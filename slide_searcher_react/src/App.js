@@ -19,7 +19,11 @@ function App() {
     getTitle: (id) => '운영체제론 1강'
   };
   const slideIndexLoader = {
-    getIndexes: (id) => [{index: 0, time: 0.0}, {index: 1, time: 24.0}, {index: 2, time: 103.0}]
+    getIndexes: (id) => [
+      {index: 0, time: 0.0, src:'asdf.png'}, 
+      {index: 1, time: 24.0, src:'asdf.png'}, 
+      {index: 2, time: 103.0, src:'asdf.png'}
+    ]
   }
 
   return(
