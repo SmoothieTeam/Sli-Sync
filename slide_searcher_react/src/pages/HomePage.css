@@ -10,8 +10,8 @@ div.header {
 }
 .title{
     position: absolute;
-    top: 13%;
-    left: 4%;
+    top: 5%;
+    left: 3%;
     text-align: left;
     font-family: Futura;
     letter-spacing: 0px;
@@ -26,6 +26,7 @@ div.header {
     left: 93%;
     text-align: center;
     border-radius: 35px;
+    line-height: 35px;
 
     margin-left: -54px;
     width: 130px;
@@ -36,6 +37,7 @@ div.header {
     border:#6c8bfd;
     background-color: #6c8bfd;
     border-radius: 35px 35px 35px 35px;
+    text-decoration: none;
 }
 .upload_button:hover{
     cursor: pointer;
@@ -107,12 +109,13 @@ div.start_ment{
     color: #A2ADC2;
 }
 .browse_button{
+    display: inline-block;
     position: absolute;
     top: 71%;
     left: 50%;
     text-align: center;
     border-radius: 35px;
-
+    line-height: 70px;
     margin-left: -120px;
     width: 240px;
     height: 70px;
@@ -122,6 +125,8 @@ div.start_ment{
     border:#6c8bfd;
     background-color: #6c8bfd;
     border-radius: 35px 35px 35px 35px;
+    text-decoration: none;
+
 }
 .browse_button:hover{
     cursor: pointer;

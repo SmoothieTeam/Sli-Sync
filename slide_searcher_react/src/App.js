@@ -18,6 +18,7 @@ function App() {
     console.log(v);
     console.log(s);
   }
+  // percentage도 이런식으로 제작 => 변경없이 쓸수있는 장점이 있다.
   const videoLoader = {
     getSource: (id) => 'ppt_no_animated.mp4',
     getTitle: (id) => '운영체제론 1강'
@@ -29,6 +30,7 @@ function App() {
   return(
     <div className='App'>
       <Switch>
+        {/* Route에 initial 인자 */}
         <Route exact path='/view/:id'>
           <VideoViewPage
             videoLoader={videoLoader} 
@@ -40,9 +42,20 @@ function App() {
             slideIndexLoader={slideIndexLoader}
             onSubmit={handleUpdate}/>
         </Route>
-        <Route path='/'>
+        <Route path='/home'>
+          <HomePage />
+        </Route>
+        <Route path='/uploaded/:id'>
           <UploadedPage />
-          {/* <UploadPage onSubmit={handleUpload}/> */}
+        </Route>
+        <Route exact path='/'>
+          {/* id에 따라 값을 가져오는 함수로 제작 => ResultPage를 참고 */}
+          <LoadingPage percentage={70}>
+            
+          </LoadingPage>
+        </Route>
+        <Route exact path='/upload/:id'>
+          <UploadPage />
         </Route>
       </Switch>
     </div>

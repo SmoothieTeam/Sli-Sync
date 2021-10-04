@@ -19,7 +19,7 @@ function UploadPage({ onSubmit }) {
         <input type="text" onChange = {handleTitle} name="Title"/>
         <input type="file" accept="video/*" onChange = {handleVideo} name="Video File"/>
         <input type="file" accept=".pdf,.ppt,.pptx" onChange = {handleSlide} name="Slide File"/>
-        <Link to="/view/1" type="submit" onClick = {() => onSubmit(title, video, slide)}>Submit</Link>
+        <Link to="/upload/1" type="submit" onClick = {() => onSubmit(title, video, slide)}>Submit</Link>
     </div>);
 }
 

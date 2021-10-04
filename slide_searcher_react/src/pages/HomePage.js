@@ -1,11 +1,14 @@
 import React from 'react';
 import './HomePage.css';
+import { Link } from 'react-router-dom';
+
 
 function HomePage() {
     return (<div>
         <div className='header'>
             <span className='title'>Sli-Sync</span>
-            <button className='upload_button'>Upload files</button>
+            <Link className='upload_button' to="/upload/1" type="submit">Upload files</Link>
+
         </div>
         <div className='loaing_animation'>
             <img src='HomePage_Pic.png' className='done_image' />
@@ -22,7 +25,8 @@ function HomePage() {
             <div className='start_ment'>
                 Click on the button
             </div>
-            <button className='browse_button' to='/UploadPage' >Browse files</button>
+            <Link className='browse_button' to="/upload/1" type="submit">Browse files</Link>
+
         </div>
         <div className='contact_message'>
             <span className='contact'>Contact us<br/></span>
