@@ -1,0 +1,35 @@
+.file_input {
+    display: none;
+}
+
+.file_input_label {
+    display: inline-block;
+    width: 242px;
+    height: 70px;
+    background: #EAEFF2 0% 0% no-repeat padding-box;
+    border-radius: 35px;
+    opacity: 1;
+
+    line-height: 70px;
+    text-align: center;
+    color: #6C8BFD;
+    font-size: 28px;
+    font-weight: normal;
+    font-family: Pretendard;
+}
+
+.file_input_label:hover {
+    display: inline-block;
+    width: 242px;
+    height: 70px;
+    background: #6C8BFD 0% 0% no-repeat padding-box;
+    border-radius: 35px;
+    opacity: 1;
+
+    line-height: 70px;
+    text-align: center;
+    color: #EAEFF2;
+    font-size: 28px;
+    font-weight: normal;
+    font-family: Pretendard;
+}

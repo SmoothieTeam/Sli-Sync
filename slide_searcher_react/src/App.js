@@ -20,7 +20,11 @@ function App() {
   };
   const slideIndexLoader = {
     getIndexes: (id) => [{index: 0, time: 0.0}, {index: 1, time: 24.0}, {index: 2, time: 103.0}]
-  }
+  };
+  const uploader = {
+    uploadVideo: (file, onProgress) => {},
+    uploadSlide: (file, onProgress) => {}
+  };
 
   return(
     <div className='App'>
@@ -37,7 +41,7 @@ function App() {
             onSubmit={handleUpdate}/>
         </Route>
         <Route path='/'>
-          <UploadPage onSubmit={handleUpload}/>
+          <UploadPage onSubmit={handleUpload} uploader={uploader}/>
         </Route>
       </Switch>
     </div>
