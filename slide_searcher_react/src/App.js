@@ -25,7 +25,11 @@ function App() {
   };
   const slideIndexLoader = {
     getIndexes: (id) => [{index: 0, time: 0.0}, {index: 1, time: 24.0}, {index: 2, time: 103.0}]
-  }
+  };
+  const uploader = {
+    uploadVideo: (file, onProgress) => {},
+    uploadSlide: (file, onProgress) => {}
+  };
 
   return(
     <div className='App'>
@@ -48,7 +52,7 @@ function App() {
         <Route path='/uploaded/:id'>
           <UploadedPage />
         </Route>
-        <Route exact path='/'>
+        <Route path='/'>
           {/* id에 따라 값을 가져오는 함수로 제작 => ResultPage를 참고 */}
           <LoadingPage percentage={70}>
             
@@ -56,6 +60,9 @@ function App() {
         </Route>
         <Route exact path='/upload/:id'>
           <UploadPage />
+        </Route>
+        <Route path='/'>
+          <UploadPage onSubmit={handleUpload} uploader={uploader}/>
         </Route>
       </Switch>
     </div>
