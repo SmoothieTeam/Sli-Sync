@@ -56,7 +56,12 @@ hr:after {
 }
 
 .title {
-    display: inline-block;
+    display: block;
+    float: right;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    font-size: 20px;
+    color: #6B768D;
 }
 
 .title_container {

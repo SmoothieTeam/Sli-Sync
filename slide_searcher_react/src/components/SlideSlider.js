@@ -20,6 +20,15 @@ function SlideImage({index, src, onClick, checked}) {
 }
 
 function SlideSlider({ className, srcs, selected, onSlideClick }) {
+    const length = srcs.length;
+    const current = selected + 1;
+    const onClickNext = () => {
+        onSlideClick(Math.min(selected + 1, length - 1));
+    };
+    const onClickPrev = () => {
+        onSlideClick(Math.max(selected - 1, 0));
+    };
+
     return (<div className={className}>
         <div className='slide_image_container'>
             { srcs.map((src, index) => 
@@ -30,11 +39,11 @@ function SlideSlider({ className, srcs, selected, onSlideClick }) {
                     checked={index === selected}/>) }
         </div>
 
-        {/* <div className='slide_image_paging'>
-            <img className='previous' src='chevron_left.svg' onClick={() => {}}/>
-            <span className='page_text'>1 / 20</span>
-            <img className='next' src='chevron_right.svg' onClick={() => {}}/>
-        </div> */}
+        <div className='slide_image_paging'>
+            <img className='previous' src='chevron_left.svg' onClick={onClickPrev}/>
+            <div className='page_text'>{current} / {length}</div>
+            <img className='next' src='chevron_right.svg' onClick={onClickNext}/>
+        </div>
     </div>);
 }
 
