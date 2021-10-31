@@ -67,7 +67,7 @@ img.done_image {
     letter-spacing: 2px;
     color: #6B768D;
 }
-div.inform_ment{
+.inform_ment{
     position: absolute;
     top: 43%;
     left: 50%;
@@ -80,7 +80,7 @@ div.inform_ment{
     color: #A2ADC2;
 }
 
-h2.start {
+.start {
     position: absolute;
     top: 57%;
     text-align: center;
@@ -96,7 +96,7 @@ h2.start {
     color: #6B768D;
 }
 
-div.start_ment{
+.start_ment{
     position: absolute;
     top: 64%;
     left: 50%;

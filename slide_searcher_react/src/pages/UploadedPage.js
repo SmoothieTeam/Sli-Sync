@@ -16,7 +16,7 @@ function UploadedPage() {
             <button className='email' onClick={() => setText('Send Email')}>email</button>
         <div className='title'>Operating System</div>
         <hr/>
-        <input className='share_email'/> <button className='share'> {text} <img src='share.svg' className='button_share_image'></img></button>
+        <input className='share_email' value="http://localhost:3000/#/loading/1"/> <button className='share'> {text} <img src='share.svg' className='button_share_image'></img></button>
     </div>);
 }
 

@@ -25,7 +25,7 @@ function HomePage() {
             <div className='start_ment'>
                 Click on the button
             </div>
-            <Link className='browse_button' to="/upload/1" type="submit">Browse files</Link>
+            <Link className='browse_button' to="/upload" type="submit">Browse files</Link>
 
         </div>
         <div className='contact_message'>
