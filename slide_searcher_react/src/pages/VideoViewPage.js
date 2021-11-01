@@ -18,6 +18,8 @@ function VideoViewPage({videoLoader, slideIndexLoader}) {
     const slideTimes = slideIndexes.map(slideIndex => slideIndex.time);
     const slideImages = slideIndexes.map(slideIndex => slideIndex.src);
 
+    const url = window.location.href;
+
     const handleSeeking = (i) => {
         setPresentSlideIndex(i);
         player.current.seekTo(slideIndexes[i].time, 'seconds');
@@ -50,6 +52,7 @@ function VideoViewPage({videoLoader, slideIndexLoader}) {
                 selected={presentSlideIndex}/>
             <SharePanel 
                 className='share_panel' 
+                link={url}
                 title={title}
                 events={{sendEmail, copyLink}}/>
         </div>

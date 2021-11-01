@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import './SharePanel.css';
 
-function SharePanel({className, title, events: {sendEmail, copyLink}}) {
+function SharePanel({className, title, link, events: {sendEmail, copyLink}}) {
     const [category, setCategory] = useState('url');
     const [showPopup, setShowPopup] = useState(false);
 
@@ -50,7 +50,7 @@ function SharePanel({className, title, events: {sendEmail, copyLink}}) {
             <hr></hr>
 
             <div className='title_container'>
-                <input className='share_panel_text' type='text'/>
+                <input className='share_panel_text' type='text' value={category === 'url' ? link : undefined}/>
                 <div className='share_panel_submit_container'>
                     { showPopup ? <div className='share_panel_popup'>{popupTexts[category]}</div> : <div></div>}
                     <button className={`share_panel_submit submit_${category}`} type='submit' onClick={onClick}>{submitTexts[category]}</button>
