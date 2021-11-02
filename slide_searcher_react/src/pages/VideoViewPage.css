@@ -3,6 +3,44 @@ html, body, #root, .App, .video_view_page {
     margin: 0 auto;
 }
 
+.banner {
+    position: relative;
+    z-index: 1;
+    height: 100px;
+    background: white;
+    box-shadow: 0px 3px 10px #00000019;
+}
+
+.banner > Link {
+    display: none;
+}
+
+.banner-icon {
+    position: relative;
+    display: inline-block;
+    top: 35px;
+    left: 100px;
+}
+
+.banner-icon div:nth-child(1) {
+    background: #6274F0;
+}
+
+.banner-icon div:nth-child(2) {
+    background: #6C8BFD;
+}
+
+.banner-icon div:nth-child(3) {
+    background: #EAEFF2;
+}
+
+.banner-icon > div {
+    display: inline-block;
+    width: 40px;
+    height: 30px;
+    border-radius: 8px;
+}
+
 .video_view_page {
     min-width: 1920px;
 }

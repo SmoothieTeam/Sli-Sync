@@ -1,7 +1,7 @@
 import ReactPlayer from 'react-player';
 import React, { useRef, useState } from 'react';
 import SlideIndexList from '../components/SlideIndex';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 
 import './VideoViewPage.css';
 import SharePanel from '../components/SharePanel';
@@ -28,7 +28,14 @@ function VideoViewPage({videoLoader, slideIndexLoader}) {
     const copyLink = () => {};
 
     return (<div className='video_view_page'>
-        <div className="video_index">
+        <div className='banner'>
+            <Link to='/' className='banner-icon'>
+                <div></div>
+                <div></div>
+                <div></div>
+            </Link>
+        </div>
+        <div className='video_index'>
             <h1>{title}</h1>
             <SlideIndexList 
                 className='slide_index_container' 
