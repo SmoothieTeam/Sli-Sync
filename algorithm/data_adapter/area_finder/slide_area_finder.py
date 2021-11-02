@@ -1,12 +1,12 @@
 import cv2
 import numpy as np
-from domain.frame_loader import FrameLoader
+from data_adapter.frame_loader import FrameLoader
 from domain.slide_loader import SlideLoader
 
-class SlideAreaFinder(SlideLoader):
-    def __init__(self, slide_loader: SlideLoader, uniform_frame_loader: FrameLoader, scale):
-        self.slides = list(slide_loader.slides())
-        self.video_images = uniform_frame_loader.frames()
+class SlideAreaFinder:
+    def __init__(self, slide_loader: SlideLoader, frame_loader: FrameLoader, scale):
+        self.slides = slide_loader.slides()
+        self.frames = frame_loader.frames()
         self.match_results = []
         self.coordinates = []
         self.scale = scale
@@ -14,7 +14,7 @@ class SlideAreaFinder(SlideLoader):
     def find_mask(self):
         slide_height, slide_width, _ = self.slides[0].shape
 
-        for video_image in self.video_images:
+        for video_image in self.frames:
             resized_video_image = cv2.resize(video_image, dsize=(0, 0), fx=1/self.scale, fy=1/self.scale)
             video_height, video_width, _ = resized_video_image.shape
 

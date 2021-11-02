@@ -1,0 +1,113 @@
+@import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css');
+
+body {
+    margin: 0;
+}
+
+h2.upload_title {
+    text-align: center;
+    letter-spacing: 3.6px;
+    
+    line-height: 43px;
+    font-size: 36px;
+    font-weight: normal;
+    font-family: Pretendard;
+    color: #6B768D;
+
+    margin-top: 151px;
+}
+
+p {
+    text-align: center;
+    letter-spacing: 0px;
+    color: #A2ADC2;
+    line-height: 34px;
+    font-size: 28px;
+    font-weight: normal;
+    font-family: Pretendard;
+    margin-bottom: 50px;
+}
+
+div {
+    text-align: center;
+}
+
+.progres_container {
+    padding-top: 60px;
+    padding-bottom: 90px;
+}
+
+.pdf_progress {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.video_progress {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.upload_file_input {
+    display: inline-block;
+
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+.title_input {
+    display: inline-block;
+    width: 600px;
+    height: 68px;
+
+    padding: 0px 0px 0px 30px;
+    margin-right: 40px;
+
+    background: #FFFFFF 0% 0% no-repeat padding-box;
+    border: 1px solid #DDDDDD;
+    border-radius: 8px;
+
+    line-height: 40px;
+    font-size: 20px;
+    font-weight: normal;
+    font-family: Pretendard;
+}
+
+.title_input::placeholder {
+    color: #A2ADC2;
+}
+
+.submit_button {
+    display: inline-block;
+    text-decoration: none;
+    appearance: none;
+    width: 176px;
+    height: 70px;
+
+    background: #6C8BFD 0% 0% no-repeat padding-box;
+    border-radius: 35px;
+
+    line-height: 70px;
+    text-align: center;
+    color: #FFFFFF;
+    font-size: 28px;
+    font-weight: normal;
+    font-family: Pretendard;
+}
+
+.submit_button:hover {
+    display: inline-block;
+    text-decoration: none;
+    appearance: none;
+    width: 176px;
+    height: 70px;
+
+    background: #6274F0 0% 0% no-repeat padding-box;
+    border-radius: 35px;
+
+    line-height: 70px;
+    text-align: center;
+    color: #FFFFFF;
+    font-size: 28px;
+    font-weight: normal;
+    font-family: Pretendard;
+}

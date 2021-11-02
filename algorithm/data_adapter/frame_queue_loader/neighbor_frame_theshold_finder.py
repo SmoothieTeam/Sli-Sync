@@ -1,7 +1,8 @@
 from domain.slide_loader import SlideLoader
 from domain.image_transform import ImageTransform
+from data_adapter.frame_threshold_finder import FrameThresholdFinder
 
-class FrameThresholdFinder:
+class NeighborFrameThresholdFinder(FrameThresholdFinder):
     def __init__(self, slide_loader: SlideLoader, transform: ImageTransform, distance):
         self.slide_loader = slide_loader
         self.distance = distance
