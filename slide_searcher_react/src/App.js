@@ -18,7 +18,6 @@ function App() {
     console.log(v);
     console.log(s);
   }
-  // percentage도 이런식으로 제작 => 변경없이 쓸수있는 장점이 있다.
   const videoLoader = {
     getSource: (id) => 'ppt_no_animated.mp4',
     getTitle: (id) => '운영체제론 1강'
@@ -33,7 +32,8 @@ function App() {
   const percentLoader = {
     getPercentage: (id) => 80
   }
-
+  const sendEmail = () => {};
+  const copyLink = () => {};
   return(
     <div className='App'>
       <Switch>
@@ -49,7 +49,8 @@ function App() {
             onSubmit={handleUpdate}/>
         </Route>
         <Route path='/uploaded/:id'>
-          <UploadedPage />
+          <UploadedPage 
+            events={{sendEmail, copyLink}}/>
         </Route>
         <Route path='/loading/:id'>
           {/* id에 따라 값을 가져오는 함수로 제작 => ResultPage를 참고 */}
