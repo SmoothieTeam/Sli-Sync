@@ -27,7 +27,7 @@ function UploadPage({ onSubmit, uploader }) {
     return (<div>
         <HeaderBar/>
 
-        <h2>UPLOAD FILES</h2>
+        <h2 className='upload_title'>UPLOAD FILES</h2>
         <p>MP4, PDF are supported</p>
 
         <div>
@@ -41,7 +41,7 @@ function UploadPage({ onSubmit, uploader }) {
         </div>
 
         <input className='title_input' type="text" onChange = {handleTitle} name="Title" placeholder='Please enter a title for your video here!'/>
-        <Link className='submit_button' to="/view/1" type="submit" onClick = {() => onSubmit(title, video, slide)}>Submit</Link>
+        <Link className='submit_button' to="/uploaded/1" type="submit" onClick = {() => onSubmit(title, video, slide)}>Submit</Link>
     </div>);
 }
 

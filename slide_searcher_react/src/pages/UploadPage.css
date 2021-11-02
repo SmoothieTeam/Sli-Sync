@@ -4,7 +4,7 @@ body {
     margin: 0;
 }
 
-h2 {
+h2.upload_title {
     text-align: center;
     letter-spacing: 3.6px;
     
