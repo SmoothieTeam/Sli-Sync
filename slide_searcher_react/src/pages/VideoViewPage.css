@@ -1,0 +1,92 @@
+html, body, #root, .App, .video_view_page {
+    height: 105%;
+    margin: 0 auto;
+}
+
+.banner {
+    position: relative;
+    z-index: 1;
+    height: 100px;
+    background: white;
+    box-shadow: 0px 3px 10px #00000019;
+}
+
+.banner > Link {
+    display: none;
+}
+
+.banner-icon {
+    position: relative;
+    display: inline-block;
+    top: 35px;
+    left: 100px;
+}
+
+.banner-icon div:nth-child(1) {
+    background: #6274F0;
+}
+
+.banner-icon div:nth-child(2) {
+    background: #6C8BFD;
+}
+
+.banner-icon div:nth-child(3) {
+    background: #EAEFF2;
+}
+
+.banner-icon > div {
+    display: inline-block;
+    width: 40px;
+    height: 30px;
+    border-radius: 8px;
+}
+
+.video_view_page {
+    min-width: 1920px;
+}
+
+h1 {
+    letter-spacing: 0px;
+    color: #6B768D;
+    font-size: 20px;
+
+    margin-top: 40px;
+    margin-left: 40px;
+    margin-bottom: 30px;
+}
+
+.slide_index_container {
+    width: 300px;
+    height: 50px;
+}
+
+.video_index {
+    position: relative;
+    left: 0px;
+    top: 0px;
+    display: inline-block;
+    min-height: 100%;
+    width: 300px;
+    vertical-align: top;
+
+    background-color: #F7F7F7;
+}
+
+.content-container {
+    display: inline-block;
+    margin-left: 360px;
+    margin-top: 80px;
+}
+
+.slide_slider::-webkit-scrollbar {
+    display: none;
+}
+
+.slide_slider {
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+.share_panel {
+    display: block;
+}

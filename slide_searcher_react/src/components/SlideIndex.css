@@ -1,0 +1,46 @@
+.slide_index_group {
+    display: none;
+}
+
+.slide_index_input_label {
+    height: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-left: 50px;
+    padding-right: 30px;
+}
+
+.slide_index_input_label:hover, .slide_index_group:checked+label {
+    height: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-left: 50px;
+    padding-right: 30px;
+
+    background-color: white
+}
+
+.slide_index_input_label:hover > .index_container {
+    letter-spacing: 0px;
+    color: #6C8BFD;
+    font-size: 20px;
+}
+
+.slide_index_group:checked+label > .index_container {
+    letter-spacing: 0px;
+    color: #6C8BFD;
+    font-size: 20px;
+}
+
+.index_container {
+    letter-spacing: 0px;
+    color: #A2ADC2;
+    font-size: 20px;
+}
+
+.timing_container {
+    color: #A2ADC2;
+    font-size: 16px;
+}
