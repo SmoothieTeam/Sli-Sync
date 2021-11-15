@@ -19,7 +19,7 @@
     margin-bottom: 5px;
 }
 
-.progress {
+#fileProgress {
     -webkit-appearance: none;
     appearance: none;
 
@@ -31,17 +31,17 @@
     opacity: 1;
 }
 
-.progress::-moz-progress-bar {
+#fileProgress::-moz-progress-bar {
     background: #6C8BFD;
 }
 
-.progress::-webkit-progress-bar {
+#fileProgress::-webkit-progress-bar {
     background: #EAEFF2;
     border-radius: 5px;
     opacity: 1;
 }
 
-.progress::-webkit-progress-value {
+#fileProgress::-webkit-progress-value {
     background: #6C8BFD;
     border-radius: 5px;
     opacity: 1;

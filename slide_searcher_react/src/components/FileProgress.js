@@ -8,7 +8,7 @@ function FileProgress({ className, file, progress }) {
         <div className='div_progress'>
             {Math.round(progress * 100)} % <br/>
             <div className='progress_container'>
-                <progress className='progress' min={0} value={progress}/> <br/>
+                <progress id='fileProgress' min={0} value={progress}/> <br/>
             </div>
             { file.name }
         </div>

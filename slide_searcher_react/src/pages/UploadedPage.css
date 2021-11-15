@@ -14,7 +14,7 @@ img.done_image {
     width: 200px;
     height: 200px;
 }
-h2.done_ment{
+h2.done{
     position: absolute;
     top: 30%;
     left: 50%;
@@ -28,7 +28,7 @@ h2.done_ment{
     letter-spacing: 3.6px;
     color: #6B768D;
 }
-div.announce_ment{
+div.announcement{
     position: absolute;
     top: 40%;
     left: 50%;
@@ -40,7 +40,7 @@ div.announce_ment{
     font-size: x-large;
     color: #A2ADC2;
 }
-button.url{
+/* button.url{
     position: absolute;
     top: 52%;
     left: 27%;
@@ -176,4 +176,4 @@ button.share:hover{
 img.button_share_image{
     width: 15px;
     top:50%;
-}
+} */

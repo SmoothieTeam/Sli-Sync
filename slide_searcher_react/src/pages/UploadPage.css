@@ -4,7 +4,7 @@ body {
     margin: 0;
 }
 
-h2.upload_title {
+.upload_title {
     text-align: center;
     letter-spacing: 3.6px;
     
@@ -28,21 +28,16 @@ p {
     margin-bottom: 50px;
 }
 
-div {
+.upload-page {
     text-align: center;
 }
 
-.progres_container {
+.progress-container {
     padding-top: 60px;
     padding-bottom: 90px;
 }
 
-.pdf_progress {
-    margin-top: 10px;
-    margin-bottom: 10px;
-}
-
-.video_progress {
+.progress {
     margin-top: 10px;
     margin-bottom: 10px;
 }

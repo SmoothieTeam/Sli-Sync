@@ -24,7 +24,7 @@ function UploadPage({ onSubmit, uploader }) {
         uploader.uploadSlide(e, setSlideProgress);
     }
 
-    return (<div>
+    return (<div className='upload-page'>
         <HeaderBar/>
 
         <h2 className='upload_title'>UPLOAD FILES</h2>
@@ -35,9 +35,9 @@ function UploadPage({ onSubmit, uploader }) {
             <UploadFileInput className='upload_file_input' id='upload_pdf_input' text='Select PDF' accept='.pdf' onChangeFile={handleSlide}/>
         </div>
 
-        <div className='progres_container'>
-            { slide === undefined ? '' : <FileProgress className='pdf_progress' file={slide} progress={slideProgress}/> }
-            { video === undefined ? '' : <FileProgress className='video_progress' file={video} progress={videoProgress}/> }
+        <div className='progress-container'>
+            { slide === undefined ? '' : <FileProgress className='progress' file={slide} progress={slideProgress}/> }
+            { video === undefined ? '' : <FileProgress className='progress' file={video} progress={videoProgress}/> }
         </div>
 
         <input className='title_input' type="text" onChange = {handleTitle} name="Title" placeholder='Please enter a title for your video here!'/>
