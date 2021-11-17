@@ -1,3 +1,8 @@
+.slide-index {
+    width: 300px;
+    height: 50px;
+}
+
 .slide-index input {
     display: none;
 }
@@ -11,7 +16,7 @@
     padding-right: 30px;
 }
 
-.slide-index label:hover, input:checked+label {
+.slide-index label:hover, .slide-index input:checked+label {
     height: 100%;
     display: flex;
     justify-content: space-between;

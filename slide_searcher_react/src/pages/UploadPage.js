@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import FileProgress from '../components/FileProgress';
-import HeaderBar from '../components/HeaderBar';
+import HeaderBuilder from '../components/HeaderBuilder';
 import TwoColoredFileInput from '../components/TwoColoredFileInput';
 import './UploadPage.css';
 
@@ -24,8 +24,10 @@ function UploadPage({ onSubmit, uploader }) {
         uploader.uploadSlide(e, setSlideProgress);
     }
 
+    const builder = new HeaderBuilder();
+
     return (<div className='upload-page'>
-        <HeaderBar/>
+        { builder.build() }
 
         <h2 className='upload_title'>UPLOAD FILES</h2>
         <p>MP4, PDF are supported</p>

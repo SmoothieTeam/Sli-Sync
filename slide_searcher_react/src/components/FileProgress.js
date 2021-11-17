@@ -10,7 +10,6 @@ function FileProgress({ className, file, progress }) {
             {Math.round(progress * 100)} % 
             <br/>
             <progress 
-                className='file-progress__progress-bar' 
                 min={0} 
                 value={progress}/> 
             <br/>

@@ -14,7 +14,7 @@
     text-align: left;
 }
 
-.file-progress__progress-bar {
+.file-progress__progress-container progress {
     -webkit-appearance: none;
     appearance: none;
 
@@ -28,17 +28,17 @@
     opacity: 1;
 }
 
-.file-progress__progress-bar::-moz-progress-bar {
+.file-progress__progress-container progress::-moz-progress-bar {
     background: #6C8BFD;
 }
 
-.file-progress__progress-bar::-webkit-progress-bar {
+.file-progress__progress-container progress::-webkit-progress-bar {
     background: #EAEFF2;
     border-radius: 5px;
     opacity: 1;
 }
 
-.file-progress__progress-bar::-webkit-progress-value {
+.file-progress__progress-container progress::-webkit-progress-value {
     background: #6C8BFD;
     border-radius: 5px;
     opacity: 1;
