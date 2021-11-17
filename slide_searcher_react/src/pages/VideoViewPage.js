@@ -5,7 +5,7 @@ import { Link, useParams } from 'react-router-dom';
 
 import './VideoViewPage.css';
 import SharePanel from '../components/SharePanel';
-import SlideSlider from '../components/SlideSlider';
+import SlideNavigation from '../components/SlideNavigation';
 
 function VideoViewPage({videoLoader, slideIndexLoader}) {
     const { id } = useParams();
@@ -52,7 +52,7 @@ function VideoViewPage({videoLoader, slideIndexLoader}) {
                 width='900px'
                 height='506px'
                 type="video/mp4" />
-            <SlideSlider
+            <SlideNavigation
                 className='slide_slider' 
                 srcs={slideImages}
                 onSlideClick={handleSeeking}
