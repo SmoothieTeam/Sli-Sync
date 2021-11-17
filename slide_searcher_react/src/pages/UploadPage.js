@@ -29,50 +29,55 @@ function UploadPage({ onSubmit, uploader }) {
     return (<div className='upload-page'>
         { builder.build() }
 
-        <h2 className='upload_title'>UPLOAD FILES</h2>
-        <p>MP4, PDF are supported</p>
+        <div className='upload-page__main'>
+            <>
+                <h2 className='upload-page__title'>UPLOAD FILES</h2>
+                <p>MP4, PDF are supported</p>
+            </>
+            <>
+                <TwoColoredFileInput 
+                    className='upload-page__file-input' 
+                    id='upload_video_input' 
+                    text='Select Video' 
+                    accept='video/*' 
+                    onChangeFile={handleVideo}/>
+                <TwoColoredFileInput 
+                    className='upload-page__file-input' 
+                    id='upload_pdf_input' 
+                    text='Select PDF' 
+                    accept='.pdf' 
+                    onChangeFile={handleSlide}/>
+            </>
 
-        <div>
-            <TwoColoredFileInput 
-                className='upload_file_input' 
-                id='upload_video_input' 
-                text='Select Video' 
-                accept='video/*' 
-                onChangeFile={handleVideo}/>
-            <TwoColoredFileInput 
-                className='upload_file_input' 
-                id='upload_pdf_input' 
-                text='Select PDF' 
-                accept='.pdf' 
-                onChangeFile={handleSlide}/>
+            <div className='upload-page__progress-container'>
+                { slide === undefined 
+                    ? '' 
+                    : <FileProgress 
+                            className='progress-container__progress' 
+                            file={slide} 
+                            progress={slideProgress}/> }
+                { video === undefined
+                    ? '' 
+                    : <FileProgress 
+                            className='progress-container__progress' 
+                            file={video} 
+                            progress={videoProgress}/> }
+            </div>
+            
+            <>
+                <input 
+                    className='upload-page__title-input' 
+                    type='text' 
+                    onChange = {handleTitle} 
+                    name='Title' 
+                    placeholder='Please enter a title for your video here!'/>
+                <Link 
+                    className='upload-page__submit' 
+                    to='/uploaded/1' 
+                    type='submit'
+                    onClick = {() => onSubmit(title, video, slide)}>Submit</Link>
+            </>
         </div>
-
-        <div className='progress-container'>
-            { slide === undefined 
-                ? '' 
-                : <FileProgress 
-                        className='progress' 
-                        file={slide} 
-                        progress={slideProgress}/> }
-            { video === undefined
-                ? '' 
-                : <FileProgress 
-                        className='progress' 
-                        file={video} 
-                        progress={videoProgress}/> }
-        </div>
-
-        <input 
-            className='title_input' 
-            type='text' 
-            onChange = {handleTitle} 
-            name='Title' 
-            placeholder='Please enter a title for your video here!'/>
-        <Link 
-            className='submit_button' 
-            to='/uploaded/1' 
-            type='submit'
-            onClick = {() => onSubmit(title, video, slide)}>Submit</Link>
     </div>);
 }
 

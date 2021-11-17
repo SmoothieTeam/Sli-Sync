@@ -1,10 +1,4 @@
-@import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css');
-
-body {
-    margin: 0;
-}
-
-.upload_title {
+.upload-page__main h2 {
     text-align: center;
     letter-spacing: 3.6px;
     
@@ -17,7 +11,7 @@ body {
     margin-top: 151px;
 }
 
-p {
+.upload-page__main p {
     text-align: center;
     letter-spacing: 0px;
     color: #A2ADC2;
@@ -32,24 +26,24 @@ p {
     text-align: center;
 }
 
-.progress-container {
-    padding-top: 60px;
-    padding-bottom: 90px;
-}
-
-.progress {
-    margin-top: 10px;
-    margin-bottom: 10px;
-}
-
-.upload_file_input {
+.upload-page__file-input {
     display: inline-block;
 
     margin-left: 20px;
     margin-right: 20px;
 }
 
-.title_input {
+.upload-page__progress-container {
+    padding-top: 60px;
+    padding-bottom: 90px;
+}
+
+.progress-container__progress {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.upload-page__title-input {
     display: inline-block;
     width: 600px;
     height: 68px;
@@ -67,11 +61,11 @@ p {
     font-family: Pretendard;
 }
 
-.title_input::placeholder {
+.upload-page__title-input::placeholder {
     color: #A2ADC2;
 }
 
-.submit_button {
+.upload-page__submit {
     display: inline-block;
     text-decoration: none;
     appearance: none;
@@ -89,7 +83,7 @@ p {
     font-family: Pretendard;
 }
 
-.submit_button:hover {
+.upload-page__submit:hover {
     display: inline-block;
     text-decoration: none;
     appearance: none;
