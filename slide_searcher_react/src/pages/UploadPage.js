@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import FileProgress from '../components/FileProgress';
 import HeaderBar from '../components/HeaderBar';
-import UploadFileInput from '../components/UploadFileInput';
+import TwoColoredFileInput from '../components/TwoColoredFileInput';
 import './UploadPage.css';
 
 function UploadPage({ onSubmit, uploader }) {
@@ -31,13 +31,13 @@ function UploadPage({ onSubmit, uploader }) {
         <p>MP4, PDF are supported</p>
 
         <div>
-            <UploadFileInput 
+            <TwoColoredFileInput 
                 className='upload_file_input' 
                 id='upload_video_input' 
                 text='Select Video' 
                 accept='video/*' 
                 onChangeFile={handleVideo}/>
-            <UploadFileInput 
+            <TwoColoredFileInput 
                 className='upload_file_input' 
                 id='upload_pdf_input' 
                 text='Select PDF' 
