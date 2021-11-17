@@ -1,8 +1,8 @@
-.share_panel_button {
+.share-panel__category-button {
     display: none;
 }
 
-.share_panel_button + label {
+.share-panel__category-button + label {
     display: inline-block;
     padding-top: 15px;
     padding-bottom: 15px;
@@ -11,51 +11,25 @@
     font-size: 20px;
 }
 
-.share_panel_button:hover + label {
+.share-panel__category-button:hover + label {
     color: #6B768D;
 }
 
-.share_panel_button:checked + label {
+.share-panel__category-button:checked + label {
     color: #6B768D;
 }
 
-.url + label{
+.category-button--url + label{
     padding-left: 19.5px;
     padding-right: 19.5px;
 }
 
-.email + label {
+.category-button--email + label {
     padding-left: 61.5px;
     padding-right: 61.5px;
 }
 
-#sharePanelDivider {
-    margin: 0;
-    width: 100%;
-    height: 2px;
-    background-color: #EAEFF2;
-    border: 0;
-}
-
-hr:after {
-    content: '';
-    display: block;
-    border-bottom: 2px solid #6C8BFD;
-    max-width: 50%;
-    transition-duration: 0.5s;
-}
-
-.url:checked ~ hr:after {
-    margin: 0;
-    max-width: 76px;
-}
-
-.email:checked ~ hr:after {
-    margin-left: 76px;
-    max-width: 171px;
-}
-
-#sharePanelTitle {
+.share-panel__title {
     display: block;
     float: right;
     padding-top: 15px;
@@ -64,13 +38,39 @@ hr:after {
     color: #6B768D;
 }
 
-.share-panel-container {
+.share-panel__divider {
+    margin: 0;
+    width: 100%;
+    height: 2px;
+    background-color: #EAEFF2;
+    border: 0;
+}
+
+.share-panel__divider:after {
+    content: '';
+    display: block;
+    border-bottom: 2px solid #6C8BFD;
+    max-width: 50%;
+    transition-duration: 0.5s;
+}
+
+.category-button--url:checked ~ .share-panel__divider:after {
+    margin: 0;
+    max-width: 76px;
+}
+
+.category-button--email:checked ~ .share-panel__divider:after {
+    margin-left: 76px;
+    max-width: 171px;
+}
+
+.share-panel__input-container {
     display: flex;
     justify-content: space-between;
     margin-top: 30px;
 }
 
-.share_panel_text {
+.share-panel__link-input {
     width: 600px;
     height: 50px;
     padding-left: 30px;
@@ -79,16 +79,16 @@ hr:after {
     font-size: 16px;
 }
 
-.share_panel_text::placeholder {
+.share-panel__link-input::placeholder {
     color: #A2ADC2;
 }
 
-.share_panel_submit_container {    
+.share-panel__submit-container {
     text-align: center;
     position: relative;
 }
 
-.share_panel_popup {
+.share-panel__popup {
     bottom: 31.45px;
     position: absolute;
 
@@ -108,7 +108,7 @@ hr:after {
     pointer-events: none;
 }
 
-.share_panel_submit {
+.share-panel__submit {
     height: 50px;
     background: #EAEFF2;
     color: #6C8BFD;
@@ -117,15 +117,15 @@ hr:after {
     font-size: 20px;
 }
 
-.submit_email {
+.share-panel__submit:hover {
+    color: #EAEFF2;
+    background: #6C8BFD;
+}
+
+.share-panel__submit--email {
     width: 198px;
 }
 
-.submit_url {
+.share-panel__submit--url {
     width: 260px;
-}
-
-.share_panel_submit:hover {
-    color: #EAEFF2;
-    background: #6C8BFD;
 }

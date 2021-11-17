@@ -31,17 +31,46 @@ function UploadPage({ onSubmit, uploader }) {
         <p>MP4, PDF are supported</p>
 
         <div>
-            <UploadFileInput className='upload_file_input' id='upload_video_input' text='Select Video' accept='video/*' onChangeFile={handleVideo}/>
-            <UploadFileInput className='upload_file_input' id='upload_pdf_input' text='Select PDF' accept='.pdf' onChangeFile={handleSlide}/>
+            <UploadFileInput 
+                className='upload_file_input' 
+                id='upload_video_input' 
+                text='Select Video' 
+                accept='video/*' 
+                onChangeFile={handleVideo}/>
+            <UploadFileInput 
+                className='upload_file_input' 
+                id='upload_pdf_input' 
+                text='Select PDF' 
+                accept='.pdf' 
+                onChangeFile={handleSlide}/>
         </div>
 
         <div className='progress-container'>
-            { slide === undefined ? '' : <FileProgress className='progress' file={slide} progress={slideProgress}/> }
-            { video === undefined ? '' : <FileProgress className='progress' file={video} progress={videoProgress}/> }
+            { slide === undefined 
+                ? '' 
+                : <FileProgress 
+                        className='progress' 
+                        file={slide} 
+                        progress={slideProgress}/> }
+            { video === undefined
+                ? '' 
+                : <FileProgress 
+                        className='progress' 
+                        file={video} 
+                        progress={videoProgress}/> }
         </div>
 
-        <input className='title_input' type="text" onChange = {handleTitle} name="Title" placeholder='Please enter a title for your video here!'/>
-        <Link className='submit_button' to="/uploaded/1" type="submit" onClick = {() => onSubmit(title, video, slide)}>Submit</Link>
+        <input 
+            className='title_input' 
+            type='text' 
+            onChange = {handleTitle} 
+            name='Title' 
+            placeholder='Please enter a title for your video here!'/>
+        <Link 
+            className='submit_button' 
+            to='/uploaded/1' 
+            type='submit'
+            onClick = {() => onSubmit(title, video, slide)}>Submit</Link>
     </div>);
 }
 
