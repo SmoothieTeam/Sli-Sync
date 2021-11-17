@@ -10,96 +10,111 @@ from PIL import Image
 from tqdm import tqdm
 import numpy as np
 import cv2
+from metrics import Accuracy, Average
+from models.MobileNetV2 import mobilenetv2
+import os
+from tensorboardX import SummaryWriter
 
-batch_size = 256
-learning_rate = 0.01
-epochs = 5
+# location of Tensorboard log
+writer = SummaryWriter(logdir='./log/cpu/')
 
+# Hyperparameter
+batch_size = 64
+learning_rate = 0.001
+epochs = 10
+
+# Data Transform
 train_transform = transforms.Compose([transforms.Resize((224, 224), interpolation=Image.BICUBIC), transforms.ToTensor()])
 val_transform = transforms.Compose([transforms.Resize((224, 224), interpolation=Image.BICUBIC), transforms.ToTensor()])
-test_transform = transforms.Compose([transforms.Resize((224, 224), interpolation=Image.BICUBIC), transforms.ToTensor()])
 
+# Data Loader
 train_data = datasets.ImageFolder("./Data/train/", transform=train_transform)
 val_data = datasets.ImageFolder("./Data/val/", transform=val_transform)
-test_data = datasets.ImageFolder("./Data/test/", transform=test_transform)
 
 train_loader = torch.utils.data.DataLoader(train_data, batch_size=batch_size, shuffle=True)
 val_loader = torch.utils.data.DataLoader(val_data, batch_size=batch_size)
-test_loader = torch.utils.data.DataLoader(test_data, batch_size=batch_size)
 
-class CNN(nn.Module):
-    def __init__(self):
-        super(CNN, self).__init__()
-        self.conv1 = nn.Conv2d(in_channels=3, out_channels=10, kernel_size=3)
-        self.conv2 = nn.Conv2d(10, 20, kernel_size=3)
-        self.conv2_drop = nn.Dropout2d()
-        self.fc1 = nn.Linear(58320, 1024)
-        self.fc2 = nn.Linear(1024, 2)
-        self.sigmoid = nn.Sigmoid()
-
-    def forward(self, x):
-        x = F.relu(F.max_pool2d(self.conv1(x), 2))
-        x = F.relu(F.max_pool2d(self.conv2_drop(self.conv2(x)), 2))
-        x = x.view(x.shape[0],-1)
-        x = F.relu(self.fc1(x))
-        x = F.dropout(x, training=self.training)
-        x = self.fc2(x)
-        x = self.sigmoid(x)
-        return x
-
-
+# Set device(GPU / CPU)
 device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
-model = CNN().to(device)
-criterion = nn.CrossEntropyLoss()
-optimizer = torch.optim.Adam(model.parameters(), lr = learning_rate)
 
-loss_array = []
-model.train()
+print('Device:', device)  # 출력결과: GPU: cuda:0, CPU: cpu
+print('Count of using GPUs:', torch.cuda.device_count())   #출력결과: 1 (GPU 한개 사용하므로)
+print('Current cuda device:', torch.cuda.current_device())
+
+# Set Train Model and loss and Optimizer
+model = mobilenetv2()
+model.to(device)
+criterion = nn.CrossEntropyLoss()
+# m = nn.Sigmoid() # => for BCELoss
+optimizer = torch.optim.Adam(model.parameters(), lr = learning_rate)
+train_loss = Average()
+train_acc = Accuracy()
+
+# Set Val loss => Optimizer Not Needed
+# val_model.load_state_dict(torch.load("./checkpoint/model[0].pt"))
+val_loss = Average()
+val_acc = Accuracy()
+
+# for save best result
+best_loss = [100000]
+best_acc = [-1]
+
+print("Train until epoch[{0}]".format(epochs))
 for epoch in range(epochs):
+    print("\nEpoch[{0}]".format(epoch))
+    print("Current best_loss Model: model[{0}].pt, best_acc Model: model[{1}].pt".format(
+        (best_loss.index(min(best_loss)) - 1), 
+        (best_acc.index(max(best_acc)) - 1))
+    )
+
+    # Train => Two Classes(PDF / Not_PDF)
+    model.train()
     pbar = tqdm(train_loader)
     for i, [image, label] in enumerate(pbar):
         x = image.to(device)
         y = label.to(device)
-        # y = y.unsqueeze(1)
+        # x = image
+        # y = label
 
         optimizer.zero_grad()
         output = model(x)
+
         loss = criterion(output, y)
         loss.backward()
         optimizer.step()
 
-        if i % 1000 == 0:
-            print("epoch[{0}] loss: {1:.8f}".format(epoch, loss))
-            loss_array.append(loss.cpu().detach().numpy())
+        # update loss value
+        train_loss.update(loss.item(), number=x.size(0))
+        train_acc.update(output, y)
 
-torch.save(model.state_dict(), "./model.pt")
+        # for tensorboard
+        pbar.set_postfix_str(f'train loss: {train_loss}, train acc: {train_acc}')
+        writer.add_scalar('train_loss', train_loss.value, epoch)
+        writer.add_scalar('train_acc', train_acc.value, epoch)
 
-# model = CNN().to(device)
-# model.load_state_dict(torch.load("./model.pt"))
+    # torch.save(model.state_dict(), "./checkpoint/model[{0}].pt".format(epoch))
+    # torch.save(model, "./checkpoint/model[{0}]_cpu.pt".format(epoch))
+    # Validation => Two Classes(PDF / Not_PDF)
+    model.eval()
+    pbar = tqdm(val_loader)
+    with torch.no_grad():
+        for i, [image, label] in enumerate(pbar):
+            x = image.to(device)
+            y = label.to(device)
+            # x = image
+            # y = label
 
-# correct = 0
-# total = 0
+            output = model(x)
+            loss = criterion(output, y)
 
-# with torch.no_grad():
-#     pbar = tqdm(custom_loader)
-#     for image, label in pbar:
-#         x = image.to(device)
-#         y = label.to(device)
+            # update loss value
+            val_loss.update(loss.item(), number=x.size(0))
+            val_acc.update(output, y)
 
-#         output = model.forward(x)
-#         _, output_index = torch.max(output, 1)
-#         total += label.size(0)
-#         correct += (output_index == y).sum().float()
-#     print("Accuracy : {0}".format(100 * correct / total))
-# image = np.array(cv2.imread("./test/1.PNG"))
-# image = cv2.resize(image, dsize=(224, 224),interpolation=cv2.INTER_LINEAR)
-# image_swap = np.swapaxes(image, 0,2)
-# image_swap = np.expand_dims(image_swap, axis=0)
-# tensor = torch.from_numpy(image_swap).type(torch.cuda.FloatTensor)
+            # for tensorboard
+            pbar.set_postfix_str(f'val_loss: {val_loss}, val_acc: {val_acc}')
+            writer.add_scalar('val_loss', val_loss.value, epoch)
+            writer.add_scalar('val_acc', val_acc.value, epoch)
 
-# with torch.no_grad():
-#     output = model(tensor)
-#     torch.set_printoptions(precision=10)
-#     print(output)
-#     _, output_index = torch.max(output, 1)
-#     print(output_index)
+    best_loss.append(val_loss.value)
+    best_acc.append(val_acc.value)
