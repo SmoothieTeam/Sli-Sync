@@ -31,19 +31,19 @@ function UploadPage({ onSubmit, uploader }) {
 
         <div className='upload-page__main'>
             <>
-                <h2 className='upload-page__title'>UPLOAD FILES</h2>
+                <h2>UPLOAD FILES</h2>
                 <p>MP4, PDF are supported</p>
             </>
             <>
                 <TwoColoredFileInput 
                     className='upload-page__file-input' 
-                    id='upload_video_input' 
+                    id='videoInput' 
                     text='Select Video' 
                     accept='video/*' 
                     onChangeFile={handleVideo}/>
                 <TwoColoredFileInput 
                     className='upload-page__file-input' 
-                    id='upload_pdf_input' 
+                    id='pdfInput' 
                     text='Select PDF' 
                     accept='.pdf' 
                     onChangeFile={handleSlide}/>
