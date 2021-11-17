@@ -1,11 +1,12 @@
 import ReactPlayer from 'react-player';
 import React, { useRef, useState } from 'react';
-import SlideIndexList from '../components/SlideIndex';
 import { Link, useParams } from 'react-router-dom';
 
-import './VideoViewPage.css';
+import SlideIndexList from '../components/SlideIndexList';
 import SharePanel from '../components/SharePanel';
 import SlideNavigation from '../components/SlideNavigation';
+
+import './VideoViewPage.css';
 
 function VideoViewPage({videoLoader, slideIndexLoader}) {
     const { id } = useParams();
