@@ -1,17 +1,15 @@
+.uploaded-page__main {
+    text-align: center;
+}
+
 .uploaded-page__main img {
-    display: block;
-    margin: 0 auto;
     margin-top: 60px;
     width: 200px;
     height: 200px;
 }
 
 .uploaded-page__main h2 {
-    margin: 0 auto;
     margin-top: 10px;
-    height: 43px;
-    text-align: center;
-    font: normal normal medium;
     font-family: Pretendard;
     font-size: xx-large;
     letter-spacing: 3.6px;
@@ -19,17 +17,14 @@
 }
 
 .uploaded-page__main p {
-    margin: 0 auto;
     margin-top: 20px;
-    text-align: center;
-    height: 34px;
     font-family: Pretendard;
     font-size: x-large;
     color: #A2ADC2;
 }
 
 .uploaded-page__share-panel {
-    margin: 0 auto;
+    display: inline-block;
     margin-top: 60px;
     width: 1000px;
 }

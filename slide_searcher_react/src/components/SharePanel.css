@@ -1,3 +1,7 @@
+.share-panel {
+    text-align: initial;
+}
+
 .share-panel__category-button {
     display: none;
 }
@@ -29,7 +33,7 @@
     padding-right: 61.5px;
 }
 
-.share-panel__title {
+.share-panel h1 {
     display: block;
     float: right;
     padding-top: 15px;

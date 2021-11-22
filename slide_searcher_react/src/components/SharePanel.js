@@ -59,8 +59,7 @@ function SharePanel({className, title, link, events: {sendEmail, copyLink}}) {
                 checked={isCheckedInCategory('email')}/>
             <label htmlFor='sharePanelEmailRadio'>Email</label>
 
-            <div className='share-panel__title'>{title}</div>
-
+            <h1>{title}</h1>
             <hr className='share-panel__divider'></hr>
 
             <div className='share-panel__input-container'>
