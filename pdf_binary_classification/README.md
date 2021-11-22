@@ -20,7 +20,7 @@
 ```
 
 ## Data
-You can download train / val / test data at [here]()
+You can download train / val / test data at [here](https://drive.google.com/file/d/1hDhFfoObxBU9MFFKq9mOEqY8GkWCDUmz/view?usp=sharing)
 ```
 Data
 |- train
@@ -48,9 +48,10 @@ Data
 
 ## Result
 - Accuracy
-![Image]{}
+![Image]{Readme_Image/accuracy.png}
+
 - Loss
-![Image]{}
+![Image]{Readme_Image/loss.png}
 
 | Model | Accuracy | Loss |
 | :----- | :--------: | :----: |
