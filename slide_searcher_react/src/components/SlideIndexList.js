@@ -6,29 +6,26 @@ function timeToString(timeInSecond) {
     return parseInt(timeInSecond / 60) + ':' + parseInt(timeInSecond % 60);
 }
 
-function SlideIndex({className, index, time, onClick, checked}) {
-    return (<div className={className}>
+function SlideIndex({index, time, onClick, checked}) {
+    return (<div className='slide-index'>
         <input 
-            className='slide_index_group' 
-            type="radio" 
+            type='radio' 
             name='slide_index_group' 
             value={index} 
-            id={`slide_index_input_${index}`} 
+            id={`slideIndex${index}`} 
             checked={checked}/>
         <label 
-            className='slide_index_input_label' 
-            htmlFor={`slide_index_input_${index}`} 
+            htmlFor={`slideIndex${index}`} 
             onClick={() => onClick(index)}>
-            <div className='index_container'>{index}</div>
-            <div className='timing_container'>{timeToString(time)}</div>
+            <div className='slide-index__index'>{index}</div>
+            <div className='slide-index__time'>{timeToString(time)}</div>
         </label>
     </div>);
 }
 
 function SlideIndexList({className, times, onClick, selected}) {
-    return (<div>
+    return (<div className={className}>
         {times.map((time, index) => SlideIndex({
-            className: className, 
             time: time,
             index: index, 
             onClick: onClick,

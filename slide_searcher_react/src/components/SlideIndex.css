@@ -1,8 +1,13 @@
-.slide_index_group {
+.slide-index {
+    width: 300px;
+    height: 50px;
+}
+
+.slide-index input {
     display: none;
 }
 
-.slide_index_input_label {
+.slide-index label {
     height: 100%;
     display: flex;
     justify-content: space-between;
@@ -11,7 +16,7 @@
     padding-right: 30px;
 }
 
-.slide_index_input_label:hover, .slide_index_group:checked+label {
+.slide-index label:hover, .slide-index input:checked+label {
     height: 100%;
     display: flex;
     justify-content: space-between;
@@ -22,25 +27,25 @@
     background-color: white
 }
 
-.slide_index_input_label:hover > .index_container {
+.slide-index label:hover > .slide-index__index {
     letter-spacing: 0px;
     color: #6C8BFD;
     font-size: 20px;
 }
 
-.slide_index_group:checked+label > .index_container {
+.slide-index input:checked+label > .slide-index__index {
     letter-spacing: 0px;
     color: #6C8BFD;
     font-size: 20px;
 }
 
-.index_container {
+.slide-index__index {
     letter-spacing: 0px;
     color: #A2ADC2;
     font-size: 20px;
 }
 
-.timing_container {
+.slide-index__time {
     color: #A2ADC2;
     font-size: 16px;
 }

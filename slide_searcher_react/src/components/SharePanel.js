@@ -23,7 +23,7 @@ function SharePanel({className, title, link, events: {sendEmail, copyLink}}) {
     const showPopupEvent = () => {
         setShowPopup(true);
         setTimeout(() => {setShowPopup(false)}, 500);
-    }
+    };
 
     const onCategoryChange = (e) => {
         setCategory(e.target.value);
@@ -39,21 +39,42 @@ function SharePanel({className, title, link, events: {sendEmail, copyLink}}) {
     };
 
     return (
-        <div className={className}>
-            <input id='url_radio' type='radio' className='share_panel_button url' name='category' value='url' onChange={onCategoryChange} checked={isCheckedInCategory('url')}/>
-            <label htmlFor='url_radio'>URL</label>
-            <input id='email_radio' type='radio' className='share_panel_button email' name='category' value='email' onChange={onCategoryChange} checked={isCheckedInCategory('email')}/>
-            <label htmlFor='email_radio'>Email</label>
+        <div className={`share-panel ${className}`}>
+            <input 
+                id='sharePanelUrlRadio' 
+                type='radio' 
+                className='share-panel__category-button category-button--url' 
+                name='category' 
+                value='url' 
+                onChange={onCategoryChange} 
+                checked={isCheckedInCategory('url')}/>
+            <label htmlFor='sharePanelUrlRadio'>URL</label>
+            <input 
+                id='sharePanelEmailRadio' 
+                type='radio' 
+                className='share-panel__category-button category-button--email' 
+                name='category'
+                value='email' 
+                onChange={onCategoryChange} 
+                checked={isCheckedInCategory('email')}/>
+            <label htmlFor='sharePanelEmailRadio'>Email</label>
 
-            <div className='title'>{title}</div>
+            <h1>{title}</h1>
+            <hr className='share-panel__divider'></hr>
 
-            <hr></hr>
-
-            <div className='title_container'>
-                <input className='share_panel_text' type='text' value={category === 'url' ? link : undefined}/>
-                <div className='share_panel_submit_container'>
-                    { showPopup ? <div className='share_panel_popup'>{popupTexts[category]}</div> : <div></div>}
-                    <button className={`share_panel_submit submit_${category}`} type='submit' onClick={onClick}>{submitTexts[category]}</button>
+            <div className='share-panel__input-container'>
+                <input 
+                    className='share-panel__link-input' 
+                    type='text' 
+                    value={category === 'url' ? link : undefined}/>
+                <div className='share-panel__submit-container'>
+                    { showPopup
+                        ? <div className='share-panel__popup'>{popupTexts[category]}</div> 
+                        : <div></div>}
+                    <button 
+                        className={`share-panel__submit share-panel__submit--${category}`} 
+                        type='submit' 
+                        onClick={onClick}>{submitTexts[category]}</button>
                 </div>
             </div>
         </div>

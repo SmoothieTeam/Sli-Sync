@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import FileProgress from '../components/FileProgress';
-import HeaderBar from '../components/HeaderBar';
-import UploadFileInput from '../components/UploadFileInput';
+import HeaderBuilder from '../components/HeaderBuilder';
+import TwoColoredFileInput from '../components/TwoColoredFileInput';
 import './UploadPage.css';
 
 function UploadPage({ onSubmit, uploader }) {
@@ -24,24 +24,60 @@ function UploadPage({ onSubmit, uploader }) {
         uploader.uploadSlide(e, setSlideProgress);
     }
 
-    return (<div>
-        <HeaderBar/>
+    const builder = new HeaderBuilder();
 
-        <h2 className='upload_title'>UPLOAD FILES</h2>
-        <p>MP4, PDF are supported</p>
+    return (<div className='upload-page'>
+        { builder.build() }
 
-        <div>
-            <UploadFileInput className='upload_file_input' id='upload_video_input' text='Select Video' accept='video/*' onChangeFile={handleVideo}/>
-            <UploadFileInput className='upload_file_input' id='upload_pdf_input' text='Select PDF' accept='.pdf' onChangeFile={handleSlide}/>
+        <div className='upload-page__main'>
+            <>
+                <h2>UPLOAD FILES</h2>
+                <p>MP4, PDF are supported</p>
+            </>
+            <>
+                <TwoColoredFileInput 
+                    className='upload-page__file-input' 
+                    id='videoInput' 
+                    text='Select Video' 
+                    accept='video/*' 
+                    onChangeFile={handleVideo}/>
+                <TwoColoredFileInput 
+                    className='upload-page__file-input' 
+                    id='pdfInput' 
+                    text='Select PDF' 
+                    accept='.pdf' 
+                    onChangeFile={handleSlide}/>
+            </>
+
+            <div className='upload-page__progress-container'>
+                { slide === undefined 
+                    ? '' 
+                    : <FileProgress 
+                            className='progress-container__progress' 
+                            file={slide} 
+                            progress={slideProgress}/> }
+                { video === undefined
+                    ? '' 
+                    : <FileProgress 
+                            className='progress-container__progress' 
+                            file={video} 
+                            progress={videoProgress}/> }
+            </div>
+            
+            <>
+                <input 
+                    className='upload-page__title-input' 
+                    type='text' 
+                    onChange = {handleTitle} 
+                    name='Title' 
+                    placeholder='Please enter a title for your video here!'/>
+                <Link 
+                    className='upload-page__submit' 
+                    to='/uploaded/1' 
+                    type='submit'
+                    onClick = {() => onSubmit(title, video, slide)}>Submit</Link>
+            </>
         </div>
-
-        <div className='progres_container'>
-            { slide === undefined ? '' : <FileProgress className='pdf_progress' file={slide} progress={slideProgress}/> }
-            { video === undefined ? '' : <FileProgress className='video_progress' file={video} progress={videoProgress}/> }
-        </div>
-
-        <input className='title_input' type="text" onChange = {handleTitle} name="Title" placeholder='Please enter a title for your video here!'/>
-        <Link className='submit_button' to="/uploaded/1" type="submit" onClick = {() => onSubmit(title, video, slide)}>Submit</Link>
     </div>);
 }
 

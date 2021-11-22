@@ -1,24 +1,18 @@
-@import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css');
-
-body {
-    margin: 0;
+.upload-page__main {
+    text-align: center;
 }
 
-h2.upload_title {
-    text-align: center;
+.upload-page__main h2 {
     letter-spacing: 3.6px;
-    
     line-height: 43px;
     font-size: 36px;
     font-weight: normal;
     font-family: Pretendard;
     color: #6B768D;
-
     margin-top: 151px;
 }
 
-p {
-    text-align: center;
+.upload-page__main p {
     letter-spacing: 0px;
     color: #A2ADC2;
     line-height: 34px;
@@ -28,33 +22,24 @@ p {
     margin-bottom: 50px;
 }
 
-div {
-    text-align: center;
-}
-
-.progres_container {
-    padding-top: 60px;
-    padding-bottom: 90px;
-}
-
-.pdf_progress {
-    margin-top: 10px;
-    margin-bottom: 10px;
-}
-
-.video_progress {
-    margin-top: 10px;
-    margin-bottom: 10px;
-}
-
-.upload_file_input {
+.upload-page__file-input {
     display: inline-block;
 
     margin-left: 20px;
     margin-right: 20px;
 }
 
-.title_input {
+.upload-page__progress-container {
+    padding-top: 60px;
+    padding-bottom: 90px;
+}
+
+.progress-container__progress {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.upload-page__title-input {
     display: inline-block;
     width: 600px;
     height: 68px;
@@ -72,11 +57,11 @@ div {
     font-family: Pretendard;
 }
 
-.title_input::placeholder {
+.upload-page__title-input::placeholder {
     color: #A2ADC2;
 }
 
-.submit_button {
+.upload-page__submit {
     display: inline-block;
     text-decoration: none;
     appearance: none;
@@ -94,7 +79,7 @@ div {
     font-family: Pretendard;
 }
 
-.submit_button:hover {
+.upload-page__submit:hover {
     display: inline-block;
     text-decoration: none;
     appearance: none;

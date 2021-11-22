@@ -1,11 +1,13 @@
 import ReactPlayer from 'react-player';
 import React, { useRef, useState } from 'react';
-import SlideIndexList from '../components/SlideIndex';
 import { Link, useParams } from 'react-router-dom';
 
-import './VideoViewPage.css';
+import HeaderBuilder from '../components/HeaderBuilder';
+import SlideIndexList from '../components/SlideIndexList';
 import SharePanel from '../components/SharePanel';
-import SlideSlider from '../components/SlideSlider';
+import SlideNavigation from '../components/SlideNavigation';
+
+import './VideoViewPage.css';
 
 function VideoViewPage({videoLoader, slideIndexLoader}) {
     const { id } = useParams();
@@ -27,41 +29,37 @@ function VideoViewPage({videoLoader, slideIndexLoader}) {
     const sendEmail = () => {};
     const copyLink = () => {};
 
-    return (<div className='video_view_page'>
-        <div className='banner'>
-            <Link to='/' className='banner-icon'>
-                <div></div>
-                <div></div>
-                <div></div>
-            </Link>
-        </div>
-        <div className='video_index'>
-            <h1>{title}</h1>
-            <SlideIndexList 
-                className='slide_index_container' 
-                times={slideTimes} 
-                onClick={handleSeeking} 
-                selected={presentSlideIndex}/>
-        </div>
-        <div className='content-container'>
-            <ReactPlayer 
-                ref={player}
-                url= {source}
-                playing
-                controls
-                width='900px'
-                height='506px'
-                type="video/mp4" />
-            <SlideSlider
-                className='slide_slider' 
-                srcs={slideImages}
-                onSlideClick={handleSeeking}
-                selected={presentSlideIndex}/>
-            <SharePanel 
-                className='share_panel' 
-                link={url}
-                title={title}
-                events={{sendEmail, copyLink}}/>
+    const builder = new HeaderBuilder();
+
+    return (<div className='view-page'>
+        { builder.addIcon().build() }
+        <div className='view-page__main'>
+            <div className='view-page__slide-index-container'>
+                <h1>{title}</h1>
+                <SlideIndexList 
+                    times={slideTimes} 
+                    onClick={handleSeeking} 
+                    selected={presentSlideIndex}/>
+            </div>
+            <div className='view-page__content-container'>
+                <ReactPlayer 
+                    ref={player}
+                    url= {source}
+                    playing
+                    controls
+                    width='900px'
+                    height='506px'
+                    type='video/mp4' />
+                <SlideNavigation
+                    className='view-page__slide-nav' 
+                    srcs={slideImages}
+                    onSlideClick={handleSeeking}
+                    selected={presentSlideIndex}/>
+                <SharePanel 
+                    link={url}
+                    title={title}
+                    events={{sendEmail, copyLink}}/>
+            </div>
         </div>
     </div>);
 }
