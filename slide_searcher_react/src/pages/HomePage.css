@@ -1,5 +1,4 @@
 div.header {
-    position: relative;
     width: 100%;
     height: 50px;
     left: 0px;
@@ -7,7 +6,6 @@ div.header {
     box-shadow: 0px 3px 10px #00000019;
 }
 .title{
-    position: absolute;
     top: 5%;
     left: 3%;
     text-align: left;
@@ -19,7 +17,6 @@ div.header {
     font-size: xx-large;
 }
 .upload_button{
-    position: absolute;
     top: 13%;
     left: 93%;
     text-align: center;
@@ -43,7 +40,6 @@ div.header {
     color: white;
 }
 img.done_image {
-    position: absolute;
     top: 16%;
     left: 50%;
     border: #00000019;
@@ -52,7 +48,6 @@ img.done_image {
     height: 150px;
 }
 .inform{
-    position: absolute;
     top: 34%;
     text-align: center;
     margin-left: -178px;
@@ -66,7 +61,6 @@ img.done_image {
     color: #6B768D;
 }
 .inform_ment{
-    position: absolute;
     top: 43%;
     left: 50%;
     text-align: center;
@@ -79,7 +73,6 @@ img.done_image {
 }
 
 .start {
-    position: absolute;
     top: 57%;
     text-align: center;
     margin-left: -178px;
@@ -95,7 +88,6 @@ img.done_image {
 }
 
 .start_ment{
-    position: absolute;
     top: 64%;
     left: 50%;
     text-align: center;
@@ -108,7 +100,6 @@ img.done_image {
 }
 .browse_button{
     display: inline-block;
-    position: absolute;
     top: 71%;
     left: 50%;
     text-align: center;
@@ -132,7 +123,6 @@ img.done_image {
     color: white;
 }
 div.contact_message{
-    position: absolute;
     top: 86%;
     left: 0px;
     bottom: 0%;
