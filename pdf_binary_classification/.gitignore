@@ -2,6 +2,3 @@
 Data/
 Data_Not_Processed/
 Pretrained_MobileNetV2/
-
-# ignore all .pt files in the doc/ directory
-*.pt

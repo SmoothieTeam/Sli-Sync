@@ -9,7 +9,6 @@ from torch.utils.data import DataLoader
 from PIL import Image
 from tqdm import tqdm
 import numpy as np
-import cv2
 from metrics import Accuracy, Average
 from models.MobileNetV2 import mobilenetv2
 
