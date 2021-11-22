@@ -1,6 +1,6 @@
 @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css');
 
 html, body, #root, .App {
-    height: 105%;
+    height: 100%;
     margin: 0 auto;
 }

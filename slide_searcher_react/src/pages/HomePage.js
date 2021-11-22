@@ -6,12 +6,12 @@ import { Link } from 'react-router-dom';
 function HomePage() {
     return (<div>
         <div className='header'>
-            <span className='title'>Sli-Sync</span>
+            <p className='home_page_title'>Sli-Sync</p>
             <Link className='upload_button' to="/upload/1" type="submit">Upload files</Link>
 
         </div>
-        <div className='loaing_animation'>
-            <img src='HomePage_Pic.png' className='done_image' />
+        <div className='home_page_image'>
+            <img src='HomePage_Pic.png' className='home_page_main_image' />
         </div>
         <div className='inform_message'>
             <h2 className='inform'>Video + Slide</h2>
