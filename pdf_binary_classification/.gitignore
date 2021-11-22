@@ -2,7 +2,6 @@
 Data/
 Data_Not_Processed/
 Pretrained_MobileNetV2/
-checkpoint/
 
 # ignore all .pt files in the doc/ directory
 *.pt

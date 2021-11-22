@@ -31,9 +31,9 @@ data_loading_end_time = time.time()
 
 # Set Train Model and loss and Optimizer
 model_loading_start_time = time.time()
-model = mobilenetv2()
-model.load_state_dict(torch.load("./checkpoint/model[4].pt", map_location=torch.device('cpu')))
-# model = torch.load("./checkpoint/model[3]_save.pt")
+# model = mobilenetv2()
+# model.load_state_dict(torch.load("./checkpoint/model[4].pt", map_location=torch.device('cpu')))
+model = torch.load("./checkpoint/cpu/model[12]_cpu.pt")
 
 criterion = nn.CrossEntropyLoss()
 test_loss = Average()
