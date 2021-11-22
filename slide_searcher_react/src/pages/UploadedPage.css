@@ -1,21 +1,14 @@
-div.header {
-    width: 100%;
-    height: 100px;
-    background: #FFFFFF 0% 0% no-repeat padding-box;
-    box-shadow: 0px 3px 10px #00000019;
-}
-
-img.done_image {
+.uploaded-page__main img {
     display: block;
     margin: 0 auto;
     margin-top: 60px;
     width: 200px;
     height: 200px;
 }
-h2.done{
+
+.uploaded-page__main h2 {
     margin: 0 auto;
     margin-top: 10px;
-    width: 108px;
     height: 43px;
     text-align: center;
     font: normal normal medium;
@@ -24,17 +17,18 @@ h2.done{
     letter-spacing: 3.6px;
     color: #6B768D;
 }
-div.announcement{
+
+.uploaded-page__main p {
     margin: 0 auto;
     margin-top: 20px;
     text-align: center;
-    width: 874px;
     height: 34px;
     font-family: Pretendard;
     font-size: x-large;
     color: #A2ADC2;
 }
-.share_panel{
+
+.uploaded-page__share-panel {
     margin: 0 auto;
     margin-top: 60px;
     width: 1000px;

@@ -1,4 +1,5 @@
 import React from 'react';
+import HeaderBuilder from '../components/HeaderBuilder';
 import SharePanel from '../components/SharePanel';
 import './UploadedPage.css';
 
@@ -6,19 +7,22 @@ function UploadedPage({title=''}) {
     const sendEmail = () => {};
     const copyLink = () => {};
 
-    return (<div>
-        <div className='header'></div>
-        <img src='cloud_done_b.svg' className='done_image'/>
-        <h2 className='done'>DONE</h2>
-        <div className='announcement'>
-            Please check the results through the link below and get sharable link : )
-        </div>
-        <p className='share_panel'>
-        <SharePanel 
+    const headerBuilder = new HeaderBuilder();
+
+    return (<div className='uploaded-page'>
+        { headerBuilder.build() }
+        <div className='uploaded-page__main'>
+            <img src='cloud_done_b.svg'/>
+            <h2>DONE</h2>
+            <p>
+                Please check the results through the link below and get sharable link : )
+            </p>
+            <SharePanel 
+                className='uploaded-page__share-panel'
                 link={'http://localhost:3000/#/loading/1'}
                 title={title}
                 events={{sendEmail, copyLink}}/>
-        </p>
+        </div>
     </div>);
 }
 
