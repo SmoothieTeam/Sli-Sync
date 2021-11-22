@@ -49,7 +49,7 @@ Data
 ## Result
 | Accuracy | Loss |
 | :------: | :--: |
-| <img src='./Readme_Image/accuracy.png' width="413" height="39"/> | <img src='./Readme_Image/loss.png' width="413" height="39"/> |
+| <img src='./Readme_Image/accuracy.png' width="413px" height="39px"/> | <img src='./Readme_Image/loss.png' width="413px" height="39px"/> |
 
 | Model | Accuracy | Loss |
 | :----- | :--------: | :----: |
