@@ -1,85 +1,12 @@
-@import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css');
-
-div.header {
-    width: 100%;
-    height: 50px;
-    margin: 0;
-    background: #FFFFFF 0% 0% no-repeat padding-box;
-    box-shadow: 0px 3px 10px #00000019;
+.loading-page__main {
+    text-align: center;
 }
 
-div.circle {
-    clip-path: circle(135px at center);
-    margin: 0 auto;
+.load-page__animation {
     margin-top: 80px;
-    width: 270px;
-    height: 270px;
-    background: #EAEFF2;
-    border-radius: 50%
 }
 
-img.Loading_image1{
-    position: relative;
-    margin-top: 75px;
-    width: 120px;
-    height: 120px;
-    animation-name: Loading1;
-    animation-duration:6s;
-    animation-duration: leaner;
-    animation-iteration-count:infinite;
-    animation-direction:normal;
-    animation-fill-mode: forwards;
-}
-@keyframes Loading1 {
-    0% {
-        left: 700px;
-    }
-    40%{
-        left: 30%;
-    }
-    50%{
-        left: 30%;
-    }
-    60%{
-        left: 30%;
-    }
-    100% {
-      left:-200px;
-    }
-}
-
-img.Loading_image2{
-    position: relative;
-    width: 120px;
-    height: 120px;
-    animation-name: Loading2;
-    animation-duration:6s;
-    animation-delay: -3s;
-    animation-duration: leaner;
-    animation-iteration-count:infinite;
-    animation-direction:normal;
-    animation-fill-mode: forwards;
-}
-
-@keyframes Loading2 {
-    0% {
-      left: 700px;
-    }
-    40%{
-        left: -15%;
-    }
-    50%{
-        left: -15%;
-    }
-    60%{
-        left: -15%;
-    }
-    100% {
-      left: -500px;
-    }
-}
-
-progress.progress_bar{
+.loading-page__main progress {
     display: block;
     margin: 0 auto;
     margin-top: 80px;
@@ -87,7 +14,7 @@ progress.progress_bar{
     height: 20px;
 }
 
-h2.loading_percent {
+.loading-page__main h2 {
     margin: 0 auto;
     margin-top: 50px;
     text-align: center;
@@ -98,7 +25,7 @@ h2.loading_percent {
     font-size: xx-large;
 }
 
-div.guide_ment{
+.loading-page__main p {
     margin: 0 auto;
     margin-top: 50px;
     text-align: center;
@@ -109,6 +36,6 @@ div.guide_ment{
     color: #A2ADC2;
 }
 
-div.guide_ment.strong{
+.loading-page__main strong {
     color: #6B768D;
 }
