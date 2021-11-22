@@ -13,10 +13,6 @@ import cv2
 from metrics import Accuracy, Average
 from models.MobileNetV2 import mobilenetv2
 
-# Hyperparameter
-batch_size = 64
-learning_rate = 0.001
-
 # Data Transform
 test_transform = transforms.Compose([transforms.Resize((224, 224), interpolation=Image.BICUBIC), transforms.ToTensor()])
 
@@ -27,16 +23,14 @@ test_loader = torch.utils.data.DataLoader(test_data, batch_size=batch_size)
 # Set device(GPU / CPU)
 device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 
-print('Device:', device)  # 출력결과: GPU: cuda:0, CPU: cpu
-print('Count of using GPUs:', torch.cuda.device_count())   #출력결과: 1 (GPU 한개 사용하므로)
-print('Current cuda device:', torch.cuda.current_device())
+# check using GPU / CPU
+print('Device:', device)  # 출력결과 => GPU: cuda:0, CPU: cpu
+print('Count of using GPUs:', torch.cuda.device_count())   # 출력결과 => GPU: GPU 개수, CPU: 0
 
 # Set Train Model and loss and Optimizer
 model = mobilenetv2()
 model.load_state_dict(torch.load("./checkpoint/model[1].pt"))
-model.to(device)
 criterion = nn.CrossEntropyLoss()
-# m = nn.Sigmoid() # => for BCELoss
 test_loss = Average()
 test_acc = Accuracy()
 
@@ -45,13 +39,16 @@ model.eval()
 pbar = tqdm(test_loader)
 with torch.no_grad():
     for i, [image, label] in enumerate(pbar):
-        x = image.to(device)
-        y = label.to(device)
+        # GPU
+        # x = image.to(device)
+        # y = label.to(device)
+
+        #CPU
+        x = image
+        y = label
 
         output = model(x)
         loss = criterion(output, y)
-        print(output)
-        print(y)
 
         # update loss value
         test_loss.update(loss.item(), number=x.size(0))

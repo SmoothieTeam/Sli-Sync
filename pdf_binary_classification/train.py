@@ -9,7 +9,6 @@ from torch.utils.data import DataLoader
 from PIL import Image
 from tqdm import tqdm
 import numpy as np
-import cv2
 from metrics import Accuracy, Average
 from models.MobileNetV2 import mobilenetv2
 import os
@@ -20,8 +19,8 @@ writer = SummaryWriter(logdir='./log/cpu/')
 
 # Hyperparameter
 batch_size = 64
-learning_rate = 0.001
-epochs = 10
+learning_rate = 0.01
+epochs = 30
 
 # Data Transform
 train_transform = transforms.Compose([transforms.Resize((224, 224), interpolation=Image.BICUBIC), transforms.ToTensor()])
@@ -37,15 +36,17 @@ val_loader = torch.utils.data.DataLoader(val_data, batch_size=batch_size)
 # Set device(GPU / CPU)
 device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 
-print('Device:', device)  # 출력결과: GPU: cuda:0, CPU: cpu
-print('Count of using GPUs:', torch.cuda.device_count())   #출력결과: 1 (GPU 한개 사용하므로)
-print('Current cuda device:', torch.cuda.current_device())
+# check using GPU / CPU
+print('Device:', device)  # 출력결과 => GPU: cuda:0, CPU: cpu
+print('Count of using GPUs:', torch.cuda.device_count())   # 출력결과 => GPU: GPU 개수, CPU: 0
 
 # Set Train Model and loss and Optimizer
 model = mobilenetv2()
-model.to(device)
+
+# If using GPU
+# model.to(device)
+
 criterion = nn.CrossEntropyLoss()
-# m = nn.Sigmoid() # => for BCELoss
 optimizer = torch.optim.Adam(model.parameters(), lr = learning_rate)
 train_loss = Average()
 train_acc = Accuracy()
@@ -71,10 +72,13 @@ for epoch in range(epochs):
     model.train()
     pbar = tqdm(train_loader)
     for i, [image, label] in enumerate(pbar):
-        x = image.to(device)
-        y = label.to(device)
-        # x = image
-        # y = label
+        # GPU
+        # x = image.to(device)
+        # y = label.to(device)
+
+        #CPU
+        x = image
+        y = label
 
         optimizer.zero_grad()
         output = model(x)
@@ -92,17 +96,22 @@ for epoch in range(epochs):
         writer.add_scalar('train_loss', train_loss.value, epoch)
         writer.add_scalar('train_acc', train_acc.value, epoch)
 
-    # torch.save(model.state_dict(), "./checkpoint/model[{0}].pt".format(epoch))
-    # torch.save(model, "./checkpoint/model[{0}]_cpu.pt".format(epoch))
+    # save trained Model
+    torch.save(model.state_dict(), "./checkpoint/cpu/model[{0}]_state_cpu.pt".format(epoch))
+    torch.save(model, "./checkpoint/cpu/model[{0}]_cpu.pt".format(epoch))
+
     # Validation => Two Classes(PDF / Not_PDF)
     model.eval()
     pbar = tqdm(val_loader)
     with torch.no_grad():
         for i, [image, label] in enumerate(pbar):
-            x = image.to(device)
-            y = label.to(device)
-            # x = image
-            # y = label
+            # GPU
+            # x = image.to(device)
+            # y = label.to(device)
+            
+            # CPU
+            x = image
+            y = label
 
             output = model(x)
             loss = criterion(output, y)
