@@ -58,7 +58,7 @@ with torch.no_grad():
         y = label
 
         output = model(x)
-        loss = criterion(output, y)
+        # loss = criterion(output, y)
         results.append(torch.argmax(output))
 
 image_test_end_time = time.time()

@@ -16,9 +16,9 @@ import argparse
 
 # get image arg
 parser = argparse.ArgumentParser()
-parser.add_argument("-p", "--path", dest=['path'], required=True,
+parser.add_argument("-p", "--path", dest='path', required=True,
                         help="the path to your video file to be analyzed")
-
+args = vars(parser.parse_args())
 # Hyperparameter
 batch_size = 1
 
