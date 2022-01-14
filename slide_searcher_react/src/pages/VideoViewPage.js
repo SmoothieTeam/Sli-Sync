@@ -1,5 +1,5 @@
 import ReactPlayer from 'react-player';
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 
 import HeaderBuilder from '../components/HeaderBuilder';
@@ -9,27 +9,30 @@ import SlideNavigation from '../components/SlideNavigation';
 
 import './VideoViewPage.css';
 
-function VideoViewPage({videoLoader, slideIndexLoader}) {
+function VideoViewPage({ getPost, sendEmail, copyLink }) {
     const { id } = useParams();
     const player = useRef(null);
-    const [presentSlideIndex, setPresentSlideIndex] = useState(0);
-
-    const source = videoLoader.getSource(id);
-    const title = videoLoader.getTitle(id);
-    const slideIndexes = slideIndexLoader.getIndexes(id);
-    const slideTimes = slideIndexes.map(slideIndex => slideIndex.time);
-    const slideImages = slideIndexes.map(slideIndex => slideIndex.src);
-
-    const url = window.location.href;
-
+    const [presentTimeline, setPresentTimeline] = useState(0);
+    const [title, setTitle] = useState('');
+    const [videoURL, setVideoURL] = useState('');
+    const [times, setTimes] = useState([]);
+    const [slideImageURLs, setSlideImageURLs] = useState([]);
     const handleSeeking = (i) => {
-        setPresentSlideIndex(i);
-        player.current.seekTo(slideIndexes[i].time, 'seconds');
+        setPresentTimeline(i);
+        player.current.seekTo(times[i], 'seconds');
     };
-    const sendEmail = () => {};
-    const copyLink = () => {};
-
+    const loadPost = async () => {
+        const { title, videoURL, times, slideImageURLs } = await getPost(id);
+        setTitle(title);
+        setVideoURL(videoURL);
+        setTimes(times);
+        setSlideImageURLs(slideImageURLs);
+    };
     const builder = new HeaderBuilder();
+
+    useEffect(() => {
+        loadPost();
+    }, []);
 
     return (<div className='view-page'>
         { builder.addIcon().build() }
@@ -37,14 +40,14 @@ function VideoViewPage({videoLoader, slideIndexLoader}) {
             <div className='view-page__slide-index-container'>
                 <h1>{title}</h1>
                 <SlideIndexList 
-                    times={slideTimes} 
+                    times={times} 
                     onClick={handleSeeking} 
-                    selected={presentSlideIndex}/>
+                    selected={presentTimeline}/>
             </div>
             <div className='view-page__content-container'>
                 <ReactPlayer 
                     ref={player}
-                    url= {source}
+                    url= {videoURL}
                     playing
                     controls
                     width='900px'
@@ -52,13 +55,14 @@ function VideoViewPage({videoLoader, slideIndexLoader}) {
                     type='video/mp4' />
                 <SlideNavigation
                     className='view-page__slide-nav' 
-                    srcs={slideImages}
+                    srcs={slideImageURLs}
                     onSlideClick={handleSeeking}
-                    selected={presentSlideIndex}/>
+                    selected={presentTimeline}/>
                 <SharePanel 
-                    link={url}
+                    link={window.location.href}
                     title={title}
-                    events={{sendEmail, copyLink}}/>
+                    sendEmail={sendEmail}
+                    copyLink={copyLink}/>
             </div>
         </div>
     </div>);

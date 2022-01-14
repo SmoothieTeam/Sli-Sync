@@ -1,15 +1,25 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router';
+import { useHistory } from 'react-router-dom';
 import HeaderBuilder from '../components/HeaderBuilder';
 import LoadingAnimation from '../components/LoadingAnimation';
 import './LoadingPage.css';
 
-function LoadingPage({percentLoader}) {
+function LoadingPage({ getProgress }) {
     const { id } = useParams();
-    const percentage = percentLoader.getPercentage(id);
-    const [progress, setpercentage] = useState(percentage);
-
+    const history = useHistory();
+    const [progress, setProgress] = useState(0);
     const headerBuilder = new HeaderBuilder();
+
+    useEffect(() => {
+        getProgress(id, ({ progress, isProgressed }) => {
+            setProgress(progress);
+
+            if (isProgressed) {
+                history.push(`/view/${id}`);
+            }
+        });
+    }, []);
 
     return (<div className='loading-page'>
         { headerBuilder.build() }

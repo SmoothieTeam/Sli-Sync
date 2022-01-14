@@ -1,4 +1,5 @@
-import { initializeApp } from "firebase/app";
+import { getApp, initializeApp } from "firebase/app";
+import { getFirestore as getFirestoreFromApp, connectFirestoreEmulator } from 'firebase/firestore';
 
 
 function initApp() {
@@ -13,7 +14,15 @@ function initApp() {
     };
     const app = initializeApp(firebaseConfig);
     
-    return { app };
+    return app;
 }
 
-export { initApp };
+function getFirestore() {
+    const app = getApp();
+    const firestore = getFirestoreFromApp(app);
+    connectFirestoreEmulator(firestore, 'localhost', 8080);
+
+    return firestore;
+}
+
+export { initApp, getFirestore };
