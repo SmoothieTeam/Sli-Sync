@@ -27,7 +27,7 @@ class SlideAreaFinder:
                     template_width = template_height * slide_width // slide_height
                     template = cv2.resize(slide, (template_width, template_height))
                     
-                    if template_height < video_height or template_width < video_width:
+                    if template_height > video_height or template_width > video_width:
                         break
                     
                     result = cv2.matchTemplate(resized_video_image, template, cv2.TM_SQDIFF_NORMED)
@@ -37,5 +37,10 @@ class SlideAreaFinder:
                     self.coordinates.append([y, y + template_height, x, x + template_width])
 
         min_index = min(range(len(self.match_results)), key=lambda i: self.match_results[i])
+        # print(min_index, self.coordinates[min_index])
         best_match = np.array(self.coordinates[min_index])
+        # print(len(test_image))
+        # image = cv2.rectangle(test_image[2], (best_match[3]*self.scale, best_match[1]*self.scale), (best_match[2]*self.scale, best_match[0]*self.scale), (255, 0, 0), 1)
+        # cv2.imshow("test", image)
+        # cv2.waitKey(0)
         return best_match * self.scale
