@@ -3,10 +3,10 @@ import { collection, doc, getDoc, setDoc, onSnapshot } from "firebase/firestore"
 const getNewPostRef = (firestore) => doc(collection(firestore, 'posts'));
 const getPostRef = (firestore, postId) => doc(firestore, 'posts', postId);
 
-function uploadPosts(firestore, { title, videoURL, pdfURL }) {
+async function uploadPost(firestore, { title, videoURL, pdfURL }) {
     const postRef = getNewPostRef(firestore, 'posts');
-
-    return setDoc(postRef, {title, videoURL,pdfURL}, {merge: true});
+    await setDoc(postRef, {title, videoURL,pdfURL}, {merge: true});
+    return { id: postRef.id };
 }
 
 async function getPost(firestore, postId) {
@@ -35,4 +35,4 @@ function getProgress(firestore, postId, onNext) {
     });
 }
 
-export { uploadPosts, getPost, getPostTitle, getProgress };
+export { uploadPost, getPost, getPostTitle, getProgress };

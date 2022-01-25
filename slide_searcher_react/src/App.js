@@ -6,7 +6,7 @@ import UploadedPage from './pages/UploadedPage.js';
 import LoadingPage from './pages/LoadingPage.js';
 import HomePage from './pages/HomePage.js';
 import { initApp, getFirestore } from './firebase_stores/init.js';
-import { uploadPosts, getPost, getPostTitle, getProgress } from './firebase_stores/posts.js';
+import { uploadPost, getPost, getPostTitle, getProgress } from './firebase_stores/posts.js';
 
 
 const app = initApp();
@@ -14,12 +14,10 @@ const firestore = getFirestore(app);
 
 function App() {
   const handleUpload = (title, video, slide) => {
-    uploadPosts(firestore, {title, videoURL: '', pdfURL: ''});
+    return uploadPost(firestore, {title, videoURL: '', pdfURL: ''});
   };
-  const uploader = {
-    uploadVideo: (file, onProgress) => {},
-    uploadSlide: (file, onProgress) => {}
-  };
+  const uploadVideo = (file, onProgress) => {};
+  const uploadSlide = (file, onProgress) => {};
   const sendEmail = () => {};
   const copyLink = () => {};
   return(
@@ -42,7 +40,10 @@ function App() {
             getProgress={(id, onNext) => getProgress(firestore, id, onNext)}/>
         </Route>
         <Route path='/upload'>
-          <UploadPage onSubmit={handleUpload} uploader={uploader}/>
+          <UploadPage 
+            onUpload={handleUpload} 
+            uploadVideo={uploadVideo}
+            uploadSlide={uploadSlide}/>
         </Route>
         <Route path='/'>
           <HomePage />
