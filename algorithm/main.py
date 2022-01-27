@@ -40,7 +40,7 @@ def main():
     slide_area_finder = SlideAreaFinder(slide_loader, uniform_frame_loader, 6)
     
     crop_transform = CropImageTransform(slide_area_finder.find_mask())
-    crop_transform = IdentityImageTransform()
+    # crop_transform = IdentityImageTransform()
     threshold_transform = ResizeImageTransform((100, 100))
     frame_transform = ResizeImageTransform((100, 100), crop_transform)
     slide_transform = ResizeImageTransform((200, 200))
