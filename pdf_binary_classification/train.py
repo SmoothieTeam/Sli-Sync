@@ -10,7 +10,13 @@ from PIL import Image
 from tqdm import tqdm
 import numpy as np
 from metrics import Accuracy, Average
+
 from models.MobileNetV2 import mobilenetv2
+from models.MobileNetV3 import mobilenet_v3_small
+from models.VGGNet import vgg11
+from models.DenseNet import densenet121
+from models.InceptionNetV3 import inception_v3
+from models.SqueezeNet import squeezenet
 import os
 from tensorboardX import SummaryWriter
 
@@ -18,7 +24,7 @@ from tensorboardX import SummaryWriter
 writer = SummaryWriter(logdir='./log/cpu/')
 
 # Hyperparameter
-batch_size = 64
+batch_size = 256
 learning_rate = 0.01
 epochs = 30
 
@@ -41,10 +47,15 @@ print('Device:', device)  # 출력결과 => GPU: cuda:0, CPU: cpu
 print('Count of using GPUs:', torch.cuda.device_count())   # 출력결과 => GPU: GPU 개수, CPU: 0
 
 # Set Train Model and loss and Optimizer
-model = mobilenetv2()
+# model = mobilenetv2()
+model = mobilenet_v3_small()
+# model = vgg11()
+# model = densenet121()
+# model = inception_v3()
+# model = squeezenet()
 
 # If using GPU
-# model.to(device)
+model.to(device)
 
 criterion = nn.CrossEntropyLoss()
 optimizer = torch.optim.Adam(model.parameters(), lr = learning_rate)
@@ -73,12 +84,12 @@ for epoch in range(epochs):
     pbar = tqdm(train_loader)
     for i, [image, label] in enumerate(pbar):
         # GPU
-        # x = image.to(device)
-        # y = label.to(device)
+        x = image.to(device)
+        y = label.to(device)
 
         #CPU
-        x = image
-        y = label
+        # x = image
+        # y = label
 
         optimizer.zero_grad()
         output = model(x)
@@ -97,8 +108,8 @@ for epoch in range(epochs):
         writer.add_scalar('train_acc', train_acc.value, epoch)
 
     # save trained Model
-    torch.save(model.state_dict(), "./checkpoint/cpu/model[{0}]_state_cpu.pt".format(epoch))
-    torch.save(model, "./checkpoint/cpu/model[{0}]_cpu.pt".format(epoch))
+    torch.save(model.state_dict(), "./checkpoint/MobileNetV3/model[{0}]_state.pt".format(epoch))
+    torch.save(model, "./checkpoint/MobileNetV3/model[{0}].pt".format(epoch))
 
     # Validation => Two Classes(PDF / Not_PDF)
     model.eval()
@@ -106,12 +117,12 @@ for epoch in range(epochs):
     with torch.no_grad():
         for i, [image, label] in enumerate(pbar):
             # GPU
-            # x = image.to(device)
-            # y = label.to(device)
+            x = image.to(device)
+            y = label.to(device)
             
             # CPU
-            x = image
-            y = label
+            # x = image
+            # y = label
 
             output = model(x)
             loss = criterion(output, y)
