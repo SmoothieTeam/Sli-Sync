@@ -1,1 +1,1 @@
-from .squeezenet import *
+from .squeezenet import squeezenet1_1
