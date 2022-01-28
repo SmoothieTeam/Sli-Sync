@@ -1,13 +1,17 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
 import HeaderBuilder from '../components/HeaderBuilder';
 import SharePanel from '../components/SharePanel';
 import './UploadedPage.css';
 
-function UploadedPage({title=''}) {
-    const sendEmail = () => {};
-    const copyLink = () => {};
-
+function UploadedPage({getPostTitle, sendEmail, copyLink}) {
+    const { id } = useParams();
     const headerBuilder = new HeaderBuilder();
+    const [title, setTitle] = useState('');
+
+    useEffect(() => {
+        getPostTitle(id).then(setTitle);
+    });
 
     return (<div className='uploaded-page'>
         { headerBuilder.build() }
@@ -19,9 +23,10 @@ function UploadedPage({title=''}) {
             </p>
             <SharePanel 
                 className='uploaded-page__share-panel'
-                link={'http://localhost:3000/#/loading/1'}
+                link={`http://${window.location.host}/#/loading/${id}/`}
                 title={title}
-                events={{sendEmail, copyLink}}/>
+                sendEmail={sendEmail}
+                copyLink={copyLink}/>
         </div>
     </div>);
 }

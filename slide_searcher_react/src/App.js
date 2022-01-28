@@ -5,60 +5,45 @@ import VideoViewPage from './pages/VideoViewPage.js';
 import UploadedPage from './pages/UploadedPage.js';
 import LoadingPage from './pages/LoadingPage.js';
 import HomePage from './pages/HomePage.js';
-import { initApp } from './firebase/FirebaseInit.js';
-import { getFirestore } from 'firebase/firestore/lite';
-import { getStorage } from 'firebase/storage';
+import { initApp, getFirestore } from './firebase_stores/init.js';
+import { uploadPost, getPost, getPostTitle, getProgress } from './firebase_stores/posts.js';
 
 
-const { app } = initApp();
+const app = initApp();
 const firestore = getFirestore(app);
-const storage = getStorage(app);
 
 function App() {
   const handleUpload = (title, video, slide) => {
-    console.log(title);
-    console.log(video);
-    console.log(slide);
+    return uploadPost(firestore, {title, videoURL: '', pdfURL: ''});
   };
-  const videoLoader = {
-    getSource: (id) => 'ppt_no_animated.mp4',
-    getTitle: (id) => '운영체제론 1강'
-  };
-  const slideIndexLoader = {
-    getIndexes: (id) => [
-      {index: 0, time: 0.0, src:'asdf.png'}, 
-      {index: 1, time: 24.0, src:'asdf.png'}, 
-      {index: 2, time: 103.0, src:'asdf.png'}
-    ]
-  };
-  const uploader = {
-    uploadVideo: (file, onProgress) => {},
-    uploadSlide: (file, onProgress) => {}
-  };
-  const percentLoader = {
-    getPercentage: (id) => 80
-  };
+  const uploadVideo = (file, onProgress) => {};
+  const uploadSlide = (file, onProgress) => {};
   const sendEmail = () => {};
   const copyLink = () => {};
   return(
     <div className='App'>
       <Switch>
-        <Route exact path='/view/:id'>
-          <VideoViewPage
-            videoLoader={videoLoader} 
-            slideIndexLoader={slideIndexLoader}/>
+        <Route path='/view/:id'>
+          <VideoViewPage 
+            getPost={(id) => getPost(firestore, id)} 
+            sendEmail={sendEmail} 
+            copyLink={copyLink}/>
         </Route>
         <Route path='/uploaded/:id'>
           <UploadedPage 
-            events={{sendEmail, copyLink}}/>
+            getPostTitle={(id) => getPostTitle(firestore, id)}
+            sendEmail={sendEmail}
+            copyLink={copyLink}/>
         </Route>
         <Route path='/loading/:id'>
-          {/* id에 따라 값을 가져오는 함수로 제작 => ResultPage를 참고 */}
           <LoadingPage 
-            percentLoader={percentLoader}/>
+            getProgress={(id, onNext) => getProgress(firestore, id, onNext)}/>
         </Route>
         <Route path='/upload'>
-          <UploadPage onSubmit={handleUpload} uploader={uploader}/>
+          <UploadPage 
+            onUpload={handleUpload} 
+            uploadVideo={uploadVideo}
+            uploadSlide={uploadSlide}/>
         </Route>
         <Route path='/'>
           <HomePage />

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import './SharePanel.css';
 
-function SharePanel({className, title, link, events: {sendEmail, copyLink}}) {
+function SharePanel({className, title, link, sendEmail, copyLink}) {
     const [category, setCategory] = useState('url');
     const [showPopup, setShowPopup] = useState(false);
 

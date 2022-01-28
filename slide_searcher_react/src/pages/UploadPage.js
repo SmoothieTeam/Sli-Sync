@@ -1,29 +1,33 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import FileProgress from '../components/FileProgress';
 import HeaderBuilder from '../components/HeaderBuilder';
 import TwoColoredFileInput from '../components/TwoColoredFileInput';
 import './UploadPage.css';
 
-function UploadPage({ onSubmit, uploader }) {
+function UploadPage({ onUpload, uploadVideo, uploadSlide }) {
     let title = "";
+    const history = useHistory();
     const [video, setVideo] = useState();
     const [videoProgress, setVideoProgress] = useState(0);
     const [slide, setSlide] = useState();
     const [slideProgress, setSlideProgress] = useState(0);
-    
-    const handleTitle = (e) => {
+    const handleTitle = e => {
         title = e.target.value;
-    }
-    const handleVideo = (e) => {
+    };
+    const handleVideo = e => {
         setVideo(e);
-        uploader.uploadVideo(e, setVideoProgress);
-    }
-    const handleSlide = (e) => {
+        uploadVideo(e, setVideoProgress);
+    };
+    const handleSlide = e => {
         setSlide(e);
-        uploader.uploadSlide(e, setSlideProgress);
-    }
-
+        uploadSlide(e, setSlideProgress);
+    };
+    const onSubmit = async e => {
+        e.preventDefault();
+        const { id } = await onUpload(title, video, slide);
+        history.push(`/uploaded/${id}`);
+    };
     const builder = new HeaderBuilder();
 
     return (<div className='upload-page'>
@@ -73,9 +77,8 @@ function UploadPage({ onSubmit, uploader }) {
                     placeholder='Please enter a title for your video here!'/>
                 <Link 
                     className='upload-page__submit' 
-                    to='/uploaded/1' 
                     type='submit'
-                    onClick = {() => onSubmit(title, video, slide)}>Submit</Link>
+                    onClick = {onSubmit}>Submit</Link>
             </>
         </div>
     </div>);
