@@ -24,7 +24,7 @@ from tensorboardX import SummaryWriter
 
 parser = argparse.ArgumentParser()
 parser.add_argument("--batch-size", default=32, type=int, dest="batch_size")
-parser.add_argument("--backbone", default="mobilenetv2", dest="backbone",
+parser.add_argument("--backbone", default="mobilenet_v3_small", dest="backbone",
                     choices=["mobilenetv2", "mobilenet_v3_small", "vgg11", "densenet121", "inception_v3", "squeezenet"])
 parser.add_argument("--learning-rate", default=0.01,type=float, dest="learning_rate")
 parser.add_argument("--epochs", default=30, type=int, dest="epochs")
@@ -115,7 +115,9 @@ for epoch in range(args.epochs):
         # y = label
 
         optimizer.zero_grad()
-        output = model(x)
+        # output = model(x)
+        # for inceptionnet-V3
+        output, _ = model(x)
 
         loss = criterion(output, y)
         loss.backward()
