@@ -1,0 +1,6 @@
+# ignore trained model file since too heavy
+*.pt
+# ignore test pdf, mp4 file and slide image
+algorithm/imgs/*
+*.pdf
+*.mp4
