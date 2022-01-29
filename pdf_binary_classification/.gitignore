@@ -132,3 +132,11 @@ dmypy.json
 Data/
 Data_Not_Processed/
 Pretrained_MobileNetV2/
+
+# ignore trained model file since too heavy
+*.pt
+
+# ignore test pdf, mp4 file and slide image
+algorithm/imgs/
+*.pdf
+*.mp4

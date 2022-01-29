@@ -10,7 +10,14 @@ from PIL import Image
 from tqdm import tqdm
 import numpy as np
 from metrics import Accuracy, Average
+import time
+
 from models.MobileNetV2 import mobilenetv2
+from models.MobileNetV3 import mobilenet_v3_small
+from models.VGGNet import vgg11
+from models.DenseNet import densenet121
+from models.InceptionNetV3 import inception_v3
+from models.SqueezeNet import squeezenet1_1
 
 # Hyperparameter
 batch_size = 1
@@ -23,28 +30,33 @@ test_data = datasets.ImageFolder("./Data/test/", transform=test_transform)
 test_loader = torch.utils.data.DataLoader(test_data, batch_size=batch_size)
 
 # Set device(GPU / CPU)
-device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
+device = torch.device("cpu")
 
 print('Device:', device)  # 출력결과: GPU: cuda:0, CPU: cpu
 print('Count of using GPUs:', torch.cuda.device_count())   #출력결과: 1 (GPU 한개 사용하므로)
 
 # Set Train Model and loss and Optimizer
-model = torch.load("./checkpoint/cpu/model[12]_cpu.pt")
+model = torch.load("G:\\POCL\slide-transition-detector\\pdf_binary_classification\\checkpoints\\vgg11\\model[27].pt", map_location=device)
 # model.to(device)
 criterion = nn.CrossEntropyLoss()
 # m = nn.Sigmoid() # => for BCELoss
 test_loss = Average()
 test_acc = Accuracy()
 
+total_time = 0
+
 print("Test Trained Model")
 model.eval()
 pbar = tqdm(test_loader)
 with torch.no_grad():
     for i, [image, label] in enumerate(pbar):
-        x = image.to(device)
-        y = label.to(device)
-
+        x = image
+        y = label
+        
+        start_time = time.time()
         output = model(x)
+        total_time += (time.time() - start_time)
+        
         loss = criterion(output, y)
         # print(output)
         # print(y)
@@ -55,3 +67,5 @@ with torch.no_grad():
 
         # for tensorboard
         pbar.set_postfix_str(f'test_loss: {test_loss}, test_acc: {test_acc}')
+
+print("FPS: {0}".format(total_time / 736))
