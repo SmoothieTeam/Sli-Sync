@@ -26,9 +26,16 @@ from domain.classifier.rate_slide_classifier import RateSlideClassifier
 from domain.classifier.simple_slide_classifier import SimpleSlideClassifier
 from domain.classifier.max_distance_slide_classifier import MaxDistanceSlideClassifier
 from domain.classifier.min_distance_slide_classifier import MinDistanceSlideClassifier
+from MobileNetV3 import mobilenet_v3_small
+import torch
 
 def main():
     video_path, ppt_path, time_step, frame_step, print_elapsed = args()
+    
+    device = torch.device("cpu")
+    model = mobilenet_v3_small()
+    model.load_state_dict(torch.load("classification_model\\mobilenetv3_best_state.pt", map_location=device))
+    
     print_start_message(ppt_path, video_path)
 
     frame_loader = CV2FrameLoader(video_path, frame_step=frame_step, second_step=time_step)
@@ -47,7 +54,7 @@ def main():
 
     threshold_finder = NeighborFrameThresholdFinder(slide_loader, threshold_transform, mean_squared_error)
     frame_queue_loader = RateFrameQueueLoader(frame_loader, frame_transform, mean_squared_error, threshold_finder)
-    slide_classifier = MinDistanceSlideClassifier(slide_loader, slide_transform, crop_transform, mean_squared_error)
+    slide_classifier = MinDistanceSlideClassifier(slide_loader, slide_transform, crop_transform, mean_squared_error, model)
     searcher = SlideSearcher(slide_classifier, frame_queue_loader)
     
     times = searcher.get_slide_times()
