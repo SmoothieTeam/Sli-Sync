@@ -133,7 +133,7 @@ class MobileNetV3(nn.Module):
         self,
         inverted_residual_setting: List[InvertedResidualConfig],
         last_channel: int,
-        num_classes: int = 1000,
+        num_classes: int = 2,
         block: Optional[Callable[..., nn.Module]] = None,
         norm_layer: Optional[Callable[..., nn.Module]] = None,
         dropout: float = 0.2,

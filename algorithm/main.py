@@ -26,15 +26,20 @@ from domain.classifier.rate_slide_classifier import RateSlideClassifier
 from domain.classifier.simple_slide_classifier import SimpleSlideClassifier
 from domain.classifier.max_distance_slide_classifier import MaxDistanceSlideClassifier
 from domain.classifier.min_distance_slide_classifier import MinDistanceSlideClassifier
-from MobileNetV3 import mobilenet_v3_small
+from models.MobileNetV2 import mobilenetv2
+from models.MobileNetV3 import mobilenet_v3_small
+from models.VGGNet import vgg11
+from models.DenseNet import densenet121
+from models.InceptionNetV3 import inception_v3
+from models.SqueezeNet import squeezenet1_1
 import torch
 
 def main():
     video_path, ppt_path, time_step, frame_step, print_elapsed = args()
     
     device = torch.device("cpu")
-    model = mobilenet_v3_small()
-    model.load_state_dict(torch.load("classification_model\\mobilenetv3_best_state.pt", map_location=device))
+    model = densenet121()
+    model.load_state_dict(torch.load("classification_model\\densenet121.pt", map_location=device))
     
     print_start_message(ppt_path, video_path)
 

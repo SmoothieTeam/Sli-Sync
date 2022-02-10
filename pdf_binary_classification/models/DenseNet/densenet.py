@@ -158,7 +158,7 @@ class DenseNet(nn.Module):
         num_init_features: int = 64,
         bn_size: int = 4,
         drop_rate: float = 0,
-        num_classes: int = 1000,
+        num_classes: int = 2,
         memory_efficient: bool = False,
     ) -> None:
 
