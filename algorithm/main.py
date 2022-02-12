@@ -39,12 +39,12 @@ def main():
     
     device = torch.device("cpu")
     is_ppt_model = densenet121()
-    is_ppt_model.load_state_dict(torch.load("G:\\POCL\\slide-transition-detector\\algorithm\\classification_model\\densenet121.pt", map_location=device))
+    is_ppt_model.load_state_dict(torch.load("G:\\POCL\\slide-transition-detector\\algorithm\\classification_model\\is_ppt_model.pt", map_location=device))
     is_ppt_model.to(device)
     is_ppt_model.eval()
     
     ppt_included_model = densenet121()
-    ppt_included_model.load_state_dict(torch.load("G:\\POCL\\slide-transition-detector\\algorithm\\classification_model\\model[9]_state.pt", map_location=device))
+    ppt_included_model.load_state_dict(torch.load("G:\\POCL\\slide-transition-detector\\algorithm\\classification_model\\ppt_included_model.pt", map_location=device))
     ppt_included_model.to(device)
     ppt_included_model.eval()
     
