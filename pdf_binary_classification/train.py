@@ -23,13 +23,14 @@ import argparse
 from tensorboardX import SummaryWriter
 
 parser = argparse.ArgumentParser()
-parser.add_argument("--batch-size", default=256, type=int, dest="batch_size")
+parser.add_argument("--batch-size", default=64, type=int, dest="batch_size")
 parser.add_argument("--backbone", default="mobilenet_v3_small", dest="backbone",
                     choices=["mobilenetv2", "mobilenet_v3_small", "vgg11", "densenet121", "inception_v3", "squeezenet"])
 parser.add_argument("--learning-rate", default=0.05,type=float, dest="learning_rate")
 parser.add_argument("--epochs", default=100, type=int, dest="epochs")
 parser.add_argument("--gpus", default=True, type=bool, dest="use_cude")
 parser.add_argument("--gpu_id", default=0, type=int, dest="gpu_id")
+parser.add_argument("--resume", default=None, type=bool, dest="resume")
 
 args = parser.parse_args()
 
@@ -62,8 +63,8 @@ train_transform = transforms.Compose([transforms.Resize((224, 224), interpolatio
 val_transform = transforms.Compose([transforms.Resize((224, 224), interpolation=Image.BICUBIC), transforms.ToTensor()])
 
 # Data Loader
-train_data = datasets.ImageFolder("./Data/train/", transform=train_transform)
-val_data = datasets.ImageFolder("./Data/val/", transform=val_transform)
+train_data = datasets.ImageFolder("./Data_With_Border/train/", transform=train_transform)
+val_data = datasets.ImageFolder("./Data_With_Border/val/", transform=val_transform)
 
 train_loader = torch.utils.data.DataLoader(train_data, batch_size=args.batch_size, shuffle=True)
 val_loader = torch.utils.data.DataLoader(val_data, batch_size=args.batch_size)
@@ -80,6 +81,10 @@ print('Count of using GPUs:', torch.cuda.device_count())   # 출력결과 => GPU
 # Set Train Model and loss and Optimizer
 model = get_model(args.backbone)
 print(str(args.backbone))
+
+# if resume
+if args.resume:
+    model.load_state_dict(torch.load("checkpoints\\densenet121\\model[16]_state.pt", map_location=device))
 
 # If using GPU
 model.to(device)

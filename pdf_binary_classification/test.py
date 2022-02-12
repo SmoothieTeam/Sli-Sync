@@ -30,8 +30,8 @@ test_transform = transforms.Compose([
 
 # Data Loader
 #G:\POCL\slide-transition-detector\algorithm\test_folder_0\1
-# test_data = datasets.ImageFolder("./Data/test/", transform=test_transform)
-test_data = datasets.ImageFolder("G:\\POCL\\slide-transition-detector\\algorithm\\test_folder_0", transform=test_transform)
+test_data = datasets.ImageFolder("./Data_With_Border/test/", transform=test_transform)
+# test_data = datasets.ImageFolder("G:\\POCL\\slide-transition-detector\\algorithm\\test_folder_0", transform=test_transform)
 test_loader = torch.utils.data.DataLoader(test_data, batch_size=batch_size)
 
 # Set device(GPU / CPU)
@@ -42,7 +42,7 @@ print('Count of using GPUs:', torch.cuda.device_count())   #출력결과: 1 (GPU
 
 # Set Train Model and loss and Optimizer
 model = densenet121()
-model.load_state_dict(torch.load("G:\\POCL\slide-transition-detector\\pdf_binary_classification\\checkpoints\\densenet121\\model[25]_state.pt", map_location=device))
+model.load_state_dict(torch.load("G:\\POCL\slide-transition-detector\\pdf_binary_classification\\checkpoints\\densenet121\\model[9]_state.pt", map_location=device))
 # model.to(device)
 criterion = nn.CrossEntropyLoss()
 # m = nn.Sigmoid() # => for BCELoss
@@ -56,7 +56,6 @@ model.eval()
 pbar = tqdm(test_loader)
 with torch.no_grad():
     for i, [image, label] in enumerate(pbar):
-        print(image)
         x = image
         y = label
         

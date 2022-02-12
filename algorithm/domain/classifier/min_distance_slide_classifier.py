@@ -5,7 +5,6 @@ import torch
 import cv2
 from PIL import Image
 from torchvision import transforms
-import torchvision
 
 class MinDistanceSlideClassifier(SlideClassifier):
     def __init__(self, slide_loader: SlideLoader, transform: ImageTransform, slide_area_transform: ImageTransform, distance, classification_model):
@@ -17,8 +16,7 @@ class MinDistanceSlideClassifier(SlideClassifier):
         
         self.tensor_transform = transforms.Compose([
             transforms.Resize((224, 224), interpolation=Image.BICUBIC),
-            transforms.ToTensor(),
-            transforms.Normalize((0.485, 0.456, 0.406), (0.229, 0.224, 0.225))
+            transforms.ToTensor()
         ])
 
     def classify(self, queue, cnt):
@@ -29,17 +27,12 @@ class MinDistanceSlideClassifier(SlideClassifier):
         cvt_image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
         pil_image=Image.fromarray(cvt_image)
         tensor_image = self.tensor_transform(pil_image).unsqueeze(0)
-        self.model.eval()
+        
         with torch.no_grad():
-            print(self.model(tensor_image))
-            
             if torch.argmax(self.model(tensor_image)).numpy() == 0:
-                # cv2.imwrite("G:\\POCL\\slide-transition-detector\\algorithm\\test_folder_0\\" + str(cnt) + ".jpg", image)
-                pil_image.save("G:\\POCL\\slide-transition-detector\\algorithm\\test_folder_0\\" + str(cnt) + ".jpg")
                 compare = lambda i: self.distance(self.images[i], image)
                 most_similar_slide = min(range(len(self.images)), key=compare)
 
                 return most_similar_slide
             else:
-                cv2.imwrite("G:\\POCL\\slide-transition-detector\\algorithm\\test_folder_1\\" + str(cnt) + ".jpg", image)
                 return None
