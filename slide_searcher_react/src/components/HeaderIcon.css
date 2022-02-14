@@ -1,26 +1,26 @@
 .header-icon {
-    display: none;
-    position: relative;
-    display: inline-block;
-    top: 35px;
-    left: 100px;
+  display: none;
+  position: relative;
+  display: inline-block;
+  top: 35px;
+  left: 100px;
 }
 
 .header-icon div:nth-child(1) {
-    background: #6274F0;
+  background: #6274f0;
 }
 
 .header-icon div:nth-child(2) {
-    background: #6C8BFD;
+  background: #6c8bfd;
 }
 
 .header-icon div:nth-child(3) {
-    background: #EAEFF2;
+  background: #eaeff2;
 }
 
 .header-icon > div {
-    display: inline-block;
-    width: 40px;
-    height: 30px;
-    border-radius: 8px;
+  display: inline-block;
+  width: 40px;
+  height: 30px;
+  border-radius: 8px;
 }

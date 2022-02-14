@@ -1,32 +1,32 @@
 .loading-page__main {
-    text-align: center;
+  text-align: center;
 }
 
 .load-page__animation {
-    margin-top: 80px;
+  margin-top: 80px;
 }
 
 .loading-page__main progress {
-    display: inline-block;
-    margin-top: 80px;
-    width: 52%;
-    height: 20px;
+  display: inline-block;
+  margin-top: 80px;
+  width: 52%;
+  height: 20px;
 }
 
 .loading-page__main h2 {
-    margin-top: 50px;
-    color: #6B768D;
-    font-family: Pretendard;
-    font-size: xx-large;
+  margin-top: 50px;
+  color: #6b768d;
+  font-family: Pretendard;
+  font-size: xx-large;
 }
 
 .loading-page__main p {
-    margin-top: 50px;
-    font-family: Pretendard;
-    font-size: x-large;
-    color: #A2ADC2;
+  margin-top: 50px;
+  font-family: Pretendard;
+  font-size: x-large;
+  color: #a2adc2;
 }
 
 .loading-page__main strong {
-    color: #6B768D;
+  color: #6b768d;
 }
