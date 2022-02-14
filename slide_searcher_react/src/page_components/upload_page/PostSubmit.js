@@ -1,3 +1,4 @@
+import React from "react";
 import { Link } from "react-router-dom";
 
 function PostSubmit({ postId = "", onSubmit = () => {} }) {
@@ -12,7 +13,7 @@ function PostSubmit({ postId = "", onSubmit = () => {} }) {
       Submit
     </Link>
   );
-};
+}
 
 export {
   PostSubmit

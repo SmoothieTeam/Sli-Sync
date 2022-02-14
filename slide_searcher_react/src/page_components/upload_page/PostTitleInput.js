@@ -1,4 +1,6 @@
-const PostTitleInput = ({ onChange = (f) => f }) => {
+import React from "react";
+
+function PostTitleInput({ onChange = (f) => f }) {
   const handleTitle = (e) => {
     onChange(e.target.value);
   };
@@ -6,13 +8,14 @@ const PostTitleInput = ({ onChange = (f) => f }) => {
   return (
     <input
       className="upload-page__title-input"
+      data-testid="title-input"
       type="text"
       onChange={handleTitle}
       name="Title"
       placeholder="Please enter a title for your video here!"
     />
   );
-};
+}
 
 export {
   PostTitleInput
