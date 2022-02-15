@@ -13,6 +13,16 @@ const storage = getStorage();
 const getPostRef = (postId) => doc(firestore, "posts", postId);
 const getFileRef = (postId, file) => ref(storage, `${postId}/${file.name}`);
 
+async function replaceFile(id, oldFile, newFile, onProgress = (f) => f, onComplete = () => {}) {
+  try {
+    await removeFile(id, oldFile);
+  } catch (message) {
+    console.log(message);
+  } finally {
+    await uploadFile(id, newFile, onProgress, onComplete);
+  }
+}
+
 async function uploadFile(
   postId,
   file,
@@ -73,8 +83,7 @@ function getProgress(postId, onNext) {
 }
 
 export {
-  uploadFile,
-  removeFile,
+  replaceFile,
   uploadPost,
   getPost,
   getPostTitle,

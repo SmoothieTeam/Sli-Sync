@@ -1,32 +1,31 @@
-const useFileInput = (id) => {
+import { useState } from "react";
+
+const useFileInput = (id, {replaceFile}) => {
   const [file, setFile] = useState();
   const [progress, setProgress] = useState(0);
   const [isUploaded, setIsUploaded] = useState(false);
-  const completeUploaed = () => {
-    setIsUploaded(true);
-  };
-  const removeAndUpload = async (fileToRemove, fileToUpload) => {
-    removeFile(id, fileToRemove)
-      .catch(console.log)
-      .finally(() =>
-        uploadFile(id, fileToUpload, setProgress, completeUploaed)
-      );
-  };
+  const isUploading = () => !isUploaded && file !== undefined;
   const upload = (file) => {
+    const completeUpload = () => {
+      setIsUploaded(true);
+      setProgress(1);
+    };  
+    const reduceProgress = (progress) => setProgress((prevProgress) => progress > prevProgress ? progress : prevProgress);
+    
     setIsUploaded(false);
+    setProgress(0);
     setFile((prevFile) => {
-      removeAndUpload(prevFile, file);
+      if (prevFile !== file) replaceFile(id, prevFile, file, reduceProgress, completeUpload);
       return file;
     });
   };
-  const isUploading = () => file !== undefined;
 
   return {
     file,
     progress,
     isUploaded,
-    upload,
     isUploading,
+    upload,
   };
 };
 

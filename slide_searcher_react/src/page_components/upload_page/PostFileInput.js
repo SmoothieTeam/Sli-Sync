@@ -1,8 +1,9 @@
+import { useEffect } from "react";
 import { useFileInput } from "./useFileInput";
 
-const PostFileInput = ({ postId = "", onUploaded = (isUploaded) => isUploaded }) => {
-  const video = useFileInput(postId);
-  const slide = useFileInput(postId);
+const PostFileInput = ({ postId = "", onUploaded = (isUploaded) => isUploaded, uploader }) => {
+  const video = useFileInput(postId, uploader);
+  const slide = useFileInput(postId, uploader);
   useEffect(() => {
     onUploaded(video.isUploaded && slide.isUploaded);
   }, [video.isUploaded, slide.isUploaded]);

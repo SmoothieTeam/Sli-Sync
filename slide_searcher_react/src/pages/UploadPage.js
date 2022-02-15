@@ -11,7 +11,7 @@ function UploadPage() {
       {builder.build()}
       <div className="upload-page__main">
         <UploadPageComponents.TitleContainer />
-        <UploadPageComponents.PostInput />
+        <UploadPageComponents.PostFileInput />
         <UploadPageComponents.PostTitleInput />
         <UploadPageComponents.PostSubmit />
       </div>
