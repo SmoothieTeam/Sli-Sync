@@ -24,7 +24,6 @@ class UniformFrameLoader(FrameLoader):
 
                 with torch.no_grad():
                     if torch.argmax(self.model(tensor_image)).numpy() == 0:
-                        cv2.imwrite("area_result//" + str(frame_count) + ".png", frame)
                         yield_count += 1
                         yield frame
             if yield_count == 5:
