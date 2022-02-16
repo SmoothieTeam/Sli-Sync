@@ -1,18 +1,14 @@
 import cv2
 import torch
-from PIL import Image
-from torchvision import transforms
 from data_adapter.frame_loader import FrameLoader
+from domain.image_transform import ImageTransform
 
 class UniformFrameLoader(FrameLoader):
-    def __init__(self, path, model):
+    def __init__(self, path, model, tensor_transform: ImageTransform):
         self.video = cv2.VideoCapture(path)
         self.step = int(self.video.get(cv2.CAP_PROP_FPS) * 30)
         self.model = model
-        self.tensor_transform = transforms.Compose([
-            transforms.Resize((224, 224), interpolation=Image.BICUBIC),
-            transforms.ToTensor()
-        ])
+        self.tensor_transform = tensor_transform
 
     def frames(self):
         frame_count = 0
@@ -23,17 +19,15 @@ class UniformFrameLoader(FrameLoader):
                 ret, frame = self.video.retrieve()
                 if not ret:
                     break
-                # to make as input format of model
-                cvt_image = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
-                pil_image = Image.fromarray(cvt_image)
-                tensor_image = self.tensor_transform(pil_image).unsqueeze(0)
+                
+                tensor_image = self.tensor_transform.transform(frame)
+
                 with torch.no_grad():
-                    # if image include ppt area
                     if torch.argmax(self.model(tensor_image)).numpy() == 0:
+                        cv2.imwrite("area_result//" + str(frame_count) + ".png", frame)
                         yield_count += 1
                         yield frame
             if yield_count == 5:
-                print("area founded")
                 break
             frame_count += 1
         self.video.release()

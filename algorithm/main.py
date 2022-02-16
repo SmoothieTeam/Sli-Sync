@@ -15,6 +15,7 @@ from data_adapter.image_transform.resize_image_transform import ResizeImageTrans
 from data_adapter.image_transform.gray_image_transform import GrayImageTransform
 from data_adapter.image_transform.crop_image_transform import CropImageTransform
 from data_adapter.image_transform.identity_image_transform import IdentityImageTransform
+from data_adapter.image_transform.tensor_image_transform import TensorImageTransform
 
 from data_adapter.frame_queue_loader.neighbor_frame_theshold_finder import NeighborFrameThresholdFinder
 from data_adapter.area_finder.slide_area_finder import SlideAreaFinder
@@ -26,47 +27,45 @@ from domain.classifier.rate_slide_classifier import RateSlideClassifier
 from domain.classifier.simple_slide_classifier import SimpleSlideClassifier
 from domain.classifier.max_distance_slide_classifier import MaxDistanceSlideClassifier
 from domain.classifier.min_distance_slide_classifier import MinDistanceSlideClassifier
-from models.MobileNetV2 import mobilenetv2
-from models.MobileNetV3 import mobilenet_v3_small
-from models.VGGNet import vgg11
+
 from models.DenseNet import densenet121
-from models.InceptionNetV3 import inception_v3
-from models.SqueezeNet import squeezenet1_1
 import torch
 
 def main():
     video_path, ppt_path, time_step, frame_step, print_elapsed = args()
     
     device = torch.device("cpu")
+
     is_ppt_model = densenet121()
-    is_ppt_model.load_state_dict(torch.load("G:\\POCL\\slide-transition-detector\\algorithm\\classification_model\\is_ppt_model.pt", map_location=device))
+    is_ppt_model.load_state_dict(torch.load("classification_model\\is_ppt_model.pt", map_location=device))
     is_ppt_model.to(device)
     is_ppt_model.eval()
     
     ppt_included_model = densenet121()
-    ppt_included_model.load_state_dict(torch.load("G:\\POCL\\slide-transition-detector\\algorithm\\classification_model\\ppt_included_model.pt", map_location=device))
+    ppt_included_model.load_state_dict(torch.load("classification_model\\ppt_included_model.pt", map_location=device))
     ppt_included_model.to(device)
     ppt_included_model.eval()
     
     print_start_message(ppt_path, video_path)
 
     frame_loader = CV2FrameLoader(video_path, frame_step=frame_step, second_step=time_step)
-    uniform_frame_loader = UniformFrameLoader(video_path, ppt_included_model)
+    tensor_transfrom = TensorImageTransform()
+    uniform_frame_loader = UniformFrameLoader(video_path, ppt_included_model, tensor_transfrom)
 
     image_loader = PDFImageLoader(ppt_path)
     slide_loader = SlideAdapter(image_loader)
 
     slide_area_finder = SlideAreaFinder(slide_loader, uniform_frame_loader, 6)
-    
     crop_transform = CropImageTransform(slide_area_finder.find_mask())
     # crop_transform = IdentityImageTransform()
+    
     threshold_transform = ResizeImageTransform((100, 100))
     frame_transform = ResizeImageTransform((100, 100), crop_transform)
-    slide_transform = ResizeImageTransform((200, 200))
+    slide_transform = ResizeImageTransform
 
     threshold_finder = NeighborFrameThresholdFinder(slide_loader, threshold_transform, mean_squared_error)
     frame_queue_loader = RateFrameQueueLoader(frame_loader, frame_transform, mean_squared_error, threshold_finder)
-    slide_classifier = MinDistanceSlideClassifier(slide_loader, slide_transform, crop_transform, mean_squared_error, is_ppt_model)
+    slide_classifier = MinDistanceSlideClassifier(slide_loader, slide_transform, crop_transform, tensor_transfrom, mean_squared_error, is_ppt_model)
     searcher = SlideSearcher(slide_classifier, frame_queue_loader)
     
     times = searcher.get_slide_times()
