@@ -10,8 +10,8 @@ class SlideSearcher:
         self.frame_queue_loader = frame_queue_loader
 
     def classify_queues(self):
-        for cnt, queue in enumerate(self.frame_queue_loader.queues()):
-            slide = self.slide_classifier.classify(queue, cnt)
+        for queue in self.frame_queue_loader.queues():
+            slide = self.slide_classifier.classify(queue)
             
             yield slide, queue
 

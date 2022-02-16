@@ -15,7 +15,7 @@ class MinDistanceSlideClassifier(SlideClassifier):
         self.distance = distance
         self.model = classification_model
 
-    def classify(self, queue, cnt):
+    def classify(self, queue):
         _, image = queue.frames()
         image = self.slide_area_transform.transform(image)
         image = self.transform(self.size).transform(image)
