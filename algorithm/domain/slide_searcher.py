@@ -1,5 +1,4 @@
 from collections import defaultdict
-from tqdm import tqdm
 
 from domain.frame_queue_loader import FrameQueueLoader
 from domain.slide_classifier import SlideClassifier

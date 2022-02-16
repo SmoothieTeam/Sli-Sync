@@ -2,7 +2,6 @@ from domain.slide_classifier import SlideClassifier
 from domain.image_transform import ImageTransform
 from domain.slide_loader import SlideLoader
 import torch
-import cv2
 
 class MinDistanceSlideClassifier(SlideClassifier):
     def __init__(self, slide_loader: SlideLoader, transform: ImageTransform, slide_area_transform: ImageTransform, tensor_transform: ImageTransform, distance, classification_model):
