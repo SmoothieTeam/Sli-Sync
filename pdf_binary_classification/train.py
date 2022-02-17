@@ -76,8 +76,6 @@ device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 print('Device:', device)  # 출력결과 => GPU: cuda:0, CPU: cpu
 print('Count of using GPUs:', torch.cuda.device_count())   # 출력결과 => GPU: GPU 개수, CPU: 0
 
-
-
 # Set Train Model and loss and Optimizer
 model = get_model(args.backbone)
 print(str(args.backbone))
@@ -110,7 +108,7 @@ for epoch in range(args.epochs):
         (best_loss.index(min(best_loss)) - 1), 
         (best_acc.index(max(best_acc)) - 1))
     )
-
+ 
     # Train => Two Classes(PDF / Not_PDF)
     model.train()
     pbar = tqdm(train_loader)
@@ -125,9 +123,6 @@ for epoch in range(args.epochs):
 
         optimizer.zero_grad()
         output = model(x)
-        
-        # for train inceptionnet-V3
-        # output, _ = model(x)
 
         loss = criterion(output, y)
         loss.backward()
