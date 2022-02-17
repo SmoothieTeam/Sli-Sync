@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router";
 import { useHistory } from "react-router-dom";
-import HeaderBuilder from "../components/HeaderBuilder";
-import LoadingAnimation from "../components/LoadingAnimation";
+import HeaderBuilder from "../components/common/HeaderBuilder";
+import LoadingAnimation from "../components/common/LoadingAnimation";
 import "./LoadingPage.css";
 
 function LoadingPage({ getProgress }) {

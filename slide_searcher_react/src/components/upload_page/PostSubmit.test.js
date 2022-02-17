@@ -1,18 +1,18 @@
-import { PostSubmit } from "./PostSubmit";
+import PostSubmit from "./PostSubmit";
 import { fireEvent, render } from "@testing-library/react";
 import { MemoryRouter, Route } from "react-router-dom";
 
-const randomString = () => Math.random().toString(36).substring(2,11); 
+const randomString = () => Math.random().toString(36).substring(2, 11);
 
 test("PostSubmit should call onSubmit callback", () => {
   const onSubmit = jest.fn();
   const { getByTestId } = render(
     <MemoryRouter>
-      <PostSubmit onSubmit={onSubmit}/>
+      <PostSubmit onSubmit={onSubmit} />
     </MemoryRouter>
   );
   const submitButton = getByTestId("submit");
-  
+
   fireEvent.click(submitButton);
 
   expect(onSubmit.mock.calls.length).toBe(1);
@@ -23,7 +23,7 @@ test("PostSubmit should redirect to given uploaded page", () => {
   let testLocation;
   const { getByTestId } = render(
     <MemoryRouter>
-      <PostSubmit postId={postId}/>
+      <PostSubmit postId={postId} />
       <Route
         path="*"
         render={({ location }) => {
@@ -34,7 +34,7 @@ test("PostSubmit should redirect to given uploaded page", () => {
     </MemoryRouter>
   );
   const submitButton = getByTestId("submit");
-  
+
   fireEvent.click(submitButton);
 
   expect(testLocation.pathname).toBe(`/uploaded/${postId}`);

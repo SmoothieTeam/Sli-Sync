@@ -1,19 +1,19 @@
-import {
-  doc,
-  getDoc,
-  setDoc,
-  onSnapshot,
-} from "firebase/firestore";
+import { doc, getDoc, setDoc, onSnapshot, collection } from "firebase/firestore";
 import { deleteObject, ref, uploadBytesResumable } from "firebase/storage";
 import { getFirestore, getStorage } from "./firebase_wrapper";
-
 const firestore = getFirestore();
 const storage = getStorage();
-// const getNewPostRef = () => doc(collection(firestore, "posts"));
+const newPostRef = () => doc(collection(firestore, "posts"));
 const getPostRef = (postId) => doc(firestore, "posts", postId);
 const getFileRef = (postId, file) => ref(storage, `${postId}/${file.name}`);
 
-async function replaceFile(id, oldFile, newFile, onProgress = (f) => f, onComplete = () => {}) {
+async function replaceFile(
+  id,
+  oldFile,
+  newFile,
+  onProgress = (f) => f,
+  onComplete = () => {}
+) {
   try {
     await removeFile(id, oldFile);
   } catch (message) {
@@ -49,9 +49,14 @@ async function removeFile(postId, file, onComplete = () => {}) {
   await deleteObject(ref).then(onComplete).catch(console.log);
 }
 
+function newPostId() {
+  const post = newPostRef();
+  return post.id;
+}
+
 async function uploadPost(postId, { title }) {
   const postRef = getPostRef(postId);
-  await setDoc(postRef, { title, videoURL: "", slideURL: "" }, { merge: true });
+  await setDoc(postRef, { title }, { merge: true });
 
   return { id: postRef.id };
 }
@@ -82,10 +87,12 @@ function getProgress(postId, onNext) {
   });
 }
 
-export {
+const postUploader = {
   replaceFile,
+  newPostId,
   uploadPost,
-  getPost,
-  getPostTitle,
-  getProgress,
 };
+
+export default postUploader;
+
+export { replaceFile, uploadPost, getPost, getPostTitle, getProgress };

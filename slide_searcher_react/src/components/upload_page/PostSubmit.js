@@ -15,6 +15,4 @@ function PostSubmit({ postId = "", onSubmit = () => {} }) {
   );
 }
 
-export {
-  PostSubmit
-};
+export default PostSubmit;

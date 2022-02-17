@@ -17,6 +17,4 @@ function PostTitleInput({ onChange = (f) => f }) {
   );
 }
 
-export {
-  PostTitleInput
-};
+export default PostTitleInput;

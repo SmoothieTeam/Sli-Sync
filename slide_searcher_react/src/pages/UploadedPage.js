@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import HeaderBuilder from "../components/HeaderBuilder";
-import SharePanel from "../components/SharePanel";
+import HeaderBuilder from "../components/common/HeaderBuilder";
+import SharePanel from "../components/common/SharePanel";
 import "./UploadedPage.css";
 
 function UploadedPage({ getPostTitle, sendEmail, copyLink }) {

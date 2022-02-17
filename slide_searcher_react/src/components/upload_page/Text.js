@@ -1,4 +1,4 @@
-const TitleContainer = () => {
+const PostText = () => {
   return (
     <>
       <h2>UPLOAD FILES</h2>
@@ -7,6 +7,4 @@ const TitleContainer = () => {
   );
 };
 
-export {
-  TitleContainer
-};
+export default PostText;

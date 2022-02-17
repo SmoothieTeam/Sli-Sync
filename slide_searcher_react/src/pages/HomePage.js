@@ -1,7 +1,7 @@
 import React from "react";
 import "./HomePage.css";
 import { Link } from "react-router-dom";
-import HeaderBuilder from "../components/HeaderBuilder";
+import HeaderBuilder from "../components/common/HeaderBuilder";
 
 function HomePage() {
   const headerBuilder = new HeaderBuilder();
