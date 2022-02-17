@@ -125,7 +125,8 @@ for epoch in range(args.epochs):
 
         optimizer.zero_grad()
         output = model(x)
-        # for inceptionnet-V3
+        
+        # for train inceptionnet-V3
         # output, _ = model(x)
 
         loss = criterion(output, y)

@@ -27,30 +27,19 @@ from domain.classifier.rate_slide_classifier import RateSlideClassifier
 from domain.classifier.simple_slide_classifier import SimpleSlideClassifier
 from domain.classifier.max_distance_slide_classifier import MaxDistanceSlideClassifier
 from domain.classifier.min_distance_slide_classifier import MinDistanceSlideClassifier
-
-from models.DenseNet import densenet121
-import torch
+from domain.classifier.ppt_slide_classifier import PPTSlideClassifier
 
 def main():
     video_path, ppt_path, time_step, frame_step, print_elapsed = args()
     
-    device = torch.device("cpu")
-
-    is_ppt_model = densenet121()
-    is_ppt_model.load_state_dict(torch.load("classification_model\\is_ppt_model.pt", map_location=device))
-    is_ppt_model.to(device)
-    is_ppt_model.eval()
     
-    ppt_included_model = densenet121()
-    ppt_included_model.load_state_dict(torch.load("classification_model\\ppt_included_model.pt", map_location=device))
-    ppt_included_model.to(device)
-    ppt_included_model.eval()
     
     print_start_message(ppt_path, video_path)
 
     frame_loader = CV2FrameLoader(video_path, frame_step=frame_step, second_step=time_step)
     tensor_transfrom = TensorImageTransform()
-    uniform_frame_loader = UniformFrameLoader(video_path, ppt_included_model, tensor_transfrom)
+    ppt_slide_classifier = PPTSlideClassifier(tensor_transfrom)
+    uniform_frame_loader = UniformFrameLoader(video_path, ppt_slide_classifier)
 
     image_loader = PDFImageLoader(ppt_path)
     slide_loader = SlideAdapter(image_loader)
@@ -65,7 +54,7 @@ def main():
 
     threshold_finder = NeighborFrameThresholdFinder(slide_loader, threshold_transform, mean_squared_error)
     frame_queue_loader = RateFrameQueueLoader(frame_loader, frame_transform, mean_squared_error, threshold_finder)
-    slide_classifier = MinDistanceSlideClassifier(slide_loader, slide_transform, crop_transform, tensor_transfrom, mean_squared_error, is_ppt_model)
+    slide_classifier = MinDistanceSlideClassifier(slide_loader, slide_transform, crop_transform, ppt_slide_classifier, mean_squared_error)
     searcher = SlideSearcher(slide_classifier, frame_queue_loader)
     
     times = searcher.get_slide_times()

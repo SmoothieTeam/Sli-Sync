@@ -1,14 +1,14 @@
 import cv2
 import torch
+from domain.slide_classifier import SlideClassifier
 from data_adapter.frame_loader import FrameLoader
 from domain.image_transform import ImageTransform
 
 class UniformFrameLoader(FrameLoader):
-    def __init__(self, path, model, tensor_transform: ImageTransform):
+    def __init__(self, path, ppt_slide_classifier: SlideClassifier):
         self.video = cv2.VideoCapture(path)
         self.step = int(self.video.get(cv2.CAP_PROP_FPS) * 30)
-        self.model = model
-        self.tensor_transform = tensor_transform
+        self.ppt_slide_classifier = ppt_slide_classifier
 
     def frames(self):
         frame_count = 0
@@ -19,11 +19,9 @@ class UniformFrameLoader(FrameLoader):
                 ret, frame = self.video.retrieve()
                 if not ret:
                     break
-                
-                tensor_image = self.tensor_transform.transform(frame)
 
                 with torch.no_grad():
-                    if torch.argmax(self.model(tensor_image)).numpy() == 0:
+                    if self.ppt_slide_classifier.ppt_included_classify(frame) == 0:
                         yield_count += 1
                         yield frame
             if yield_count == 5:
