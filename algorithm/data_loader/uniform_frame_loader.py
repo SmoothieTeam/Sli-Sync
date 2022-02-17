@@ -20,10 +20,9 @@ class UniformFrameLoader(FrameLoader):
                 if not ret:
                     break
 
-                with torch.no_grad():
-                    if self.ppt_slide_classifier.ppt_included_classify(frame) == 0:
-                        yield_count += 1
-                        yield frame
+                if self.ppt_slide_classifier.ppt_included_classify(frame) == 0:
+                    yield_count += 1
+                    yield frame
             if yield_count == 5:
                 break
             frame_count += 1

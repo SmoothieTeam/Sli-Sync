@@ -17,12 +17,11 @@ class MinDistanceSlideClassifier(SlideClassifier):
         _, image = queue.frames()
         image = self.slide_area_transform.transform(image)
         image = self.transform(self.size).transform(image)
-        
-        with torch.no_grad():
-            if self.ppt_slide_classifier.is_ppt_classify(image) == 0:
-                compare = lambda i: self.distance(self.images[i], image)
-                most_similar_slide = min(range(len(self.images)), key=compare)
-                return most_similar_slide
-            else:
-                return None
+
+        if self.ppt_slide_classifier.is_ppt_classify(image) == 0:
+            compare = lambda i: self.distance(self.images[i], image)
+            most_similar_slide = min(range(len(self.images)), key=compare)
+            return most_similar_slide
+        else:
+            return None
         

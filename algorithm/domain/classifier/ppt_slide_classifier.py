@@ -19,7 +19,11 @@ class PPTSlideClassifier(SlideClassifier):
         self.ppt_included_model.eval()
  
     def is_ppt_classify(self, image):
-        return torch.argmax(self.is_ppt_model(self.tensor_transform.transform(image))).numpy()
+        with torch.no_grad():
+            result = torch.argmax(self.is_ppt_model(self.tensor_transform.transform(image))).numpy()
+        return result
 
     def ppt_included_classify(self, image):
-        return torch.argmax(self.ppt_included_model(self.tensor_transform.transform(image))).numpy()
+        with torch.no_grad():
+            result = torch.argmax(self.ppt_included_model(self.tensor_transform.transform(image))).numpy()
+        return result
