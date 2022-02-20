@@ -1,4 +1,5 @@
 import React from "react";
+import FileProgress from "../common/FileProgress";
 
 function PostFileProgress({ video, slide }) {
   return (

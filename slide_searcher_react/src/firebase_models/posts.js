@@ -1,11 +1,11 @@
 import { doc, getDoc, setDoc, onSnapshot, collection } from "firebase/firestore";
 import { deleteObject, ref, uploadBytesResumable } from "firebase/storage";
-import { getFirestore, getStorage } from "./firebase_wrapper";
-const firestore = getFirestore();
-const storage = getStorage();
-const newPostRef = () => doc(collection(firestore, "posts"));
-const getPostRef = (postId) => doc(firestore, "posts", postId);
-const getFileRef = (postId, file) => ref(storage, `${postId}/${file.name}`);
+import { firestore, storage } from "./firebase_wrapper";
+const db = firestore();
+const cloudStorage = storage();
+const newPostRef = () => doc(collection(db, "posts"));
+const getPostRef = (postId) => doc(db, "posts", postId);
+const getFileRef = (postId, file) => ref(cloudStorage, `${postId}/${file.name}`);
 
 async function replaceFile(
   id,

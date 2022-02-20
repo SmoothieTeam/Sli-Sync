@@ -1,4 +1,4 @@
-const PostText = () => {
+const PageText = () => {
   return (
     <>
       <h2>UPLOAD FILES</h2>
@@ -7,4 +7,4 @@ const PostText = () => {
   );
 };
 
-export default PostText;
+export default PageText;

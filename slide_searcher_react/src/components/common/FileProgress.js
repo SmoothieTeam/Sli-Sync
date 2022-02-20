@@ -1,6 +1,6 @@
 import "./FileProgress.css";
 
-function FileProgress({ className, filename, progress }) {
+function FileProgress({ className, file, progress }) {
   return (
     <div className={`file-progress ${className}`}>
       <img
@@ -13,7 +13,7 @@ function FileProgress({ className, filename, progress }) {
         <br />
         <progress min={0} value={progress} />
         <br />
-        {filename}
+        {file.name}
       </div>
     </div>
   );

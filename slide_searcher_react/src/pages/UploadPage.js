@@ -26,6 +26,10 @@ function UploadPage() {
           slide={slide}
           onUploaded={handleUploaded}
         />
+        <UploadPageComponents.PostFileProgress 
+          video={video}
+          slide={slide}
+        />
         <UploadPageComponents.PostTitleInput onChange={handleTitle} />
         <UploadPageComponents.PostSubmit
           postId={postId}

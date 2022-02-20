@@ -1,6 +1,6 @@
 import { useUploadPage } from "./useUploadPage";
 import "jest";
-import { renderHook } from "@testing-library/react-hooks";
+import { renderHook, act, waitForNextUpdate } from "@testing-library/react-hooks";
 
 const mockPostUploader = (postId) => {
   const uploadPost = jest.fn();
@@ -23,9 +23,11 @@ test("handleSubmit should not be called uploadPost if inputs are empty", () => {
   const postUploader = mockPostUploader();
   const { result } = renderHook(() => useUploadPage(postUploader));
 
-  result.current.handleSubmit();
+  act(() => {
+    result.current.handleSubmit();
+  });
 
-  expect(postUploader.uploadPost.mock.calls.length).toBe(0);
+  expect(postUploader.uploadPost).not.toBeCalled();
 });
 
 test("handleSubmit should not be called uploadPost if only file input is valid", () => {
@@ -33,10 +35,12 @@ test("handleSubmit should not be called uploadPost if only file input is valid",
   const postUploader = mockPostUploader();
   const { result } = renderHook(() => useUploadPage(postUploader));
 
-  result.current.handleUploaded(isUploaded);
-  result.current.handleSubmit();
+  act(() => {
+    result.current.handleUploaded(isUploaded);
+    result.current.handleSubmit();
+  });
 
-  expect(postUploader.uploadPost.mock.calls.length).toBe(0);
+  expect(postUploader.uploadPost).not.toBeCalled();
 });
 
 test("handleSubmit should not be called uploadPost if title is valid", () => {
@@ -44,21 +48,25 @@ test("handleSubmit should not be called uploadPost if title is valid", () => {
   const postUploader = mockPostUploader();
   const { result } = renderHook(() => useUploadPage(postUploader));
 
-  result.current.handleTitle(title);
-  result.current.handleSubmit();
+  act(() => {
+    result.current.handleTitle(title);
+    result.current.handleSubmit();  
+  });
 
-  expect(postUploader.uploadPost.mock.calls.length).toBe(0);
+  expect(postUploader.uploadPost).not.toBeCalled();
 });
 
 test("handleSubmit should be called uploadPost if inputs are all valid", () => {
-  const isUploaded = true;
+  const uploaded = true;
   const title = "title";
   const postUploader = mockPostUploader();
   const { result } = renderHook(() => useUploadPage(postUploader));
 
-  result.current.handleUploaded(isUploaded);
-  result.current.handleTitle(title);
-  result.current.handleSubmit();
+  act(() => {
+    result.current.handleUploaded(uploaded);
+    result.current.handleTitle(title);
+  });
+  act(() => result.current.handleSubmit());
 
-  expect(postUploader.uploadPost.mock.calls.length).toBe(1);
+  expect(postUploader.uploadPost).toBeCalled();
 });
