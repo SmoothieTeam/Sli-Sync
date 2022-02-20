@@ -11,8 +11,10 @@ class SlideSearcher:
     def classify_queues(self):
         for queue in self.frame_queue_loader.queues():
             slide = self.slide_classifier.classify(queue)
-            
-            yield slide, queue
+            if slide != None:
+                yield slide, queue
+            else:
+                continue
 
     def get_slide_times(self):
         slide_times = defaultdict(list)

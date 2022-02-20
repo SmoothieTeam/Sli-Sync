@@ -132,6 +132,7 @@ dmypy.json
 Data/
 Data_Not_Processed/
 Pretrained_MobileNetV2/
+Data_With_Border/
 
 # ignore trained model file since too heavy
 *.pt
@@ -140,3 +141,6 @@ Pretrained_MobileNetV2/
 algorithm/imgs/
 *.pdf
 *.mp4
+
+checkpoints_past/
+checkpoints/

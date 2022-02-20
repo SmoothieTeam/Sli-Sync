@@ -23,13 +23,14 @@ import argparse
 from tensorboardX import SummaryWriter
 
 parser = argparse.ArgumentParser()
-parser.add_argument("--batch-size", default=32, type=int, dest="batch_size")
+parser.add_argument("--batch-size", default=64, type=int, dest="batch_size")
 parser.add_argument("--backbone", default="mobilenet_v3_small", dest="backbone",
                     choices=["mobilenetv2", "mobilenet_v3_small", "vgg11", "densenet121", "inception_v3", "squeezenet"])
-parser.add_argument("--learning-rate", default=0.01,type=float, dest="learning_rate")
-parser.add_argument("--epochs", default=30, type=int, dest="epochs")
+parser.add_argument("--learning-rate", default=0.05,type=float, dest="learning_rate")
+parser.add_argument("--epochs", default=100, type=int, dest="epochs")
 parser.add_argument("--gpus", default=True, type=bool, dest="use_cude")
 parser.add_argument("--gpu_id", default=0, type=int, dest="gpu_id")
+parser.add_argument("--resume", default=None, type=bool, dest="resume")
 
 args = parser.parse_args()
 
@@ -48,6 +49,7 @@ def get_model(model_name):
         model = mobilenet_v3_small()
     return model
 
+# for using multiple GPUs
 os.environ["CUDA_DEVICE_ORDER"]="PCI_BUS_ID"
 os.environ["CUDA_VISIBLE_DEVICES"]= str(args.gpu_id)
 
@@ -61,8 +63,8 @@ train_transform = transforms.Compose([transforms.Resize((224, 224), interpolatio
 val_transform = transforms.Compose([transforms.Resize((224, 224), interpolation=Image.BICUBIC), transforms.ToTensor()])
 
 # Data Loader
-train_data = datasets.ImageFolder("./Data/train/", transform=train_transform)
-val_data = datasets.ImageFolder("./Data/val/", transform=val_transform)
+train_data = datasets.ImageFolder("./Data_With_Border/train/", transform=train_transform)
+val_data = datasets.ImageFolder("./Data_With_Border/val/", transform=val_transform)
 
 train_loader = torch.utils.data.DataLoader(train_data, batch_size=args.batch_size, shuffle=True)
 val_loader = torch.utils.data.DataLoader(val_data, batch_size=args.batch_size)
@@ -76,6 +78,11 @@ print('Count of using GPUs:', torch.cuda.device_count())   # 출력결과 => GPU
 
 # Set Train Model and loss and Optimizer
 model = get_model(args.backbone)
+print(str(args.backbone))
+
+# if resume
+if args.resume:
+    model.load_state_dict(torch.load("checkpoints\\densenet121\\model[16]_state.pt", map_location=device))
 
 # If using GPU
 model.to(device)
@@ -101,7 +108,7 @@ for epoch in range(args.epochs):
         (best_loss.index(min(best_loss)) - 1), 
         (best_acc.index(max(best_acc)) - 1))
     )
-
+ 
     # Train => Two Classes(PDF / Not_PDF)
     model.train()
     pbar = tqdm(train_loader)
@@ -115,9 +122,7 @@ for epoch in range(args.epochs):
         # y = label
 
         optimizer.zero_grad()
-        # output = model(x)
-        # for inceptionnet-V3
-        output, _ = model(x)
+        output = model(x)
 
         loss = criterion(output, y)
         loss.backward()
@@ -160,6 +165,5 @@ for epoch in range(args.epochs):
             pbar.set_postfix_str(f'val_loss: {val_loss}, val_acc: {val_acc}')
             writer.add_scalar('val_loss', val_loss.value, epoch)
             writer.add_scalar('val_acc', val_acc.value, epoch)
-
     best_loss.append(val_loss.value)
     best_acc.append(val_acc.value)

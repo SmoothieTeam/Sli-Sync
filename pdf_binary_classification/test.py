@@ -23,7 +23,10 @@ from models.SqueezeNet import squeezenet1_1
 batch_size = 1
 
 # Data Transform
-test_transform = transforms.Compose([transforms.Resize((224, 224), interpolation=Image.BICUBIC), transforms.ToTensor()])
+test_transform = transforms.Compose([
+    transforms.Resize((224, 224), interpolation=Image.BICUBIC), 
+    transforms.ToTensor()
+])
 
 # Data Loader
 test_data = datasets.ImageFolder("./Data/test/", transform=test_transform)
@@ -36,7 +39,8 @@ print('Device:', device)  # 출력결과: GPU: cuda:0, CPU: cpu
 print('Count of using GPUs:', torch.cuda.device_count())   #출력결과: 1 (GPU 한개 사용하므로)
 
 # Set Train Model and loss and Optimizer
-model = torch.load("G:\\POCL\slide-transition-detector\\pdf_binary_classification\\checkpoints\\vgg11\\model[27].pt", map_location=device)
+model = densenet121()
+model.load_state_dict(torch.load("checkpoints\\is_ppt_model.pt", map_location=device))
 # model.to(device)
 criterion = nn.CrossEntropyLoss()
 # m = nn.Sigmoid() # => for BCELoss
@@ -58,8 +62,6 @@ with torch.no_grad():
         total_time += (time.time() - start_time)
         
         loss = criterion(output, y)
-        # print(output)
-        # print(y)
 
         # update loss value
         test_loss.update(loss.item(), number=x.size(0))
