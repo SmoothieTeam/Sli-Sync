@@ -1,16 +1,6 @@
 import { useFileInput } from "./useFileInput";
 import { renderHook, act } from "@testing-library/react-hooks";
 
-function mockReplaceFile() {
-  const replaceFile = jest.fn();
-
-  replaceFile.calls = () => replaceFile.mock.calls.length;
-  replaceFile.calledId = (call) => replaceFile.mock.calls[call][0];
-  replaceFile.calledOldFile = (call) => replaceFile.mock.calls[call][1];
-  replaceFile.calledNewFile = (call) => replaceFile.mock.calls[call][2];
-  return replaceFile;
-}
-
 function fakeReplaceFile(progresses = [], isCompleted = false) {
   const replaceFile = (_id, _oldFile, _newFile, onProgress, onComplete) => {
     progresses.map((progress) => onProgress(progress));
@@ -22,17 +12,35 @@ function fakeReplaceFile(progresses = [], isCompleted = false) {
 
 test("useFileInput should use replaceFile when upload", () => {
   const id = "id";
-  const file = {};
-  const replaceFile = mockReplaceFile();
+  const initialFile = undefined;
+  const file = "file";
+  const replaceFile = jest.fn();
   const { result } = renderHook(() => useFileInput(id, { replaceFile }));
 
   act(() => {
     result.current.upload(file);
   });
 
-  expect(replaceFile.calls()).toBe(1);
-  expect(replaceFile.calledId(0)).toBe(id);
-  expect(replaceFile.calledNewFile(0)).toBe(file);
+  expect(replaceFile).toBeCalled();
+  expect(replaceFile).toBeCalledWith(id, initialFile, file, expect.anything(), expect.anything());
+});
+
+test("usefileInput should replace file using replaceFile when upload is called", () => {
+  const id = "id";
+  const initialFile = undefined;
+  const firstFile = "first file";
+  const secondFile = "second file";
+  const replaceFile = jest.fn();
+  const { result } = renderHook(() => useFileInput(id, { replaceFile }));
+
+  act(() => {
+    result.current.upload(firstFile);
+    result.current.upload(secondFile);
+  });
+
+  expect(replaceFile).toBeCalledTimes(2);
+  expect(replaceFile).toBeCalledWith(id, initialFile, firstFile, expect.anything(), expect.anything());
+  expect(replaceFile).toBeCalledWith(id, firstFile, secondFile, expect.anything(), expect.anything());
 });
 
 test("useFileInput should have correct uploading state when upload is not completed.", () => {

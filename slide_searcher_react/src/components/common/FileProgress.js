@@ -1,6 +1,7 @@
 import "./FileProgress.css";
 
 function FileProgress({ className, file, progress }) {
+  if (progress === 0) return "";
   return (
     <div className={`file-progress ${className}`}>
       <img
