@@ -1,6 +1,5 @@
 import { useUploadPage } from "./useUploadPage";
-import "jest";
-import { renderHook, act, waitForNextUpdate } from "@testing-library/react-hooks";
+import { renderHook, act } from "@testing-library/react-hooks";
 
 const mockPostUploader = (postId) => {
   const uploadPost = jest.fn();

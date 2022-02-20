@@ -1,7 +1,6 @@
 import PostSubmit from "./PostSubmit";
-import { fireEvent, render } from "@testing-library/react";
+import { fireEvent, render, act } from "@testing-library/react";
 import { MemoryRouter, Route } from "react-router-dom";
-import { act } from "react-dom/test-utils";
 
 const randomString = () => Math.random().toString(36).substring(2, 11);
 
@@ -18,7 +17,7 @@ test("PostSubmit should call onSubmit callback", () => {
     fireEvent.click(submitButton);
   });
 
-  expect(onSubmit.mock.calls.length).toBe(1);
+  expect(onSubmit).toBeCalled();
 });
 
 test("PostSubmit should redirect to given uploaded page", () => {
