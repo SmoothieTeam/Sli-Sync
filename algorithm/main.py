@@ -15,6 +15,7 @@ from data_adapter.image_transform.resize_image_transform import ResizeImageTrans
 from data_adapter.image_transform.gray_image_transform import GrayImageTransform
 from data_adapter.image_transform.crop_image_transform import CropImageTransform
 from data_adapter.image_transform.identity_image_transform import IdentityImageTransform
+from data_adapter.image_transform.tensor_image_transform import TensorImageTransform
 
 from data_adapter.frame_queue_loader.neighbor_frame_theshold_finder import NeighborFrameThresholdFinder
 from data_adapter.area_finder.slide_area_finder import SlideAreaFinder
@@ -26,33 +27,37 @@ from domain.classifier.rate_slide_classifier import RateSlideClassifier
 from domain.classifier.simple_slide_classifier import SimpleSlideClassifier
 from domain.classifier.max_distance_slide_classifier import MaxDistanceSlideClassifier
 from domain.classifier.min_distance_slide_classifier import MinDistanceSlideClassifier
+from domain.classifier.ppt_slide_classifier import PPTSlideClassifier
 
 
 def main():
     video_path, ppt_path, time_step, frame_step, print_elapsed = args()
+
     print_start_message(ppt_path, video_path)
 
     frame_loader = CV2FrameLoader(
         video_path, frame_step=frame_step, second_step=time_step)
-    uniform_frame_loader = UniformFrameLoader(video_path)
+    tensor_transfrom = TensorImageTransform()
+    ppt_slide_classifier = PPTSlideClassifier(tensor_transfrom)
+    uniform_frame_loader = UniformFrameLoader(video_path, ppt_slide_classifier)
 
     image_loader = PDFImageLoader(ppt_path)
     slide_loader = SlideAdapter(image_loader)
 
     slide_area_finder = SlideAreaFinder(slide_loader, uniform_frame_loader, 6)
-
     crop_transform = CropImageTransform(slide_area_finder.find_mask())
-    crop_transform = IdentityImageTransform()
+    # crop_transform = IdentityImageTransform()
+
     threshold_transform = ResizeImageTransform((100, 100))
     frame_transform = ResizeImageTransform((100, 100), crop_transform)
-    slide_transform = ResizeImageTransform((200, 200))
+    slide_transform = ResizeImageTransform
 
     threshold_finder = NeighborFrameThresholdFinder(
         slide_loader, threshold_transform, mean_squared_error)
     frame_queue_loader = RateFrameQueueLoader(
         frame_loader, frame_transform, mean_squared_error, threshold_finder)
     slide_classifier = MinDistanceSlideClassifier(
-        slide_loader, slide_transform, crop_transform, mean_squared_error)
+        slide_loader, slide_transform, crop_transform, ppt_slide_classifier, mean_squared_error)
     searcher = SlideSearcher(slide_classifier, frame_queue_loader)
 
     times = searcher.get_slide_times()

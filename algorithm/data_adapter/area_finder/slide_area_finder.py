@@ -13,12 +13,17 @@ class SlideAreaFinder:
 
     def find_mask(self):
         slide_height, slide_width, _ = self.slides[0].shape
-
+        
         for video_image in self.frames:
+            video_image = cv2.cvtColor(video_image, cv2.COLOR_BGR2GRAY)
+            
             resized_video_image = cv2.resize(video_image, dsize=(0, 0), fx=1/self.scale, fy=1/self.scale)
-            video_height, video_width, _ = resized_video_image.shape
-
+            resized_video_image = cv2.Canny(resized_video_image, 100, 255)
+            video_height, video_width = resized_video_image.shape
+            
             for slide in self.slides:
+                slide = cv2.cvtColor(slide, cv2.COLOR_BGR2GRAY)
+                
                 for i in range(0, 100, 5):
                     if video_height - i <= 0:
                         break
@@ -26,16 +31,17 @@ class SlideAreaFinder:
                     template_height = video_height - i
                     template_width = template_height * slide_width // slide_height
                     template = cv2.resize(slide, (template_width, template_height))
-                    
-                    if template_height < video_height or template_width < video_width:
+                    template = cv2.Canny(template, 100, 255)
+
+                    if template_height > video_height or template_width > video_width:
                         break
-                    
+                                        
                     result = cv2.matchTemplate(resized_video_image, template, cv2.TM_SQDIFF_NORMED)
                     match_result, _, coordinate, _ = cv2.minMaxLoc(result)
                     x, y = coordinate
                     self.match_results.append(match_result)
                     self.coordinates.append([y, y + template_height, x, x + template_width])
-
+        
         min_index = min(range(len(self.match_results)), key=lambda i: self.match_results[i])
         best_match = np.array(self.coordinates[min_index])
         return best_match * self.scale
