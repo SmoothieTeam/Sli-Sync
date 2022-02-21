@@ -6,18 +6,21 @@ import gcp_settings as gcp
 # Use the application default credentials
 cred = credentials.ApplicationDefault()
 firebase_admin.initialize_app(cred, {
-  'projectId': gcp.PROJECT_ID,
+    'projectId': gcp.PROJECT_ID,
 })
 
 db = firestore.client()
 
+
 def upload_timeline(id, times, slides):
     ref = db.collection('posts').document(id)
-    timelines = list(map(lambda i: {'time': times[i], 'slide_url': slides[i]}, range(len(times))))
+    timelines = list(
+        map(lambda i: {'time': times[i], 'slide_url': slides[i]}, range(len(times))))
     ref.set({
         'timelines': timelines,
         'is_progressed': True
     }, merge=True)
+
 
 def update_progress(id, progress):
     ref = db.collection('posts').document(id)
@@ -25,4 +28,3 @@ def update_progress(id, progress):
         'progress': progress,
         'is_progressed': False
     }, merge=True)
-
