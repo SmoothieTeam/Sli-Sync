@@ -1,7 +1,6 @@
 import os
-import cv2
-from domain.slide_image_loader import slide_file_dir_of, slide_file_path_of, slide_image_file_paths_of, slide_images_dir_of
-from domain.values.slide_images import RawSlideImages
+from domain.slide_image_loader import load_slide_images, slide_file_dir_of, slide_file_path_of, slide_image_file_paths_of, slide_images_dir_of
+from domain.video_loader import mkdir_if_not_exists
 from gcp.gcp_wapper import firebase_storage
 from pdf2image import convert_from_path
 
@@ -10,10 +9,6 @@ bucket = firebase_storage()
 
 
 def get_slide_images(id, slide_storage_path):
-    def mkdir_if_not_exists(dir):
-        if not os.path.isdir(dir):
-            os.mkdir(dir)
-
     def download_slide(slide_storage_path, slide_file_path):
         blob = bucket.get_blob(slide_storage_path)
         blob.download_to_filename(slide_file_path)
@@ -34,11 +29,7 @@ def get_slide_images(id, slide_storage_path):
 
     download_slide(slide_storage_path, slide_file_path)
     save_slide_images(slide_file_path, slide_images_dir)
-
-    slide_image_file_paths = slide_image_file_paths_of(id)
-    slide_images = [cv2.imread(file_path)
-                    for file_path in slide_image_file_paths]
-    return RawSlideImages(slide_images)
+    return load_slide_images(id)
 
 
 def put_slide_images(id):

@@ -5,6 +5,7 @@ from adapters.find_frame_mask import find_frame_mask
 from adapters.timed_frame_generator_filter import rate_generator_filter
 from adapters.timed_frame_predicates import has_slide_image, is_slide_image
 from domain.classifier import classify_all_frame, simple_classifier
+from domain.common_loader import clean_working_dir
 from local.local_message_dispatcher import listen
 from local.repositories.local_post_repository import set_progress, set_timelines
 from local.repositories.local_slide_image_repository import get_slide_images, put_slide_images
@@ -18,7 +19,7 @@ def on_listen(message: Message):
     def is_video_full_slide():
         with get_video(id, video_repository_path, 30) as video:
             video.take(5)
-            return all(map(is_slide_image, video.timed_frames))
+            return any(map(is_slide_image, video.timed_frames))
 
     def get_frame_mask():
         if is_video_full_slide():
@@ -45,6 +46,7 @@ def on_listen(message: Message):
                                        classifier, set_progress)
         set_timelines(id, timelines)
         put_slide_images(id)
+        clean_working_dir(id)
 
 
 def main():
