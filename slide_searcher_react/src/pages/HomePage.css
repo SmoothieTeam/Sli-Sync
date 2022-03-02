@@ -1,82 +1,82 @@
 .home-page__main {
-    text-align: center;
-    height: 100%;
+  text-align: center;
+  height: 100%;
 }
 
 .home-page__main img {
-    display: inline-block;
-    margin-top: 90px;
-    width: 150px;
-    height: 150px;
+  display: inline-block;
+  margin-top: 90px;
+  width: 150px;
+  height: 150px;
 }
 
 .home-page__main p {
-    font-family: Pretendard;
-    font-size: large;
-    color: #A2ADC2;
+  font-family: Pretendard;
+  font-size: large;
+  color: #a2adc2;
 }
 
 .home-page__main h2 {
-    margin-top: 30px;
-    font-size: 35px;
-    font-style: italic;
-    font-family: Futura;
-    letter-spacing: 2px;
-    color: #6B768D;
+  margin-top: 30px;
+  font-size: 35px;
+  font-style: italic;
+  font-family: Futura;
+  letter-spacing: 2px;
+  color: #6b768d;
 }
 
 .home-page__main h2 + p {
-    margin-top: 30px;
+  margin-top: 30px;
 }
 
 .home-page__main h3 {
-    margin-top: 80px;
-    font: Pretendard;
-    letter-spacing: 3px;
-    font-size: x-large;
-    color: #6B768D;
+  margin-top: 80px;
+  font: Pretendard;
+  letter-spacing: 3px;
+  font-size: x-large;
+  color: #6b768d;
 }
 
 .home-page__main h3 + p {
-    margin: 20px;
+  margin: 20px;
 }
 
 .home-page__browse-button {
-    display: inline-block;
-    margin-top: 50px;
-    text-align: center;
-    border-radius: 35px;
-    line-height: 70px;
-    width: 240px;
-    height: 70px;
-    font-family: Pretendard;
-    font-size: x-large;
-    color: white;
-    background-color: #6c8bfd;
-    border-radius: 35px 35px 35px 35px;
-    text-decoration: none;
+  display: inline-block;
+  margin-top: 50px;
+  text-align: center;
+  border-radius: 35px;
+  line-height: 70px;
+  width: 240px;
+  height: 70px;
+  font-family: Pretendard;
+  font-size: x-large;
+  color: white;
+  background-color: #6c8bfd;
+  border-radius: 35px 35px 35px 35px;
+  text-decoration: none;
 }
 
 .home-page__browse-button:hover {
-    background: #6274F0;
+  background: #6274f0;
 }
 
 .footer {
-    margin-top: 89px;
-    padding-top: 45px;
-    padding-bottom: 45px;
-    position: relative;
-    bottom: 0;
-    background: #333333 0% 0% no-repeat padding-box;
+  margin-top: 89px;
+  padding-top: 45px;
+  padding-bottom: 45px;
+  position: relative;
+  bottom: 0;
+  background: #333333 0% 0% no-repeat padding-box;
 }
 
 .footer h1 {
-    vertical-align: middle;
-    font: Pretendard;
-    font-size: x-large;
-    color: #666666;
+  vertical-align: middle;
+  font: Pretendard;
+  font-size: x-large;
+  color: #666666;
 }
 
 .footer p {
-    color: #666666;
+  color: #666666;
 }

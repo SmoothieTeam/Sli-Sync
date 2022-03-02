@@ -1,0 +1,35 @@
+.two-colored-file-input input {
+  display: none;
+}
+
+.two-colored-file-input label {
+  display: inline-block;
+  width: 242px;
+  height: 70px;
+  background: #eaeff2 0% 0% no-repeat padding-box;
+  border-radius: 35px;
+  opacity: 1;
+
+  line-height: 70px;
+  text-align: center;
+  color: #6c8bfd;
+  font-size: 28px;
+  font-weight: normal;
+  font-family: Pretendard;
+}
+
+.two-colored-file-input label:hover {
+  display: inline-block;
+  width: 242px;
+  height: 70px;
+  background: #6c8bfd 0% 0% no-repeat padding-box;
+  border-radius: 35px;
+  opacity: 1;
+
+  line-height: 70px;
+  text-align: center;
+  color: #eaeff2;
+  font-size: 28px;
+  font-weight: normal;
+  font-family: Pretendard;
+}
