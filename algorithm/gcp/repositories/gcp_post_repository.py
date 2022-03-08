@@ -21,12 +21,12 @@ def set_timelines(id: str, timelines: Timelines):
             'timeline': timeline_json,
             'is_progressed': True
         }
-    post = _post_ref(db, id)
+    post = _post_ref(id)
     post.set(timelines_to_json(timelines), merge=True)
 
 
 def set_progress(id: str, progress: float):
-    post = _post_ref(db, id)
+    post = _post_ref(id)
     post.set({
         'progress': progress,
         'is_progressed': False

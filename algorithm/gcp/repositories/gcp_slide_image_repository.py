@@ -10,7 +10,7 @@ bucket = firebase_storage()
 
 def get_slide_images(id, slide_storage_path):
     def download_slide(slide_storage_path, slide_file_path):
-        blob = bucket.get_blob(slide_storage_path)
+        blob = bucket.blob(slide_storage_path)
         blob.download_to_filename(slide_file_path)
 
     def save_slide_images(slide_file_path, slide_images_dir):
@@ -33,7 +33,8 @@ def get_slide_images(id, slide_storage_path):
 
 
 def put_slide_images(id):
-    for file_path in slide_image_file_paths_of(id):
-        slide_image_storage_path = file_path
-        blob = bucket.get_blob(slide_image_storage_path)
-        blob.upload_from_filename(file_path)
+    for slide_image_file_path in slide_image_file_paths_of(id):
+        slide_image_filename = slide_image_file_path.split(os.sep)[-1]
+        slide_image_storage_path = f'{id}/slide_images/{slide_image_filename}'
+        blob = bucket.blob(slide_image_storage_path)
+        blob.upload_from_filename(slide_image_file_path)

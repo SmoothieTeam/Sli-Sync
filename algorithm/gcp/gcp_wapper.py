@@ -2,7 +2,7 @@ import firebase_admin
 from firebase_admin import credentials
 from google.cloud import storage, pubsub_v1
 from firebase_admin import firestore
-import gcp_settings as gcp
+import gcp.gcp_settings as gcp
 
 
 def initialize_app():
@@ -13,6 +13,7 @@ def initialize_app():
 
 
 def firebase_firestore():
+    initialize_app()
     return firestore.client()
 
 
