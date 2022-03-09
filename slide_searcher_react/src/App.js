@@ -5,6 +5,7 @@ import { HashRouter } from "react-router-dom";
 import UploadedPage from "./pages/UploadedPage";
 import LoadingPage from "./pages/LoadingPage";
 import HomePage from "./pages/HomePage";
+import VideoViewPage from "./pages/VideoViewPage";
 import { getPostTitle, getProgress } from "./firebase_models/posts";
 
 function App() {
@@ -14,6 +15,12 @@ function App() {
     <div className="App">
       <HashRouter>
         <Switch>
+          <Route path='/view/:id'>
+            <VideoViewPage 
+              getPost={(id) => getPost(firestore, id)} 
+              sendEmail={sendEmail} 
+              copyLink={copyLink}/>
+          </Route>
           <Route path="/uploaded/:id">
             <UploadedPage
               getPostTitle={(id) => getPostTitle(id)}
