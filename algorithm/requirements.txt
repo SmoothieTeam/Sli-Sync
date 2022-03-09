@@ -5,3 +5,6 @@ pdf2image==1.16.0
 python-pptx-interface==0.0.12
 comtypes==1.1.10
 poppler-utils==0.1.0
+google-cloud-storage==2.1.0
+google-cloud-pubsub==2.9.0
+firebase-admin==5.2.0
