@@ -6,7 +6,9 @@ function timeToString(timeInSecond) {
   return parseInt(timeInSecond / 60) + ":" + parseInt(timeInSecond % 60);
 }
 
-function SlideIndex({ index, time, onClick, checked }) {
+function TimelineEntry({ index, checkedTimeline, onChange }) {
+  const { time, checked } = checkedTimeline;
+  const timeString = timeToString(time);
   return (
     <div className="slide-index">
       <input
@@ -16,27 +18,26 @@ function SlideIndex({ index, time, onClick, checked }) {
         id={`slideIndex${index}`}
         checked={checked}
       />
-      <label htmlFor={`slideIndex${index}`} onClick={() => onClick(index)}>
+      <label htmlFor={`slideIndex${index}`} onClick={() => onChange(index)}>
         <div className="slide-index__index">{index}</div>
-        <div className="slide-index__time">{timeToString(time)}</div>
+        <div className="slide-index__time">{timeString}</div>
       </label>
     </div>
   );
 }
 
-function SlideIndexList({ className, times, onClick, selected }) {
+function TimelineList({ checkedTimelines, onChange }) {
   return (
-    <div className={className}>
-      {times.map((time, index) =>
-        SlideIndex({
-          time: time,
-          index: index,
-          onClick: onClick,
-          checked: selected === index,
+    <div>
+      {checkedTimelines.map((checkedTimeline, index) =>
+        TimelineEntry({
+          checkedTimeline,
+          index,
+          onChange: onChange,
         })
       )}
     </div>
   );
 }
 
-export default SlideIndexList;
+export default TimelineList;

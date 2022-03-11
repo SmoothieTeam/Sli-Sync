@@ -1,0 +1,76 @@
+import { useEffect, useRef, useState } from "react";
+
+const usePostResult = (postId, postResultAPI) => {
+  const [postResult, setPostResult] = useState();
+  useEffect(() => {
+    postResultAPI.getPostResult(postId).then(setPostResult);
+  }, []);
+
+  return {
+    postResult
+  };
+};
+
+const useCurrentTimelineIndex = (postResult) => {
+  const maxIndex = postResult?.timelines.length ?? 0;
+  const [currentTimelineIndex, setIndex] = useState(0);
+
+  return {
+    currentTimelineIndex,
+    setCurrentTimelineIndex: index => setIndex(Math.min(index, maxIndex))
+  };
+}
+
+const checkedTimelines = (currentTimelineIndex, postResult) => {
+  const timelines = postResult?.timelines ?? [];
+  const checkedTimelines = timelines.map((timeline, index) => ({...timeline, checked: index === currentTimelineIndex}));
+
+  return {
+    checkedTimelines
+  };
+};
+
+const checkedSlideImages = (currentTimelineIndex, postResult) => {
+  const timelines = postResult?.timelines ?? [];
+  const currentSlideImageIndex = timelines[currentTimelineIndex]?.slideNumber ?? 0;
+  const slideImages = postResult?.slideImages ?? [];
+  const checkedSlideImages = slideImages.map((slideImage, index) => ({...slideImage, checked: index === currentSlideImageIndex}));
+
+  return {
+    checkedSlideImages
+  };
+};
+
+const useVideoControl = (postResult) => {
+  const player = useRef(null);
+  const seekTo = (seconds) => player.current.seekTo(seconds, "seconds");
+  
+  return {
+    seekTo,
+    videoControl : {
+      player,
+      src: postResult?.video.url
+    }
+  };
+};
+
+const useVideoViewPage = (postId, postResultAPI) => {
+  const { postResult } = usePostResult(postId, postResultAPI);
+  const { seekTo, videoControl } = useVideoControl();
+  const { currentTimelineIndex, setCurrentTimelineIndex: setTimelineIndex } = useCurrentTimelineIndex(postResult);
+  const setCurrentTimelineIndex = (index) => {
+    setTimelineIndex(index);
+    seekTo(Math.floor(postResult?.timelines[index].time ?? 0));
+  };
+
+  return {
+    postResult,
+    currentTimelineIndex,
+    setCurrentTimelineIndex,
+    videoControl,
+    ...checkedTimelines(currentTimelineIndex, postResult),
+    ...checkedSlideImages(currentTimelineIndex, postResult)
+  };
+};
+
+export { useVideoViewPage };

@@ -1,38 +1,19 @@
 import ReactPlayer from "react-player";
-import React, { useEffect, useRef, useState } from "react";
+import React from "react";
 import { useParams } from "react-router-dom";
 
 import HeaderBuilder from "../components/HeaderBuilder";
-import SlideIndexList from "../components/SlideIndexList";
-import SharePanel from "../components/SharePanel";
-import SlideNavigation from "../components/SlideNavigation";
+import TimelineList from "../components/common/SlideIndexList";
+import SharePanel from "../components/common/SharePanel";
+import SlideNavigation from "../components/common/SlideNavigation";
 
 import "./VideoViewPage.css";
+import { useVideoViewPage } from "../hooks/video_view_page/useVideoViewPage";
 
-function VideoViewPage({ getPost, sendEmail, copyLink }) {
+function VideoViewPage({ sendEmail, copyLink }) {
   const { id } = useParams();
-  const player = useRef(null);
-  const [presentTimeline, setPresentTimeline] = useState(0);
-  const [title, setTitle] = useState("");
-  const [videoURL, setVideoURL] = useState("");
-  const [times, setTimes] = useState([]);
-  const [slideImageURLs, setSlideImageURLs] = useState([]);
-  const handleSeeking = (i) => {
-    setPresentTimeline(i);
-    player.current.seekTo(times[i], "seconds");
-  };
-  const loadPost = async () => {
-    const { title, videoURL, times, slideImageURLs } = await getPost(id);
-    setTitle(title);
-    setVideoURL(videoURL);
-    setTimes(times);
-    setSlideImageURLs(slideImageURLs);
-  };
+  const { checkedTimelines, setCurrentTimelineIndex, videoControl } = useVideoViewPage(id, postResultAPI);
   const builder = new HeaderBuilder();
-
-  useEffect(() => {
-    loadPost();
-  }, []);
 
   return (
     <div className="view-page">
@@ -40,16 +21,15 @@ function VideoViewPage({ getPost, sendEmail, copyLink }) {
       <div className="view-page__main">
         <div className="view-page__slide-index-container">
           <h1>{title}</h1>
-          <SlideIndexList
-            times={times}
-            onClick={handleSeeking}
-            selected={presentTimeline}
+          <TimelineList
+            checkedTimelines={checkedTimelines}
+            onChange={setCurrentTimelineIndex}
           />
         </div>
         <div className="view-page__content-container">
           <ReactPlayer
-            ref={player}
-            url={videoURL}
+            ref={videoControl.player}
+            url={videoControl.src}
             playing
             controls
             width="900px"
@@ -58,9 +38,8 @@ function VideoViewPage({ getPost, sendEmail, copyLink }) {
           />
           <SlideNavigation
             className="view-page__slide-nav"
-            srcs={slideImageURLs}
-            onSlideClick={handleSeeking}
-            selected={presentTimeline}
+            checkedTimelines={checkedTimelines}
+            onClickSlide={setCurrentTimelineIndex}
           />
           <SharePanel
             link={window.location.href}

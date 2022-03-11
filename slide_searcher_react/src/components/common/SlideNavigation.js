@@ -19,25 +19,25 @@ function SlideImage({ index, src, onClick, checked }) {
   );
 }
 
-function SlideNavigation({ className, srcs, selected, onSlideClick }) {
+function SlideNavigation({ className, checkedTimelines, onClickSlide }) {
   const length = srcs.length;
   const current = selected + 1;
   const onNext = () => {
-    onSlideClick(Math.min(selected + 1, length - 1));
+    onClickSlide(Math.min(selected + 1, length - 1));
   };
   const onPrev = () => {
-    onSlideClick(Math.max(selected - 1, 0));
+    onClickSlide(Math.max(selected - 1, 0));
   };
 
   return (
     <div className={`slide-nav ${className}`}>
       <div className="slide-nav__slide-image-container">
-        {srcs.map((src, index) => (
+        {checkedTimelines.map((timeline, index) => (
           <SlideImage
             index={index}
-            src={src}
-            onClick={onSlideClick}
-            checked={index === selected}
+            src={timeline.url}
+            onClick={onClickSlide}
+            checked={timeline.checked}
           />
         ))}
       </div>
