@@ -62,12 +62,11 @@ describe('useVideoViewPage', () => {
   });
 
   test('useVideoViewPage gets the post result from postDownloader.', async () => {
-    const { result, waitForNextUpdate } = renderHook(() => useVideoViewPage(postId, postResultAPI));
+    const { waitForNextUpdate } = renderHook(() => useVideoViewPage(postId, postResultAPI));
     
     await waitForNextUpdate();
 
     expect(postResultAPI.getPostResult).toHaveBeenCalledWith(postId);
-    expect(result.current.postResult).toBe(postResult);
   });
   
   test('useVideoViewPage checks timeline and seekTo its time as an index is given.', async () => {

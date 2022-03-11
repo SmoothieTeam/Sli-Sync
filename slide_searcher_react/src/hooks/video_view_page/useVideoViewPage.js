@@ -30,17 +30,6 @@ const checkedTimelines = (currentTimelineIndex, postResult) => {
   };
 };
 
-const checkedSlideImages = (currentTimelineIndex, postResult) => {
-  const timelines = postResult?.timelines ?? [];
-  const currentSlideImageIndex = timelines[currentTimelineIndex]?.slideNumber ?? 0;
-  const slideImages = postResult?.slideImages ?? [];
-  const checkedSlideImages = slideImages.map((slideImage, index) => ({...slideImage, checked: index === currentSlideImageIndex}));
-
-  return {
-    checkedSlideImages
-  };
-};
-
 const useVideoControl = (postResult) => {
   const player = useRef(null);
   const seekTo = (seconds) => player.current.seekTo(seconds, "seconds");
@@ -64,12 +53,9 @@ const useVideoViewPage = (postId, postResultAPI) => {
   };
 
   return {
-    postResult,
-    currentTimelineIndex,
     setCurrentTimelineIndex,
     videoControl,
     ...checkedTimelines(currentTimelineIndex, postResult),
-    ...checkedSlideImages(currentTimelineIndex, postResult)
   };
 };
 
