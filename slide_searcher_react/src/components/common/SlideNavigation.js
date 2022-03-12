@@ -2,52 +2,59 @@ import React from "react";
 import "./SlideNavigation.css";
 import "./SlideImage.css";
 
-function SlideImage({ index, src, onClick, checked }) {
+function SlideImageEntry({ index, checkedTimeline, onChange }) {
+  const { url, checked } = checkedTimeline;
+
   return (
-    <div className="slide-image">
+    <li aria-label={`slide-image-${index}`} className="slide-image" key={index}>
       <input
         type="radio"
         name="slide_image_group"
         value={index}
         id={`slideImage${index}`}
-        checked={checked}
+        defaultChecked={checked}
+        onChange={(e) => onChange(parseInt(e.currentTarget.value))}
       />
-      <label htmlFor={`slideImage${index}`} onClick={() => onClick(index)}>
-        <img src={src} />
+      <label htmlFor={`slideImage${index}`}>
+        <img src={url}/>
       </label>
-    </div>
+    </li>
   );
 }
 
-function SlideNavigation({ className, checkedTimelines, onClickSlide }) {
-  const length = srcs.length;
-  const current = selected + 1;
+function SlideNavigation({ className, checkedTimelines, onChangeSlide }) {
+  const length = checkedTimelines.length;
+  const selected = checkedTimelines.findIndex(checkedTimeline => checkedTimeline.checked);
+  const current = selected;
   const onNext = () => {
-    onClickSlide(Math.min(selected + 1, length - 1));
+    onChangeSlide(Math.min(selected + 1, length - 1));
   };
   const onPrev = () => {
-    onClickSlide(Math.max(selected - 1, 0));
+    onChangeSlide(Math.max(selected - 1, 0));
   };
 
   return (
     <div className={`slide-nav ${className}`}>
-      <div className="slide-nav__slide-image-container">
-        {checkedTimelines.map((timeline, index) => (
-          <SlideImage
+      <ul className="slide-nav__slide-image-container">
+        {checkedTimelines.map((checkedTimeline, index) => (
+          <SlideImageEntry
             index={index}
-            src={timeline.url}
-            onClick={onClickSlide}
-            checked={timeline.checked}
+            checkedTimeline={checkedTimeline}
+            onChange={onChangeSlide}
           />
         ))}
-      </div>
+      </ul>
 
       <div className="slide-nav__navigation">
-        <img src="chevron_left.svg" onClick={onPrev} />
+        <button aria-label="previous-button" onClick={onPrev}>
+          <img src="chevron_left.svg"/>
+        </button>
         <div className="slide-nav__current">
           {current} / {length}
         </div>
-        <img src="chevron_right.svg" onClick={onNext} />
+        <button aria-label="next-button" onClick={onNext}>
+          <img src="chevron_right.svg"/>
+        </button>
       </div>
     </div>
   );
