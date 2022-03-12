@@ -6,13 +6,13 @@ function SlideImageEntry({ index, checkedTimeline, onChange }) {
   const { url, checked } = checkedTimeline;
 
   return (
-    <li aria-label={`slide-image-${index}`} className="slide-image" key={index}>
+    <li aria-label={`slide-image-${index}`} className="slide-image">
       <input
         type="radio"
         name="slide_image_group"
         value={index}
         id={`slideImage${index}`}
-        defaultChecked={checked}
+        checked={checked}
         onChange={(e) => onChange(parseInt(e.currentTarget.value))}
       />
       <label htmlFor={`slideImage${index}`}>
@@ -38,6 +38,7 @@ function SlideNavigation({ className, checkedTimelines, onChangeSlide }) {
       <ul className="slide-nav__slide-image-container">
         {checkedTimelines.map((checkedTimeline, index) => (
           <SlideImageEntry
+            key={index}
             index={index}
             checkedTimeline={checkedTimeline}
             onChange={onChangeSlide}

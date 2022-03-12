@@ -13,7 +13,11 @@ const getImgFromSlideImageEntry = (slideImageEntry) => getByRole(slideImageEntry
 
 const getInputFromSlideImageEntry = (slideImageEntry) => getByRole(slideImageEntry, 'radio'); 
 
-const randomIndex = (size) => Math.floor(Math.random() * size);
+const randomIndex = (size, execpt = undefined) => {
+  const indexArray = [...Array(size)].map((_, index) => index).filter((index) => index !== execpt);
+  const index = Math.floor(Math.random() * indexArray.length);
+  return indexArray[index];
+};
 
 describe('SlideNavigation with random checked timeline index', () => {
   let size;
@@ -21,7 +25,7 @@ describe('SlideNavigation with random checked timeline index', () => {
   let onChangeSlide;
 
   beforeEach(() => {
-    size = 10;
+    size = 2;
     checkedTimelines = checkedTimelineDummy(size);
     onChangeSlide = jest.fn();
   });
@@ -36,7 +40,8 @@ describe('SlideNavigation with random checked timeline index', () => {
 
   test('calls onClickSlide with its index when the slide image is clicked.', () => {
     const { getByRole } = render(<SlideNavigation checkedTimelines={checkedTimelines} onChangeSlide={onChangeSlide}/>);
-    const slideImageIndex = randomIndex(size);
+    const checkedIndex = checkedIndexOf(checkedTimelines);
+    const slideImageIndex = randomIndex(size, checkedIndex);
     const slideImageEntry = getByRole('listitem', {name: `slide-image-${slideImageIndex}`});
     const slideImageInput = getInputFromSlideImageEntry(slideImageEntry);
 
@@ -57,7 +62,8 @@ describe('SlideNavigation with fixed checked timeline index', () => {
   });
 
   test('navigates index to current index + 1 when the next button is clicked and the current index is not equal to last index.', () => {
-    const checkedTimelines = checkedTimelineDummy(size, randomIndex(size - 1));
+    const indexLessThanLastIndex = randomIndex(size - 1);
+    const checkedTimelines = checkedTimelineDummy(size, indexLessThanLastIndex);
     const { getByRole } = render(<SlideNavigation checkedTimelines={checkedTimelines} onChangeSlide={onChangeSlide}/>);
     const checkedIndex = checkedIndexOf(checkedTimelines);
     const nextButton = getByRole('button', {name: 'next-button'});
@@ -69,7 +75,8 @@ describe('SlideNavigation with fixed checked timeline index', () => {
   });
 
   test('navigates index to current index - 1 when the previous button is clicked and the current index is not equal to 0.', () => {
-    const checkedTimelines = checkedTimelineDummy(size, randomIndex(size - 1) + 1);
+    const indexLargerThanZero = randomIndex(size - 1) + 1;
+    const checkedTimelines = checkedTimelineDummy(size, indexLargerThanZero);
     const { getByRole } = render(<SlideNavigation checkedTimelines={checkedTimelines} onChangeSlide={onChangeSlide}/>);
     const checkedIndex = checkedIndexOf(checkedTimelines);
     const previousButton = getByRole('button', {name: 'previous-button'});
