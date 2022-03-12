@@ -12,7 +12,7 @@ const mockPostResultAPI = (postResult) => {
 
 const postResultDummy = (postTitle) => {
   return {
-    postTitle,
+    title: postTitle,
     video: {
       url: 'video.mp4'
     },
@@ -61,7 +61,7 @@ describe('useVideoViewPage', () => {
     player = spyPlayer();
   });
 
-  test('useVideoViewPage gets the post result from postDownloader.', async () => {
+  test('fetches the post result from postDownloader.', async () => {
     const { waitForNextUpdate } = renderHook(() => useVideoViewPage(postId, postResultAPI));
     
     await waitForNextUpdate();
@@ -69,7 +69,7 @@ describe('useVideoViewPage', () => {
     expect(postResultAPI.getPostResult).toHaveBeenCalledWith(postId);
   });
   
-  test('useVideoViewPage checks timeline and seekTo its time as an index is given.', async () => {
+  test('returns timeline and seeks to its time as an index is given.', async () => {
     const currentTimelineIndex = randomTimelineIndex();
     const { result, waitForNextUpdate } = renderHook(() => useVideoViewPage(postId, postResultAPI));
     

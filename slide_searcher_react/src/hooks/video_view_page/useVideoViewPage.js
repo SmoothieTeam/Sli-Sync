@@ -53,6 +53,7 @@ const useVideoViewPage = (postId, postResultAPI) => {
   };
 
   return {
+    title: postResult?.title ?? "",
     setCurrentTimelineIndex,
     videoControl,
     ...checkedTimelines(currentTimelineIndex, postResult),
