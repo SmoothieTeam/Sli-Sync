@@ -9,36 +9,38 @@ const timelineToTimeString = (timeline) => {
   return `${minute}:${second}`;
 };
 
-function TimelineEntry({ index, checkedTimeline, onClick }) {
+function TimelineEntry({ index, checkedTimeline, onChange }) {
   const timeString = timelineToTimeString(checkedTimeline);
   return (
-    <li className="slide-index" key={index}>
+    <div role="listitem" className="slide-index">
       <input
         type="radio"
         name="slide_index_group"
         value={index}
         id={`slideIndex${index}`}
-        defaultChecked={checkedTimeline.checked}
+        checked={checkedTimeline.checked}
+        onChange={(e) => onChange(parseInt(e.currentTarget.value))}
       />
-      <label htmlFor={`slideIndex${index}`} onClick={() => onClick(index)}>
+      <label htmlFor={`slideIndex${index}`}>
         <div className="slide-index__index">{index}</div>
         <div className="slide-index__time">{timeString}</div>
       </label>
-    </li>
+    </div>
   );
 }
 
-function TimelineList({ checkedTimelines, onClickTimeline }) {
+function TimelineList({ checkedTimelines, onChangeTimeline }) {
   return (
-    <ol>
+    <div role="list">
       {checkedTimelines.map((checkedTimeline, index) => (
         <TimelineEntry
+          key={index}
           index={index}
           checkedTimeline={checkedTimeline}
-          onClick={onClickTimeline}
+          onChange={onChangeTimeline}
         />
       ))}
-    </ol>
+    </div>
   );
 }
 
