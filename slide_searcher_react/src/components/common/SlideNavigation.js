@@ -6,7 +6,7 @@ function SlideImageEntry({ index, checkedTimeline, onChange }) {
   const { url, checked } = checkedTimeline;
 
   return (
-    <li aria-label={`slide-image-${index}`} className="slide-image">
+    <div role="listitem" aria-label={`slide-image-${index}`} className="slide-image">
       <input
         type="radio"
         name="slide_image_group"
@@ -18,24 +18,23 @@ function SlideImageEntry({ index, checkedTimeline, onChange }) {
       <label htmlFor={`slideImage${index}`}>
         <img src={url}/>
       </label>
-    </li>
+    </div>
   );
 }
 
 function SlideNavigation({ className, checkedTimelines, onChangeSlide }) {
   const length = checkedTimelines.length;
-  const selected = checkedTimelines.findIndex(checkedTimeline => checkedTimeline.checked);
-  const current = selected;
+  const current = checkedTimelines.findIndex(checkedTimeline => checkedTimeline.checked);
   const onNext = () => {
-    onChangeSlide(Math.min(selected + 1, length - 1));
+    onChangeSlide(Math.min(current + 1, length - 1));
   };
   const onPrev = () => {
-    onChangeSlide(Math.max(selected - 1, 0));
+    onChangeSlide(Math.max(current - 1, 0));
   };
 
   return (
     <div className={`slide-nav ${className}`}>
-      <ul className="slide-nav__slide-image-container">
+      <div role="list" className="slide-nav__slide-image-container">
         {checkedTimelines.map((checkedTimeline, index) => (
           <SlideImageEntry
             key={index}
@@ -44,18 +43,18 @@ function SlideNavigation({ className, checkedTimelines, onChangeSlide }) {
             onChange={onChangeSlide}
           />
         ))}
-      </ul>
+      </div>
 
       <div className="slide-nav__navigation">
-        <button aria-label="previous-button" onClick={onPrev}>
-          <img src="chevron_left.svg"/>
-        </button>
-        <div className="slide-nav__current">
-          {current} / {length}
+        <div role="button" aria-label="previous-button" onClick={onPrev}>
+          <img src="/chevron_left.svg"/>
         </div>
-        <button aria-label="next-button" onClick={onNext}>
-          <img src="chevron_right.svg"/>
-        </button>
+        <div className="slide-nav__current">
+          {current+1} / {length}
+        </div>
+        <div role="button" aria-label="next-button" onClick={onNext}>
+          <img src="/chevron_right.svg"/>
+        </div>
       </div>
     </div>
   );
