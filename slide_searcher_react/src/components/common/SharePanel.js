@@ -71,6 +71,7 @@ function SharePanel({ className, title, link, sendEmail, copyLink }) {
           className="share-panel__link-input"
           type="text"
           value={category === "url" ? link : undefined}
+          readOnly
         />
         <div className="share-panel__submit-container">
           {showPopup ? (
