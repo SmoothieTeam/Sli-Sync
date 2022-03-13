@@ -45,7 +45,7 @@ const useVideoControl = (postResult) => {
 
 const useVideoViewPage = (postId, postResultAPI) => {
   const { postResult } = usePostResult(postId, postResultAPI);
-  const { seekTo, videoControl } = useVideoControl();
+  const { seekTo, videoControl } = useVideoControl(postResult);
   const { currentTimelineIndex, setCurrentTimelineIndex: setTimelineIndex } = useCurrentTimelineIndex(postResult);
   const setCurrentTimelineIndex = (index) => {
     setTimelineIndex(index);

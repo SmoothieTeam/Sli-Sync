@@ -18,17 +18,14 @@ const postResultDummy = (postTitle) => {
     },
     timelines: [
       {
-        slideNumber: 1,
         time: 5,
         url: '1.png',
       },
       {
-        slideNumber: 2,
         time: 10,
         url: '2.png',
       },
       {
-        slideNumber: 3,
         time: 20,
         url: '3.png',
       }
@@ -40,7 +37,7 @@ const spyPlayer = () => {
   const seekTo = jest.fn();
   const player = { current: { seekTo }};
   
-  jest.spyOn(React, 'useRef').mockReturnValue({ current: { seekTo }});
+  jest.spyOn(React, 'useRef').mockReturnValue(player);
   return player;
 };
 
@@ -67,6 +64,15 @@ describe('useVideoViewPage', () => {
     await waitForNextUpdate();
 
     expect(postResultAPI.getPostResult).toHaveBeenCalledWith(postId);
+  });
+
+  test('returns videoControl with the url of postResult', async () => {
+    const { result, waitForNextUpdate } = renderHook(() => useVideoViewPage(postId, postResultAPI));
+    
+    await waitForNextUpdate();
+
+    expect(result.current.videoControl.player).toBe(player);
+    expect(result.current.videoControl.src).toBe(postResult.video.url);
   });
   
   test('returns timeline and seeks to its time as an index is given.', async () => {
