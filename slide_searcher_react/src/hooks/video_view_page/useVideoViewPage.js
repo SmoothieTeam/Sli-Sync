@@ -2,12 +2,33 @@ import { useEffect, useRef, useState } from "react";
 
 const usePostResult = (postId, postResultAPI) => {
   const [postResult, setPostResult] = useState();
+  const [isLoading, setIsLoading] = useState(true);
+  const [hasData, setHasData] = useState(false);
+  const getPostResult = async () => {
+    let result;
+    
+    try {
+      result = await postResultAPI.getPostResult(postId);
+      
+      setPostResult(result);
+    }
+    catch(e) {
+      setHasData(false);
+    }
+    finally {
+      setHasData(result !== undefined);
+      setIsLoading(false);
+    }
+  };
+
   useEffect(() => {
-    postResultAPI.getPostResult(postId).then(setPostResult);
+    getPostResult();
   }, []);
 
   return {
-    postResult
+    postResult,
+    isLoading,
+    hasData
   };
 };
 
@@ -44,7 +65,7 @@ const useVideoControl = (postResult) => {
 };
 
 const useVideoViewPage = (postId, postResultAPI) => {
-  const { postResult } = usePostResult(postId, postResultAPI);
+  const { postResult, isLoading, hasData } = usePostResult(postId, postResultAPI);
   const { seekTo, videoControl } = useVideoControl(postResult);
   const { currentTimelineIndex, setCurrentTimelineIndex: setTimelineIndex } = useCurrentTimelineIndex(postResult);
   const setCurrentTimelineIndex = (index) => {
@@ -54,6 +75,8 @@ const useVideoViewPage = (postId, postResultAPI) => {
 
   return {
     title: postResult?.title ?? "",
+    isLoading,
+    hasData,
     setCurrentTimelineIndex,
     videoControl,
     ...checkedTimelines(currentTimelineIndex, postResult),

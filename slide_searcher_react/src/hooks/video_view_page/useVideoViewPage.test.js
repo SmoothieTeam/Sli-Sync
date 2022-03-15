@@ -3,8 +3,15 @@ import React from "react";
 import { act } from "react-dom/test-utils";
 import { useVideoViewPage } from "./useVideoViewPage";
 
-const mockPostResultAPI = (postResult) => {
+const mockPostResultAPIWithData = (postResult) => {
   const getPostResult = jest.fn(async () => postResult);
+  const postResultAPI = { getPostResult };
+
+  return postResultAPI;
+};
+
+const mockPostResultAPIWithoutData = () => {
+  const getPostResult = jest.fn(async () => undefined);
   const postResultAPI = { getPostResult };
 
   return postResultAPI;
@@ -43,7 +50,7 @@ const spyPlayer = () => {
 
 const randomTimelineIndex = () => Math.floor(Math.random() * 3);
 
-describe('useVideoViewPage', () => {
+describe('useVideoViewPage with fake data', () => {
   let postId;
   let postTitle;
   let postResult;
@@ -54,7 +61,7 @@ describe('useVideoViewPage', () => {
     postId = "post-id";
     postTitle = "title";
     postResult = postResultDummy(postTitle);
-    postResultAPI = mockPostResultAPI(postResult);
+    postResultAPI = mockPostResultAPIWithData(postResult);
     player = spyPlayer();
   });
 
@@ -86,5 +93,33 @@ describe('useVideoViewPage', () => {
   
     expect(result.current.checkedTimelines[currentTimelineIndex].checked).toBe(true);
     expect(player.current.seekTo).toBeCalledWith(postResult.timelines[currentTimelineIndex].time, "seconds");
+  });
+
+  test('data is loaded and exist data if the fetching post result is pending.', async () => {
+    const { result, waitForNextUpdate } = renderHook(() => useVideoViewPage(postId, postResultAPI));
+
+    expect(result.current.isLoading).toBe(true);
+    await waitForNextUpdate();
+    expect(result.current.isLoading).toBe(false);
+    expect(result.current.hasData).toBe(true);
+  });
+});
+
+describe('useVideoViewPage with fake data', () => {
+  let postId;
+  let postResultAPI;
+
+  beforeEach(() => {
+    postId = "post-id";
+    postResultAPI = mockPostResultAPIWithoutData();
+  });
+
+  test('data is loaded but doesnt exist data if the fetching post result is pending.', async () => {
+    const { result, waitForNextUpdate } = renderHook(() => useVideoViewPage(postId, postResultAPI));
+
+    expect(result.current.isLoading).toBe(true);
+    await waitForNextUpdate();
+    expect(result.current.isLoading).toBe(false);
+    expect(result.current.hasData).toBe(false);
   });
 });
