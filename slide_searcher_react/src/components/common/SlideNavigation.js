@@ -1,6 +1,7 @@
 import React from "react";
 import "./SlideNavigation.css";
 import "./SlideImage.css";
+import HorizontalList from "./HorizontalList";
 
 function SlideImageEntry({ index, checkedTimeline, onChange }) {
   const { url, checked } = checkedTimeline;
@@ -34,7 +35,7 @@ function SlideNavigation({ className, checkedTimelines, onChangeSlide }) {
 
   return (
     <div className={`slide-nav ${className}`}>
-      <div role="list" className="slide-nav__slide-image-container">
+      <HorizontalList className="slide-nav__slide-image-container">
         {checkedTimelines.map((checkedTimeline, index) => (
           <SlideImageEntry
             key={index}
@@ -43,7 +44,7 @@ function SlideNavigation({ className, checkedTimelines, onChangeSlide }) {
             onChange={onChangeSlide}
           />
         ))}
-      </div>
+      </HorizontalList>
 
       <div className="slide-nav__navigation">
         <div role="button" aria-label="previous-button" onClick={onPrev}>
