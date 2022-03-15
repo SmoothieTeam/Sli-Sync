@@ -23,6 +23,7 @@ async function getTimelines(postId, { timeline: timelines }) {
   return await Promise.all(
     timelines.map(async (timeline) => ({
       time: timeline.time,
+      slideImageIndex: timeline.slide_number + 1,
       url: await getSlideImageUrl(postId, timeline.slide_number),
     }))
   );
