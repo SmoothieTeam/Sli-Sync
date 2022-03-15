@@ -14,18 +14,21 @@ const timelineToTimeString = (timeline) => {
   return `${minute}:${second}`;
 };
 
-const randomTimelineIndex = (size) => Math.floor(Math.random() * size);
+const randomIndex = (size, execpt = undefined) => {
+  const indexArray = [...Array(size)].map((_, index) => index).filter((index) => index !== execpt);
+  const index = Math.floor(Math.random() * indexArray.length);
+  return indexArray[index];
+};
 
 describe('TimelineList', () => {
+  let size;
   let checkedTimelines;
   let onChangeTimeline;
-  let timelineIndex;
 
   beforeEach(() => {
-    const size = 10;
+    size = 10;
     checkedTimelines = checkedTimelineDummy(size);
     onChangeTimeline = jest.fn();
-    timelineIndex = randomTimelineIndex(size);
   });
 
   test('renders timelines as index and time by given order.', () => {
@@ -34,11 +37,13 @@ describe('TimelineList', () => {
     const timeStrings = checkedTimelines.map(timelineToTimeString);
 
     timelineEntries.forEach((timelineEntry, index) => expect(getByText(timelineEntry, timeStrings[index])).toBeTruthy());
-    timelineEntries.forEach((timelineEntry, index) => expect(getByText(timelineEntry, index)).toBeTruthy());
+    timelineEntries.forEach((timelineEntry, index) => expect(getByText(timelineEntry, index)).toBeTruthy()); 
   });
 
   test('calls onChange with its index when timeline entry is clicked.', () => {
     const { getByText } = render(<TimelineList checkedTimelines={checkedTimelines} onChangeTimeline={onChangeTimeline}/>);
+    const checkedTimelineIndex = checkedTimelines.findIndex((checkedTimleine) => checkedTimleine.checked);
+    const timelineIndex = randomIndex(size, checkedTimelineIndex);
     const timelineEntry = getByText(timelineIndex);
 
     fireEvent.click(timelineEntry);
