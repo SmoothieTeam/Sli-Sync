@@ -1,53 +1,61 @@
 import React from "react";
 import "./SlideNavigation.css";
 import "./SlideImage.css";
+import HorizontalList from "./HorizontalList";
 
-function SlideImage({ index, src, onClick, checked }) {
+function SlideImageEntry({ index, checkedTimeline, onChange }) {
+  const { url, checked } = checkedTimeline;
+
   return (
-    <div className="slide-image">
+    <div role="listitem" aria-label={`slide-image-${index}`} className="slide-image">
       <input
         type="radio"
         name="slide_image_group"
         value={index}
         id={`slideImage${index}`}
         checked={checked}
+        onChange={(e) => onChange(parseInt(e.currentTarget.value))}
       />
-      <label htmlFor={`slideImage${index}`} onClick={() => onClick(index)}>
-        <img src={src} />
+      <label htmlFor={`slideImage${index}`}>
+        <img src={url}/>
       </label>
     </div>
   );
 }
 
-function SlideNavigation({ className, srcs, selected, onSlideClick }) {
-  const length = srcs.length;
-  const current = selected + 1;
+function SlideNavigation({ className, checkedTimelines, onChangeSlide }) {
+  const length = checkedTimelines.length;
+  const current = checkedTimelines.findIndex(checkedTimeline => checkedTimeline.checked);
   const onNext = () => {
-    onSlideClick(Math.min(selected + 1, length - 1));
+    onChangeSlide(Math.min(current + 1, length - 1));
   };
   const onPrev = () => {
-    onSlideClick(Math.max(selected - 1, 0));
+    onChangeSlide(Math.max(current - 1, 0));
   };
 
   return (
     <div className={`slide-nav ${className}`}>
-      <div className="slide-nav__slide-image-container">
-        {srcs.map((src, index) => (
-          <SlideImage
+      <HorizontalList className="slide-nav__slide-image-container">
+        {checkedTimelines.map((checkedTimeline, index) => (
+          <SlideImageEntry
+            key={index}
             index={index}
-            src={src}
-            onClick={onSlideClick}
-            checked={index === selected}
+            checkedTimeline={checkedTimeline}
+            onChange={onChangeSlide}
           />
         ))}
-      </div>
+      </HorizontalList>
 
       <div className="slide-nav__navigation">
-        <img src="chevron_left.svg" onClick={onPrev} />
-        <div className="slide-nav__current">
-          {current} / {length}
+        <div role="button" aria-label="previous-button" onClick={onPrev}>
+          <img src="/chevron_left.svg"/>
         </div>
-        <img src="chevron_right.svg" onClick={onNext} />
+        <div className="slide-nav__current">
+          {current+1} / {length}
+        </div>
+        <div role="button" aria-label="next-button" onClick={onNext}>
+          <img src="/chevron_right.svg"/>
+        </div>
       </div>
     </div>
   );

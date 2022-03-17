@@ -26,6 +26,10 @@
   text-align: center;
 }
 
+.slide-nav__navigation div {
+  display: inline-block;
+}
+
 .slide-nav__navigation img {
   height: 24px;
   width: 24px;
