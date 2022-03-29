@@ -7,7 +7,7 @@ import LoadingPage from "./pages/LoadingPage";
 import HomePage from "./pages/HomePage";
 import VideoViewPage from "./pages/VideoViewPage";
 import * as postResultAPI from "./firebase_api/firebase_post_result_api";
-import * as postAPI from "./firebase_api/firebase_post_api";
+import * as postCreateAPI from "./firebase_api/firebase_post_create_api";
 import NotFound from "./pages/NotFound";
 
 function App() {
@@ -35,7 +35,7 @@ function App() {
             />
           </Route>
           <Route path="/upload">
-            <UploadPage postAPI={postAPI}/>
+            <UploadPage postCreateAPI={postCreateAPI}/>
           </Route>
           <Route path="/" exact>
             <HomePage />

@@ -30,7 +30,7 @@ function LoadingPage({ getProgress }) {
 
         <h2>{progress}%</h2>
         <p>
-          It's <strong>Okay</strong> to move to another screen or exit window{" "}
+          It's <strong>Okay</strong> to move to another screen or exit window
           <br />
           while we set things up for you!
         </p>

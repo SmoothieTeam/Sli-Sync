@@ -9,9 +9,9 @@ import { usePostTitle } from "../hooks/upload_page/usePostTitle";
 import { usePostFilesInput } from "../hooks/upload_page/usePostFilesInput";
 import { useUploadPostForm } from "../hooks/upload_page/useUploadPostForm";
 
-function UploadPage({ postAPI }) {
+function UploadPage({ postCreateAPI }) {
   const header = new HeaderBuilder().build();
-  const { postId } = usePostId(postAPI);
+  const { postId } = usePostId(postCreateAPI);
   const { title, handleTitleChanged } = usePostTitle();
   const {
     videoProgressStatus,
@@ -19,10 +19,10 @@ function UploadPage({ postAPI }) {
     handleVideoFileChanged,
     handleSlideFileChanged,
     isUploaded
-  } = usePostFilesInput(postId, postAPI);
+  } = usePostFilesInput(postId, postCreateAPI);
   const { 
     handleSubmit
-  } = useUploadPostForm(postAPI, {postId, title, isUploaded});
+  } = useUploadPostForm(postCreateAPI, {postId, title, isUploaded});
 
   return (
     <div className="upload-page">

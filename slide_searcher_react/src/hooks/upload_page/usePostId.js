@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 
-const usePostId = (postAPI) => {
+const usePostId = (postCreateAPI) => {
   const [postId, setPostId] = useState();
 
   useEffect(() => {
-    setPostId(postAPI.newPostId());
+    setPostId(postCreateAPI.newPostId());
   }, []);
 
   return { postId };
