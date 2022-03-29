@@ -6,8 +6,8 @@ import UploadedPage from "./pages/UploadedPage";
 import LoadingPage from "./pages/LoadingPage";
 import HomePage from "./pages/HomePage";
 import VideoViewPage from "./pages/VideoViewPage";
-import { getPostTitle, getProgress } from "./firebase_models/posts";
-import * as postResultAPI from "./firebase_models/firebase_post_result_api";
+import * as postResultAPI from "./firebase_api/firebase_post_result_api";
+import * as postAPI from "./firebase_api/firebase_post_api";
 import NotFound from "./pages/NotFound";
 
 function App() {
@@ -26,18 +26,16 @@ function App() {
           </Route>
           <Route path="/uploaded/:id">
             <UploadedPage
-              getPostTitle={(id) => getPostTitle(id)}
               sendEmail={sendEmail}
               copyLink={copyLink}
             />
           </Route>
           <Route path="/loading/:id">
             <LoadingPage
-              getProgress={(id, onNext) => getProgress(id, onNext)}
             />
           </Route>
           <Route path="/upload">
-            <UploadPage />
+            <UploadPage postAPI={postAPI}/>
           </Route>
           <Route path="/" exact>
             <HomePage />

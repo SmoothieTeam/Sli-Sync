@@ -1,12 +1,13 @@
 import "./FileProgress.css";
 
-function FileProgress({ className, file, progress }) {
-  if (progress === 0) return "";
+function FileProgress({ className, progressStatus }) {
+  const progress = progressStatus.progress;
+  if (progressStatus.isNotStarted) return "";
   return (
     <div className={`file-progress ${className}`}>
       <img
         className="file-progress__icon"
-        src={progress < 1.0 ? "cloud.svg" : "cloud_done.svg"}
+        src={progressStatus.isProgressing ? "/cloud.svg" : "/cloud_done.svg"}
         alt="cloud"
       />
       <div className="file-progress__progress-container">
@@ -14,7 +15,7 @@ function FileProgress({ className, file, progress }) {
         <br />
         <progress min={0} value={progress} />
         <br />
-        {file.name}
+        {progressStatus.filename}
       </div>
     </div>
   );
