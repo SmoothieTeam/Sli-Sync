@@ -8,6 +8,7 @@ import HomePage from "./pages/HomePage";
 import VideoViewPage from "./pages/VideoViewPage";
 import * as postResultAPI from "./firebase_api/firebase_post_result_api";
 import * as postCreateAPI from "./firebase_api/firebase_post_create_api";
+import * as postStatusAPI from "./firebase_api/firebase_post_status_api";
 import NotFound from "./pages/NotFound";
 
 function App() {
@@ -31,8 +32,7 @@ function App() {
             />
           </Route>
           <Route path="/loading/:id">
-            <LoadingPage
-            />
+            <LoadingPage postStatusAPI={postStatusAPI}/>
           </Route>
           <Route path="/upload">
             <UploadPage postCreateAPI={postCreateAPI}/>

@@ -6,11 +6,11 @@ function LoadingAnimation({ className }) {
       <div className="loading-animation__background">
         <img
           className="loading-animation__animation-image animation-image--first"
-          src="Loaing_Animation.png"
+          src="/Loaing_Animation.png"
         />
         <img
           className="loading-animation__animation-image animation-image--second"
-          src="Loaing_Animation.png"
+          src="/Loaing_Animation.png"
         />
       </div>
     </div>
