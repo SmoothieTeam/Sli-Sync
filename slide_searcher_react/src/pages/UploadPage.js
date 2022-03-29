@@ -5,14 +5,14 @@ import PostFilesInput from "../components/upload_page/PostFilesInput";
 import PostTitleInput from "../components/upload_page/PostTitleInput";
 import PostSubmit from "../components/upload_page/PostSubmit";
 import { usePostId } from "../hooks/upload_page/usePostId";
-import { usePostTitle } from "../hooks/upload_page/usePostTitle";
+import { usePostTitleInput } from "../hooks/upload_page/usePostTitleInput";
 import { usePostFilesInput } from "../hooks/upload_page/usePostFilesInput";
 import { useUploadPostForm } from "../hooks/upload_page/useUploadPostForm";
 
 function UploadPage({ postCreateAPI }) {
   const header = new HeaderBuilder().build();
   const { postId } = usePostId(postCreateAPI);
-  const { title, handleTitleChanged } = usePostTitle();
+  const { title, handleTitleChanged } = usePostTitleInput();
   const {
     filenames,
     videoProgressStatus,

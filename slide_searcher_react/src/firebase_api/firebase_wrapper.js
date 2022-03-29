@@ -15,13 +15,13 @@ const app = initializeApp(firebaseConfig);
 
 function firestore() {
   const firestore = getFirestore(app);
-  console.log('load firestore');
+  
   return firestore;
 }
 
 function storage() {
   const storage = getStorage(app);
-  console.log('load storage');
+
   return storage;
 }
 

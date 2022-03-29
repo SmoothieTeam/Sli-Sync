@@ -1,6 +1,6 @@
 import { useState } from "react"
 
-const usePostTitle = () => {
+const usePostTitleInput = () => {
   const [title, setTitle] = useState("");
   
   return {
@@ -9,4 +9,4 @@ const usePostTitle = () => {
   };
 };
 
-export { usePostTitle };
+export { usePostTitleInput };

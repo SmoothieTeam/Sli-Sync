@@ -1,4 +1,4 @@
-import { doc, onSnapshot } from "firebase/firestore";
+import { doc, getDoc, onSnapshot } from "firebase/firestore";
 import { firestore } from "./firebase_wrapper";
 
 const db = firestore();
@@ -12,4 +12,12 @@ function observeProgress(postId, onProgress) {
   });
 }
 
-export { observeProgress };
+async function getPostTitle(postId) {
+  const postDoc = await getDoc(doc(db, "posts", postId));
+  const post = postDoc.data();
+  const title = post.title;
+
+  return title;
+}
+
+export { observeProgress, getPostTitle };

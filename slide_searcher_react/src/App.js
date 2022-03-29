@@ -27,6 +27,7 @@ function App() {
           </Route>
           <Route path="/uploaded/:id">
             <UploadedPage
+              postStatusAPI={postStatusAPI}
               sendEmail={sendEmail}
               copyLink={copyLink}
             />

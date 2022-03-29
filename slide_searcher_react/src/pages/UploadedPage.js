@@ -1,23 +1,20 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { useParams } from "react-router-dom";
 import HeaderBuilder from "../components/common/HeaderBuilder";
 import SharePanel from "../components/common/SharePanel";
+import { usePostTitle } from "../hooks/uploaded_page/usePostTitle";
 import "./UploadedPage.css";
 
-function UploadedPage({ getPostTitle, sendEmail, copyLink }) {
+function UploadedPage({ postStatusAPI, sendEmail, copyLink }) {
   const { id } = useParams();
   const headerBuilder = new HeaderBuilder();
-  const [title, setTitle] = useState("");
-
-  useEffect(() => {
-    getPostTitle(id).then(setTitle);
-  });
+  const { postTitle } = usePostTitle(id, postStatusAPI);
 
   return (
     <div className="uploaded-page">
       {headerBuilder.build()}
       <div className="uploaded-page__main">
-        <img src="cloud_done_b.svg" />
+        <img src="/cloud_done_b.svg" />
         <h2>DONE</h2>
         <p>
           Please check the results through the link below and get sharable link
@@ -25,8 +22,8 @@ function UploadedPage({ getPostTitle, sendEmail, copyLink }) {
         </p>
         <SharePanel
           className="uploaded-page__share-panel"
-          link={`http://${window.location.host}/#/loading/${id}/`}
-          title={title}
+          link={`http://${window.location.host}/loading/${id}/`}
+          title={postTitle}
           sendEmail={sendEmail}
           copyLink={copyLink}
         />
