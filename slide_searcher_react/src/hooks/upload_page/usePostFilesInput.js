@@ -34,6 +34,7 @@ const useFileInput = (id, fileAPI) => {
   };
 
   return {
+    filename: file?.name,
     progressStatus: new FileProgressStatus(file, progress),
     handleFileChanged,
   };
@@ -41,20 +42,27 @@ const useFileInput = (id, fileAPI) => {
 
 const usePostFilesInput = (postId, fileAPI) => {
   const {
+    filename: videoFilename,
     progressStatus: videoProgressStatus, 
     handleFileChanged: handleVideoFileChanged,
   } = useFileInput(postId, fileAPI);
   const {
+    filename: slideFilename,
     progressStatus: slideProgressStatus, 
     handleFileChanged: handleSlideFileChanged,
   } = useFileInput(postId, fileAPI);
   const [isUploaded, setIsUploaded] = useState(false);
+  const filenames = {
+    video: videoFilename,
+    slide: slideFilename
+  };
 
   useEffect(() => {
     setIsUploaded(videoProgressStatus.isProgressed && slideProgressStatus.isProgressed);
   }, [videoProgressStatus, slideProgressStatus]);
 
   return {
+    filenames,
     videoProgressStatus,
     slideProgressStatus,
     handleVideoFileChanged,

@@ -14,6 +14,7 @@ function UploadPage({ postCreateAPI }) {
   const { postId } = usePostId(postCreateAPI);
   const { title, handleTitleChanged } = usePostTitle();
   const {
+    filenames,
     videoProgressStatus,
     slideProgressStatus,
     handleVideoFileChanged,
@@ -22,7 +23,7 @@ function UploadPage({ postCreateAPI }) {
   } = usePostFilesInput(postId, postCreateAPI);
   const { 
     handleSubmit
-  } = useUploadPostForm(postCreateAPI, {postId, title, isUploaded});
+  } = useUploadPostForm(postCreateAPI, {postId, title, filenames, isUploaded});
 
   return (
     <div className="upload-page">

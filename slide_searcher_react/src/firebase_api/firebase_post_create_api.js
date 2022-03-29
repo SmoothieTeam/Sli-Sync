@@ -11,11 +11,9 @@ function newPostId() {
   return post.id;
 }
 
-async function createPost(postId, { title }) {
+async function createPost(postId, data) {
   const postRef = getPostRef(postId);
-  await setDoc(postRef, { title }, { merge: true });
-
-  return { id: postRef.id };
+  await setDoc(postRef, data, { merge: true });
 }
 
 export {
