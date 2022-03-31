@@ -6,8 +6,9 @@ exports.createRequest = functions.firestore
     .document('posts/{postId}')
     .onCreate(async (snap, _) => {
         const id = snap.id;
-        const json = { id };
+        const data = snap.data();
+        const json = { id, filenames: data.filenames };
         const pubsub = new PubSub({ projectId });
-        await pubsub.topic('topic').publishMessage({ json });
+        await pubsub.topic('post-topic').publishMessage({ json });
         return null;
     });

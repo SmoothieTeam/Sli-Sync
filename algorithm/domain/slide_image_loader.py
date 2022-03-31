@@ -1,39 +1,38 @@
-import os
 import cv2
-from domain.common_loader import working_dir_of
 
+from domain.values.path import Path, Directory
 from domain.values.slide_images import SlideImages
+from pdf2image import convert_from_path
 
 
-def slide_file_dir_of(id: str):
-    return working_dir_of(id)
+def extract_slide_images(slide_path: Path):
+    slide_file_dir = slide_path.directory
+    slide_images_dir = slide_images_dir_of(slide_file_dir)
+
+    slide_file_dir.mkdir()
+    slide_images_dir.mkdir()
+    __save_slide_images(slide_path, slide_images_dir)
 
 
-def slide_file_path_of(id: str):
-    return os.path.join(slide_file_dir_of(id), 'slide.pdf')
+def slide_images_dir_of(slide_file_dir: Directory) -> Directory:
+    slide_images_dir = Directory('slide_images')
+    return slide_file_dir.append(slide_images_dir)
 
 
-def slide_images_dir_of(id: str):
-    return os.path.join(slide_file_dir_of(id), 'slide_images')
+def __save_slide_images(slide_file_path: Path, slide_images_dir: Directory):
+    images = convert_from_path(slide_file_path.full_path)
+    for i in range(len(images)):
+        slide_image_path = _slide_image_path(slide_images_dir, i)
+        images[i].save(slide_image_path.full_path, 'JPEG')
 
 
-def slide_image_file_names_of(id: str):
-    slide_images_dir = slide_images_dir_of(id)
-    filenames = os.listdir(slide_images_dir)
-    filenames = sorted(list(filenames))
-    return filenames
+def _slide_image_path(slide_images_dir: Directory, index: int) -> Path:
+    return Path(slide_images_dir, f'page{str(index).zfill(3)}.jpg')
 
 
-def slide_image_file_paths_of(id: str):
-    slide_images_dir = slide_images_dir_of(id)
-    filenames = slide_image_file_names_of(id)
-    paths = list(map(lambda filename: os.path.join(slide_images_dir, filename),
-                     filenames))
-    return paths
+def get_slide_images(path: Path) -> SlideImages:
+    slide_images_dir = slide_images_dir_of(path.directory)
+    paths = slide_images_dir.files
+    slide_images = [cv2.imread(path.full_path) for path in paths]
 
-
-def load_slide_images(id: str):
-    slide_image_file_paths = slide_image_file_paths_of(id)
-    slide_images = [cv2.imread(file_path)
-                    for file_path in slide_image_file_paths]
     return SlideImages(slide_images)

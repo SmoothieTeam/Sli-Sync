@@ -26,7 +26,7 @@ function VideoViewPage({ postResultAPI, sendEmail, copyLink }) {
   const header = builder.addIcon().build();
 
   if (isLoading) return "";
-  if (!hasData) history.push("/NotFound");
+  if (!hasData) history.push("/");
 
   return (
     <div className="view-page">
