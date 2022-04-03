@@ -1,6 +1,7 @@
+import cv2
+
 from collections import namedtuple
 from itertools import islice
-import cv2
 
 
 TimedFrame = namedtuple('TimedFrame', ('time', 'frame'))
@@ -8,7 +9,7 @@ TimedFrame = namedtuple('TimedFrame', ('time', 'frame'))
 
 class Video:
     def __init__(self, raw_video, frame_size, timed_frames, time_length):
-        self.__raw_video = raw_video
+        self.raw_video = raw_video
         self.frame_size = frame_size
         self.timed_frames = timed_frames
         self.time_length = time_length
@@ -20,7 +21,7 @@ class Video:
         self.close()
 
     def close(self):
-        self.__raw_video.release()
+        self.raw_video.release()
 
     @property
     def aspect_ratio(self) -> float:
@@ -31,23 +32,6 @@ class Video:
         height, width = size
         self.frame_size = size
         self.timed_frames = map(lambda timed_frame: TimedFrame(timed_frame.time, cv2.resize(timed_frame.frame, (width, height))),
-                                self.timed_frames)
-        return self
-
-    def rescale(self, height=0, width=0):
-        size = (0, 0)
-        if height == 0 and width == 0:
-            return self
-        elif height != 0:
-            width = int(height * self.aspect_ratio)
-            size = (width, height)
-        else:
-            height = int(height * self.aspect_ratio)
-            size = (width, height)
-        return self.resize(size)
-
-    def gray(self):
-        self.timed_frames = map(lambda timed_frame: TimedFrame(timed_frame.time, cv2.cvtColor(timed_frame.frame, cv2.COLOR_BGR2GRAY)),
                                 self.timed_frames)
         return self
 
@@ -67,8 +51,8 @@ class Video:
         self.timed_frames = filter(predicate, self.timed_frames)
         return self
 
-    def filter_generator(self, generator_filter):
-        self.timed_frames = generator_filter(self.timed_frames)
+    def map_timed_frames(self, map):
+        self.timed_frames = map(self.timed_frames)
         return self
 
     def take(self, count: int):

@@ -1,4 +1,4 @@
-from domain.values.path import Path, Directory
+from adapters.values.path import Path, Directory
 
 
 class Message:

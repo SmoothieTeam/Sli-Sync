@@ -1,7 +1,6 @@
-import os
+from adapters.slide_image_loader import slide_images_dir_of
 from adapters.values.message import Message
-from domain.slide_image_loader import slide_images_dir_of
-from domain.values.path import Path, Directory
+from adapters.values.path import Path
 from gcp.gcp_wapper import firebase_storage
 
 
@@ -25,7 +24,7 @@ def __message_to_slide_storage_path(message: Message) -> str:
 
 
 def put_slide_images(id: str, slide_path: Path):
-    slide_images_dir = slide_images_dir_of(slide_path.directory)
+    slide_images_dir = slide_images_dir_of(slide_path)
     for slide_image_file_path in slide_images_dir.files:
         slide_image_filename = slide_image_file_path.filename
         slide_image_storage_path = f'{id}/slide_images/{slide_image_filename}'

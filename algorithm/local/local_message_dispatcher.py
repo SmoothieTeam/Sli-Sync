@@ -1,9 +1,17 @@
 import argparse
-
+from skimage.metrics import mean_squared_error
+from adapters.classifier import classify
 from adapters.values.message import Message
+from local.local_classify_listener import LocalClassifyListener
 
 
-def args():
+def listen(on_listen):
+    id, video_filename, slide_filename = __args()
+    message = Message(id, video_filename, slide_filename)
+    on_listen(message)
+
+
+def __args():
     parser = argparse.ArgumentParser()
     parser.add_argument("-i", "--id", dest="id", required=True,
                         help="the id of the post")
@@ -16,6 +24,9 @@ def args():
     return args['id'], args['video'], args['slide']
 
 
-def listen(on_listen):
-    id, video_filename, slide_filename = args()
-    on_listen(Message(id, video_filename, slide_filename))
+def on_listen(message: Message):
+    slide_path = message.slide_path
+    video_path = message.video_path
+
+    listener = LocalClassifyListener(message)
+    classify(slide_path, video_path, mean_squared_error, listener)

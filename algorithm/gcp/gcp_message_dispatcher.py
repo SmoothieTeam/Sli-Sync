@@ -1,6 +1,9 @@
 import json
 from google.cloud import pubsub_v1
+from skimage.metrics import mean_squared_error
+from adapters.classifier import classify
 from adapters.values.message import Message
+from gcp.gcp_classify_listener import GCPClassifyListener
 from gcp.gcp_wapper import pubsub_subscribe
 
 
@@ -20,3 +23,11 @@ def listen(on_listen):
         return message
 
     pubsub_subscribe(callback)
+
+
+def on_listen(message: Message):
+    slide_path = message.slide_path
+    video_path = message.video_path
+
+    listener = GCPClassifyListener(message)
+    classify(slide_path, video_path, mean_squared_error, listener)

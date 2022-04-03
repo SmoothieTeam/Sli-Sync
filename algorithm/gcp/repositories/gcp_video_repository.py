@@ -1,5 +1,4 @@
 from adapters.values.message import Message
-from domain.values.path import Path
 from gcp.gcp_wapper import firebase_storage
 
 
