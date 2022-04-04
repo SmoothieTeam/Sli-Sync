@@ -9,7 +9,7 @@ from domain.values.slide_images import SlideImages
 
 
 def get_frame_mask(slide_path: Path, video_path: Path, is_slide_image, has_slide_image):
-    if __has_video_full_slide(video_path, is_slide_image):
+    if __is_video_full_slide_image(video_path, is_slide_image):
         return None
     else:
         slide_images = get_slide_images(slide_path)
@@ -18,7 +18,7 @@ def get_frame_mask(slide_path: Path, video_path: Path, is_slide_image, has_slide
             return __find_frame_mask(video, slide_images, 6)
 
 
-def __has_video_full_slide(video_path: Path, is_slide_image):
+def __is_video_full_slide_image(video_path: Path, is_slide_image):
     with get_video(video_path, 30) as video:
         video.take(5)
         return any(map(is_slide_image, video.timed_frames))
