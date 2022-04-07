@@ -10,7 +10,7 @@ async function getPostResult(postId) {
   const post = postDoc.data();
   const title = post.title;
   const timelines = await getTimelines(postId, post);
-  const video = await getVideo(post);
+  const video = await getVideo(postId, post);
 
   return {
     title,
@@ -19,7 +19,7 @@ async function getPostResult(postId) {
   };
 }
 
-async function getTimelines(postId, { timeline: timelines }) {
+async function getTimelines(postId, { timelines }) {
   return await Promise.all(
     timelines.map(async (timeline) => ({
       time: timeline.time,
@@ -40,10 +40,9 @@ async function getSlideImageUrl(postId, slideImageIndex) {
   return await getDownloadURL(slideImageRef);
 }
 
-async function getVideo({ video_repository_path }) {
-  const videoRef = ref(cloudStorage, `${video_repository_path}`);
+async function getVideo(postId, { filenames: {video} }) {
+  const videoRef = ref(cloudStorage, `${postId}/${video}`);
   const url = await getDownloadURL(videoRef);
-  console.log(url);
 
   return {
     url,
