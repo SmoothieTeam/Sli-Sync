@@ -9,7 +9,6 @@ import VideoViewPage from "./pages/VideoViewPage";
 import * as postResultAPI from "./firebase_api/firebase_post_result_api";
 import * as postCreateAPI from "./firebase_api/firebase_post_create_api";
 import * as postStatusAPI from "./firebase_api/firebase_post_status_api";
-import NotFound from "./pages/NotFound";
 
 function App() {
   const sendEmail = () => {};
@@ -38,11 +37,8 @@ function App() {
           <Route path="/upload">
             <UploadPage postCreateAPI={postCreateAPI}/>
           </Route>
-          <Route path="/" exact>
+          <Route path="*" exact>
             <HomePage />
-          </Route>
-          <Route path="*">
-            <NotFound />
           </Route>
         </Switch>
       </BrowserRouter>
