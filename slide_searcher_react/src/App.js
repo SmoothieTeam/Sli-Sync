@@ -37,7 +37,7 @@ function App() {
           <Route path="/upload">
             <UploadPage postCreateAPI={postCreateAPI}/>
           </Route>
-          <Route path="*" exact>
+          <Route path="*">
             <HomePage />
           </Route>
         </Switch>
