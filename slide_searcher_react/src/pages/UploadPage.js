@@ -1,37 +1,44 @@
 import React from "react";
 import HeaderBuilder from "../components/common/HeaderBuilder";
-import UploadPageComponents from "../components/upload_page";
 import "./UploadPage.css";
-import { useUploadPage } from "../hooks/upload_page/useUploadPage";
-import postUploader from "../firebase_models/posts";
+import PostFilesInput from "../components/upload_page/PostFilesInput";
+import PostTitleInput from "../components/upload_page/PostTitleInput";
+import PostSubmit from "../components/upload_page/PostSubmit";
+import { usePostId } from "../hooks/upload_page/usePostId";
+import { usePostTitleInput } from "../hooks/upload_page/usePostTitleInput";
+import { usePostFilesInput } from "../hooks/upload_page/usePostFilesInput";
+import { useUploadPostForm } from "../hooks/upload_page/useUploadPostForm";
 
-function UploadPage() {
-  const builder = new HeaderBuilder();
+function UploadPage({ postCreateAPI }) {
+  const header = new HeaderBuilder().build();
+  const { postId } = usePostId(postCreateAPI);
+  const { title, handleTitleChanged } = usePostTitleInput();
+  const {
+    filenames,
+    videoProgressStatus,
+    slideProgressStatus,
+    handleVideoFileChanged,
+    handleSlideFileChanged,
+    isUploaded
+  } = usePostFilesInput(postId, postCreateAPI);
   const { 
-    postId, 
-    video, 
-    slide,
-    handleTitle, 
-    handleUploaded, 
-    handleSubmit 
-  } = useUploadPage(postUploader);
+    handleSubmit
+  } = useUploadPostForm(postCreateAPI, {postId, title, filenames, isUploaded});
 
   return (
     <div className="upload-page">
-      {builder.build()}
+      {header}
       <div className="upload-page__main">
-        <UploadPageComponents.PageText />
-        <UploadPageComponents.PostFileInput
-          video={video}
-          slide={slide}
-          onUploaded={handleUploaded}
+        <h2>UPLOAD FILES</h2>
+        <p>MP4, PDF are supported</p>
+        <PostFilesInput
+          videoProgressStatus={videoProgressStatus}
+          slideProgressStatus={slideProgressStatus}
+          onVideoFileChanged={handleVideoFileChanged}
+          onSlideFileChanged={handleSlideFileChanged}
         />
-        <UploadPageComponents.PostFileProgress 
-          video={video}
-          slide={slide}
-        />
-        <UploadPageComponents.PostTitleInput onChange={handleTitle} />
-        <UploadPageComponents.PostSubmit
+        <PostTitleInput onChange={handleTitleChanged} />
+        <PostSubmit
           postId={postId}
           onSubmit={handleSubmit}
         />

@@ -10,32 +10,39 @@ pip로 requirements.txt의 의존성을 설치하면됩니다.
 python -m pip install -r requirements.txt
 ```
 
-```
-> scikit_image==0.17.2
-> numpy==1.16.1
-> opencv-python==3.4.3.18
-> pdf2image==1.16.0
-> python-pptx-interface==0.0.12
-> comtypes==1.1.10
-> poppler-utils==0.1.0
-```
-
 추가로 이하의 작업을 해줘야합니다.
 
 ### 아나콘다를 사용하는 경우
+
 ```
 conda install -c conda-forge poppler
 ```
 
 ### Windows 사용자이면서 아나콘다가 없는 경우
+
 [Poppler](https://github.com/oschwartz10612/poppler-windows) 릴리즈 버전을 다운로드하고 PATH에 \Lib\bin을 추가해야합니다.
- 
+
 ## Usage
+
 ```shell
-python main.py 
-    -p <pdf file path> 
-    -v <video file path> 
-    [-t <time(sec) step for search>] 
-    [-f <frame step(defualt 1) for search>]
-    [-e <True/False(defualt), whether calculate elapsed time or not>]
+python main.py
+```
+
+## Docker
+
+docker를 이용하여 빌드하고 배포할 수 있습니다.
+Dockerfile내의 GOOGLE_APPLICATION_CREDENTIALS 위치를 빌드환경에 맞게 수정해야합니다.
+GOOGLE_APPLICATION_CREDENTIALS 파일은 gcloud를 이용하여 받을 수 있습니다.
+
+```shell
+gcloud init # gcloud init을 하지 않았을 경우
+gcloud iam service-accounts keys create credentials.json --iam-account=pubsub@videoslider-6cfed.iam.gserviceaccount.com
+```
+
+빌드 및 배포는 아래와 같습니다.
+
+```shell
+docker build -t sli-sync .
+docker tag sli-sync us-central1-docker.pkg.dev/videoslider-6cfed/sli-sync-docker-repo/sli-sync-image
+docker push us-central1-docker.pkg.dev/videoslider-6cfed/sli-sync-docker-repo/sli-sync-image
 ```
