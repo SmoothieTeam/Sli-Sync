@@ -1,44 +1,31 @@
-import React, { useState } from "react";
+import React from "react";
+import SharePanelCategory from "../../hooks/share_panel/share_panel_category";
+import { useSharePanelCategory } from "../../hooks/share_panel/useSharePanelCategory";
+import { useSharePanelInput } from "../../hooks/share_panel/useSharePanelInput";
+import { useSharePanelSubmit } from "../../hooks/share_panel/useSharePanelSubmit";
+import { useSharePanelTexts } from "../../hooks/share_panel/useSharePanelTexts";
 import "./SharePanel.css";
 
-function SharePanel({ className, title, link, sendEmail, copyLink }) {
-  const [category, setCategory] = useState("url");
-  const [showPopup, setShowPopup] = useState(false);
-
-  const submitTexts = {
-    url: "Copy link to share",
-    email: "Send Email",
-  };
-
-  const popupTexts = {
-    url: "Link Copyed!",
-    email: "Email Sended!",
-  };
-
-  const submitEvents = {
-    url: copyLink,
-    email: sendEmail,
-  };
-
-  const showPopupEvent = () => {
-    setShowPopup(true);
-    setTimeout(() => {
-      setShowPopup(false);
-    }, 500);
-  };
-
-  const onCategoryChange = (e) => {
-    setCategory(e.target.value);
-  };
-
-  const onClick = () => {
-    showPopupEvent();
-    submitEvents[category]();
-  };
-
-  const isCheckedInCategory = (v) => {
-    return category === v;
-  };
+function SharePanel({ className, title, link }) {
+  const {
+    category,
+    handleCategoryChange,
+    isEmailCategory,
+    isUrlCategory
+  } = useSharePanelCategory();
+  const {
+    popupText,
+    submitText
+  } = useSharePanelTexts(category)
+  const {
+    text,
+    readOnly,
+    handleSharePanelInputChange
+  } = useSharePanelInput(category, link);
+  const {
+    isShowingPopup,
+    handleSubmit
+  } = useSharePanelSubmit(category, text, title, link);
 
   return (
     <div className={`share-panel ${className}`}>
@@ -47,9 +34,9 @@ function SharePanel({ className, title, link, sendEmail, copyLink }) {
         type="radio"
         className="share-panel__category-button category-button--url"
         name="category"
-        value="url"
-        onChange={onCategoryChange}
-        checked={isCheckedInCategory("url")}
+        value={SharePanelCategory.url}
+        onChange={handleCategoryChange}
+        checked={isUrlCategory}
       />
       <label htmlFor="sharePanelUrlRadio">URL</label>
       <input
@@ -57,9 +44,9 @@ function SharePanel({ className, title, link, sendEmail, copyLink }) {
         type="radio"
         className="share-panel__category-button category-button--email"
         name="category"
-        value="email"
-        onChange={onCategoryChange}
-        checked={isCheckedInCategory("email")}
+        value={SharePanelCategory.email}
+        onChange={handleCategoryChange}
+        checked={isEmailCategory}
       />
       <label htmlFor="sharePanelEmailRadio">Email</label>
 
@@ -70,21 +57,22 @@ function SharePanel({ className, title, link, sendEmail, copyLink }) {
         <input
           className="share-panel__link-input"
           type="text"
-          value={category === "url" ? link : undefined}
-          readOnly
+          value={text}
+          readOnly={readOnly}
+          onChange={handleSharePanelInputChange}
         />
         <div className="share-panel__submit-container">
-          {showPopup ? (
-            <div className="share-panel__popup">{popupTexts[category]}</div>
+          {isShowingPopup ? (
+            <div className="share-panel__popup">{popupText}</div>
           ) : (
             <div></div>
           )}
           <button
             className={`share-panel__submit share-panel__submit--${category}`}
             type="submit"
-            onClick={onClick}
+            onClick={handleSubmit}
           >
-            {submitTexts[category]}
+            {submitText}
           </button>
         </div>
       </div>

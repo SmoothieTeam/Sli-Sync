@@ -1,8 +1,14 @@
-const useClipboard = (link) => {
-  const copy = () => navigator.clipboard.writeText(link);
+const useClipboard = () => {
+  const copyToClipboard = (value) => {
+    navigator.permissions.query({name:"clipboard-write"}).then((result) => {
+      if(result.state === 'granted') {
+        navigator.clipboard.writeText(value);
+      }
+    });  
+  };
 
   return {
-    copy
+    copyToClipboard
   };
 };
 
