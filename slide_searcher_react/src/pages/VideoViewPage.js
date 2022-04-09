@@ -11,7 +11,7 @@ import "./VideoViewPage.css";
 import { useVideoViewPage } from "../hooks/video_view_page/useVideoViewPage";
 import { useHistory } from "react-router-dom";
 
-function VideoViewPage({ postResultAPI, sendEmail, copyLink }) {
+function VideoViewPage({ postResultAPI }) {
   const { id } = useParams();
   const history = useHistory();
   const {
@@ -57,8 +57,6 @@ function VideoViewPage({ postResultAPI, sendEmail, copyLink }) {
           <SharePanel
             link={window.location.href}
             title={title}
-            sendEmail={sendEmail}
-            copyLink={copyLink}
           />
         </div>
       </div>

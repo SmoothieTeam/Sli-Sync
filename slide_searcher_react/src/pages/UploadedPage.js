@@ -5,7 +5,7 @@ import SharePanel from "../components/common/SharePanel";
 import { usePostTitle } from "../hooks/uploaded_page/usePostTitle";
 import "./UploadedPage.css";
 
-function UploadedPage({ postStatusAPI, sendEmail, copyLink }) {
+function UploadedPage({ postStatusAPI }) {
   const { id } = useParams();
   const headerBuilder = new HeaderBuilder();
   const { postTitle } = usePostTitle(id, postStatusAPI);
@@ -24,8 +24,6 @@ function UploadedPage({ postStatusAPI, sendEmail, copyLink }) {
           className="uploaded-page__share-panel"
           link={`http://${window.location.host}/loading/${id}/`}
           title={postTitle}
-          sendEmail={sendEmail}
-          copyLink={copyLink}
         />
       </div>
     </div>

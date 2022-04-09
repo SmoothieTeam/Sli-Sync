@@ -11,25 +11,15 @@ import * as postCreateAPI from "./firebase_api/firebase_post_create_api";
 import * as postStatusAPI from "./firebase_api/firebase_post_status_api";
 
 function App() {
-  const sendEmail = () => {};
-  const copyLink = () => {};
   return (
     <div className="App">
       <BrowserRouter>
         <Switch>
           <Route path="/view/:id">
-            <VideoViewPage
-              postResultAPI={postResultAPI}
-              sendEmail={sendEmail}
-              copyLink={copyLink}
-            />
+            <VideoViewPage postResultAPI={postResultAPI}/>
           </Route>
           <Route path="/uploaded/:id">
-            <UploadedPage
-              postStatusAPI={postStatusAPI}
-              sendEmail={sendEmail}
-              copyLink={copyLink}
-            />
+            <UploadedPage postStatusAPI={postStatusAPI}/>
           </Route>
           <Route path="/loading/:id">
             <LoadingPage postStatusAPI={postStatusAPI}/>
